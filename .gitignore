@@ -23,5 +23,14 @@ dist-ssr
 *.sln
 *.sw?
 
+#.env
+*.env
+.env
+env
+server/.env
+
 #Etc
 my_dev_notes*
+
+#Env Vars
+*.env*
