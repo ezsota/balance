@@ -1,8 +1,13 @@
+// ================
+// [Express Server]
+// ================
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import expenseRoutes from "./routes/expenseRoutes.js";
+import { errorHandler } from "./middleware/errorHandler.js";
+
 
 // Load environment variables from server/.env
 dotenv.config();
@@ -13,6 +18,8 @@ app.use(cors());
 app.use(express.json());
 // Connect expense routes
 app.use("/api/expenses", expenseRoutes);
+// Error Handler (must be last)
+app.use(errorHandler);
 
 // MONGO_URI error handler
 // (MONGO_URI defined in server/.env)
@@ -21,14 +28,14 @@ if (!process.env.MONGO_URI) {
     process.exit(1); // terminate process
 };
 
-// Connect to mongo server using via mongoose
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log("Connected to MongoDB"))
-    .catch(error => console.error(`Error connecting to MongoDB: ${error}`));
-
-// Start server on specified port or fallback
+// Connect to mongo server via mongoose
+// Use specified port or fallback 5000
 // (PORT defined in server/.env)
-const PORT = process.env.APP_SERVER_PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => {
+        const PORT = process.env.APP_SERVER_PORT || 5000;
+        app.listen(PORT, () => {
+            console.log(`MongoDB server connected on port ${PORT}`);
+        });
+    })
+    .catch(error => console.error(`Error connecting to MongoDB server: ${error}`));

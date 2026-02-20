@@ -1,7 +1,7 @@
-import Expense from "../models/Expense.js";
 import multer from "multer";
 import XLSX from "xlsx";
 import fs from "fs";
+import AppError from "../utils/AppError.js";
 
 // Init multer for file uploads
 // Store in "server/uploads" dir
@@ -9,41 +9,38 @@ const upload = multer({ dest: "uploads/" });
 
 // Config middleware function
 // Accept only items with "file" attributes from HTML form
-const excelMiddleware = upload.single("file");
+export const excelUpload = upload.single("file");
 
 // Async func handling file imports
-// Checks if file was uploaded
-// Validates proper data is present
-// Deletes file from server memory after uploaded
-const importExpenses = async (req, res) => {
+// Handles checking, validating, sending, and cleaning file data
+export const parseExcel = (req, res, next) => {
     //Check file
     if (!req.file) {
-        return res.status(400).json({ message: "400  Request Error - No file uploaded" });
+        return next(new AppError("No file uploaded", 400));
     };
 
-    const book = XLSX.readFile(req.file.path);
-    const sheet = book.Sheets[book.SheetNames[0]];
-    const data = XLSX.utils.sheet_to_json(sheet);
-
     try {
+        const book = XLSX.readFile(req.file.path);
+        const sheet = book.Sheets[book.SheetNames[0]];
+        const data = XLSX.utils.sheet_to_json(sheet);
         // Validate file
-        const validFile = data.filter(entry => {
-            return (
-                entry.title && entry.amount > 0 && entry.category
-            );
-        });
+        const validFile = data.filter(entry =>
+            entry.title && entry.amount > 0 && entry.category
+        );
+        // Throw validation fail error
         if (validFile.length === 0) {
-            return res.status(400).json({ message: "No valid file selected, check your file and try again" });
-        };
-        // Import file
-        await Expense.insertMany(validFile);
-        res.status(201).json({ message: "Expenses imported successfully" });
-        // Delete file
-        fs.unlinkSync(req.file.path);
+            throw new AppError("No valid expense data found", 400);
+        }
+        // Send valid data
+        req.expenses = validFile;
+        next();
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "500 Server Error - Failed importing expenses" })
+        // Catch errors
+        next(error);
+    } finally {
+        // Cleanup file data
+        if (req.file?.path) {
+            fs.unlinkSync(req.file.path);
+        }
     }
 };
-
-export { excelMiddleware, importExpenses };
