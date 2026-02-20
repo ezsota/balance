@@ -46,4 +46,7 @@ router.delete("/:id", async (req, res) => {
     }
 });
 
+//Excel imports route and middleware (middleware/importExcel.js)
+router.post("/upload", excelMiddleware, importExpenses);
+
 export default router;
