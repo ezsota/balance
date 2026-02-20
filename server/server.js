@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
+import expenseRoutes from "./routes/expenseRoutes.js";
 
 // Load environment variables from server/.env
 dotenv.config();
@@ -10,6 +11,8 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
+// Connect expense routes
+app.use("/api/expenses", expenseRoutes);
 
 // MONGO_URI error handler
 // (MONGO_URI defined in server/.env)
