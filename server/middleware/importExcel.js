@@ -25,14 +25,17 @@ export const parseExcel = (req, res, next) => {
         const data = XLSX.utils.sheet_to_json(sheet);
         // Validate file
         const validFile = data.filter(entry =>
-            entry.title && entry.amount > 0 && entry.category
+            entry.title && 
+            typeof entry.amount === "number" &&
+            entry.amount !== 0 && 
+            entry.category
         );
         // Throw validation fail error
         if (validFile.length === 0) {
-            throw new AppError("No valid expense data found", 400);
+            throw new AppError("No valid transaction data found", 400);
         }
         // Send valid data
-        req.expenses = validFile;
+        req.transactions = validFile;
         next();
     } catch (error) {
         // Catch errors

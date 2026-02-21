@@ -5,7 +5,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
-import expenseRoutes from "./routes/expenseRoutes.js";
+import transactionRoutes from "./routes/transactionRoutes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 
 
@@ -16,8 +16,8 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
-// Connect expense routes
-app.use("/api/expenses", expenseRoutes);
+// Connect transaction routes
+app.use("/api/transactions", transactionRoutes);
 // Error Handler (must be last)
 app.use(errorHandler);
 
