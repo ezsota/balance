@@ -1,4 +1,5 @@
 /* 
+Components: TransactionChart.jsx, SummaryCards.jsx
                        OUTLOOK
     ===========================================
          
@@ -9,5 +10,5 @@
     |Expenses|       |Income  |      |Balance |
     |Card    |       |Card    |      |Card    |
     ===========================================
-                [ADD EXPENSES CTA]
+              [ADD TRANSACTIONS CTA]
 */

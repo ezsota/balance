@@ -1,1 +1,1 @@
-# Balance | Expense Tracker
+# Balance | Budgeting Tool
