@@ -12,3 +12,9 @@ Components: TransactionChart.jsx, SummaryCards.jsx
     ===========================================
               [ADD TRANSACTIONS CTA]
 */
+
+export default function Overview() {
+    return (
+        <h1>This is the Overview page</h1>
+    )
+};

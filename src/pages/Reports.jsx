@@ -22,3 +22,9 @@ Components: Filterbox.jsx, TransactionChart.jsx, TransactionList.jsx SummaryCard
     ------------------------------  |Card    | 
     ===========================================
     */
+
+export default function Reports() {
+    return (
+        <h1>This is the Reports page</h1>
+    )
+};
