@@ -98,7 +98,6 @@ nav a {
 }
 
 .nav-link:hover {
-    color: #FFF4A3 !important;
     background-color: #363845;
     transition: ease 0.5s;
 }
