@@ -40,3 +40,41 @@ h1 {
     font-weight: 900;
     font-style: normal;
 }
+
+/* GLOBAL */
+*,
+html {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* COLOR SCHEME */
+html {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+.bg-lt-green {
+    background-color: #D9EEE1;
+}
+
+.bg-green {
+    background-color: #04AA6D;
+}
+
+.bg-gray {
+    background-color: #E7E9EB;
+}
+
+.font-white {
+    color: #F1F1F1;
+}
+
+
+/* MEDIA QUERIES */
+@media (max-width: 600px) {
+    .nav {
+        height: 60px;
+    }
+}
