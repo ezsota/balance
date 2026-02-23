@@ -10,16 +10,16 @@ export default function DashboardLayout() {
             bg-green 
             col-12 col-md-2
             d-flex flex-column
-            p-0
             ">
                 <Navbar />
             </div>
             <main className="
             col-12 col-md-10
             d-flex flex-column flex-fill
-            p-2
             ">
-                <Outlet />
+                <div className="d-flex flex-column h-100 px-3 py-4 align-items-center">
+                    <Outlet />
+                </div>
                 <Footer />
             </main>
         </div>

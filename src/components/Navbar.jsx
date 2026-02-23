@@ -13,7 +13,7 @@ export default function Navbar() {
                 <p className="roboto-condensed-bold mb-0 ms-2 fs-5">BALANCE</p>
             </div>
             <div className="bg-ink flex-fill">
-                <nav className="nav d-flex flex-row flex-md-column">
+                <nav className="nav d-flex flex-row flex-md-column gap-0 gap-md-5 my-md-4">
                     <NavLink className="nav-link" to="/">Overview</NavLink>
                     <NavLink className="nav-link" to="/transactions-view">Transactions</NavLink>
                     <NavLink className="nav-link" to="/reports-view">Reports</NavLink>

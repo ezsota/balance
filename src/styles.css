@@ -75,6 +75,10 @@ html {
     color: #F1F1F1;
 }
 
+.font-gray {
+    color: #bdbdbd;
+}
+
 /* ICON */
 #main-icon {
     width: 25px;
