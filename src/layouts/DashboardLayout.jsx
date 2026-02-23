@@ -4,9 +4,9 @@ import Footer from "../components/Footer.jsx";
 
 export default function DashboardLayout() {
     return (
-        <div className="container-fluid row p-0 m-0 vh-100">
+        <div className="container-fluid d-flex flex-column flex-md-row p-0 m-0 vh-100">
             <div className="
-            nav
+            sidebar
             bg-green 
             col-12 col-md-2
             d-flex flex-column
@@ -15,7 +15,7 @@ export default function DashboardLayout() {
                 <Navbar />
             </div>
             <main className="
-            col-12 col-md-10 
+            col-12 col-md-10
             d-flex flex-column flex-fill
             p-2
             ">

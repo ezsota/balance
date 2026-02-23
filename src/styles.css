@@ -75,6 +75,11 @@ html {
     color: #F1F1F1;
 }
 
+/* ICON */
+#main-icon {
+    width: 25px;
+}
+
 /* NAVBAR */
 nav a {
     text-align: center !important;
@@ -100,8 +105,3 @@ nav .active {
 
 
 /* MEDIA QUERIES */
-@media (max-width: 600px) {
-    .nav {
-        height: 10%;
-    }
-}

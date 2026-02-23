@@ -3,23 +3,23 @@ import iconImg from "../assets/icon.svg";
 
 export default function Navbar() {
     return (
-        <nav className="d-flex flex-column vh-100">
+        <div className="d-flex flex-column h-100">
             <div className="
             font-white
             d-flex flex-row align-items-center 
             px-2 py-3
             ">
-                <img src={iconImg} alt="Icon of a scale" />
-                <p className="roboto-condensed-bold mb-0 ms-2 fs-4">BALANCE</p>
+                <img src={iconImg} alt="Icon of a scale" id="main-icon"/>
+                <p className="roboto-condensed-bold mb-0 ms-2 fs-5">BALANCE</p>
             </div>
             <div className="bg-ink flex-fill">
-                <div className="d-flex flex-row flex-md-column">
+                <nav className="nav d-flex flex-row flex-md-column">
                     <NavLink className="nav-link" to="/">Overview</NavLink>
                     <NavLink className="nav-link" to="/transactions-view">Transactions</NavLink>
                     <NavLink className="nav-link" to="/reports-view">Reports</NavLink>
                     <NavLink className="nav-link" to="/goals-view">Goals</NavLink>
-                </div>
+                </nav>
             </div>
-        </nav>
+        </div>
     )
 };
