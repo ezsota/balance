@@ -67,14 +67,39 @@ html {
     background-color: #E7E9EB;
 }
 
+.bg-ink {
+    background-color: #282A35;
+}
+
 .font-white {
     color: #F1F1F1;
+}
+
+/* NAVBAR */
+nav a {
+    text-align: center !important;
+    padding: 8px 0px !important;
+    text-decoration: none !important;
+    flex: 1 1 auto !important;
+    margin: 0 !important;
+}
+
+.nav-link {
+    color: #F1F1F1 !important;
+}
+
+.nav-link:hover {
+    color: #FFF4A3 !important;
+}
+
+nav .active {
+    color: #04AA6D !important;
 }
 
 
 /* MEDIA QUERIES */
 @media (max-width: 600px) {
     .nav {
-        height: 60px;
+        height: 10%;
     }
 }

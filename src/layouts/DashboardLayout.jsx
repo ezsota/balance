@@ -5,22 +5,22 @@ import Footer from "../components/Footer.jsx";
 export default function DashboardLayout() {
     return (
         <div className="container-fluid row p-0 m-0 vh-100">
-            <nav className="
-            nav 
+            <div className="
+            nav
             bg-green 
-            col-12 col-md-2 
+            col-12 col-md-2
             d-flex flex-column
+            p-0
             ">
                 <Navbar />
-            </nav>
+            </div>
             <main className="
             col-12 col-md-10 
             d-flex flex-column flex-fill
+            p-2
             ">
                 <Outlet />
-                <footer>
-                    <Footer />
-                </footer>
+                <Footer />
             </main>
         </div>
     )
