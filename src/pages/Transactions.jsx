@@ -1,7 +1,30 @@
-/* Components: TransactionInputs.jsx + Transaction List.jsx */
+/* 
+Components: TransactionInputs.jsx + Transaction List.jsx
+    ===================================
+    Transaction Input Form / XL Uploader 
+            (Toggle Between)
+    ===================================
+              Transaction List
+    -----------------------------------
+    -----------------------------------
+    -----------------------------------
+    ===================================
+
+*/
+
+import TransactionInputs from "../components/TransactionInputs.jsx";
+import TransactionList from "../components/TransactionList.jsx";
 
 export default function Transactions() {
     return (
-        <h1>This is the Transactions page</h1>
+        <div className="d-flex flex-column justify-content-center h-100 w-100">
+            {/* HEADER */}
+            <header>
+                <h1 className="text-center">Transactions</h1>
+            </header>
+            {/* COMPONENTS */}
+            <TransactionInputs />
+            <TransactionList />
+        </div>
     )
 };
