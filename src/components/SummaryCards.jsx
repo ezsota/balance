@@ -8,7 +8,7 @@ export default function SummaryCards() {
                     <article className="card overview-cards overview-card-sm shadow mx-auto">
                         <header className="card-header">Income</header>
                         <div className="card-body">
-                            <p className="card-text">$320,049,048.56</p>
+                            <p className="card-text" style={{color: "green"}}>$320,049,048.56</p>
                         </div>
                     </article>
                 </div>
@@ -17,7 +17,7 @@ export default function SummaryCards() {
                     <article className="card overview-cards overview-card-sm shadow mx-auto">
                         <header className="card-header">Expenses</header>
                         <div className="card-body">
-                            <p className="card-text">-$40,405,758.04</p>
+                            <p className="card-text" style={{color: "red"}}>-$40,405,758.04</p>
                         </div>
                     </article>
                 </div>
