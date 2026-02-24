@@ -116,8 +116,8 @@ nav .active {
 }
 
 #overview-chart {
-    width:100%;
-    max-width: 700px;
+    width:100% !important;
+    max-width: 700px !important;
 }
 
 .overview-cards {
@@ -126,12 +126,8 @@ nav .active {
 }
 
 .overview-card-sm {
-    width: 300px !important;
+    max-width: 300px !important;
 }
-
-/* .overview-card-lrg {
-    width: 100% !important;
-} */
 
 /* MEDIA QUERIES */
 @media(max-width: 768px) {
