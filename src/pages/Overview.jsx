@@ -12,9 +12,21 @@ Components: TransactionChart.jsx, SummaryCards.jsx
     ===========================================
               [ADD TRANSACTIONS CTA]
 */
+import TransactionChart from "../components/TransactionChart.jsx";
+import SummaryCards from "../components/SummaryCards.jsx";
+import CtaBox from "../components/CTABox.jsx";
 
 export default function Overview() {
     return (
-        <h1>This is the Overview page</h1>
+        <div className="d-flex flex-column justify-content-center h-100 w-100">
+            {/* HEADER */}
+            <header>
+                <h1 className="text-center">Overview</h1>
+            </header>
+            {/* COMPONENTS */}
+            <TransactionChart />
+            <SummaryCards />
+            <CtaBox />
+        </div>
     )
 };

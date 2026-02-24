@@ -79,6 +79,10 @@ html {
     color: #bdbdbd;
 }
 
+.shadow {
+    box-shadow: 0 3px 5px #979797 !important;
+}
+
 /* ICON */
 #main-icon {
     width: 25px;
@@ -106,5 +110,37 @@ nav .active {
     color: #04AA6D !important;
 }
 
+/* OVERVIEW PAGE */
+#demo-del-btn {
+    font-size: 12px;
+}
+
+#overview-chart {
+    width:100%;
+    max-width: 700px;
+}
+
+.overview-cards {
+    padding: 0 !important;
+    background-color: #E7E9EB !important;
+}
+
+.overview-card-sm {
+    width: 300px !important;
+}
+
+/* .overview-card-lrg {
+    width: 100% !important;
+} */
 
 /* MEDIA QUERIES */
+@media(max-width: 768px) {
+    .overview-card-sm .card-header,
+    .overview-card-sm .card-body {
+        padding: 2px !important;
+    }
+
+    .overview-card-sm {
+        margin: 8px auto !important;
+    }
+}
