@@ -3,8 +3,8 @@ import { useState } from "react";
 export default function TransactionForm(props) {
     const [displayAmount, setDisplayAmount] = useState("");
     const [numericAmount, setNumericAmount] = useState(0);
-    console.log(displayAmount);
-    console.log(numericAmount);
+    console.log('Frontend amount:', displayAmount);
+    console.log('Backend amount:', numericAmount);
 
     // Category Object for form dropdown
     const CATEGORY_GROUPS = {
@@ -97,6 +97,7 @@ export default function TransactionForm(props) {
                     <label htmlFor="amount" className="form-label">Amount</label>
                     <input
                         required
+                        id="amount"
                         type="text"
                         className="form-control text-center"
                         placeholder='Ex: "-1,000.50" OR "1,000.50"'
