@@ -5,34 +5,36 @@ const transactionsTestData = [
         title: "October Daycare Bill",
         amount: -2456,
         category: "Childcare",
-        date: "09-30-1995"
+        date: "09/30/95"
     },
     {
         id: "MongoDB_id9834508243",
         title: "Vet Bill",
         amount: -312,
         category: "Pets",
-        date: "10-02-1995"
+        date: "10/02/95"
     },
     {
         id: "MongoDB_id098329823043",
         title: "Paycheck",
         amount: 3000,
         category: "Income",
-        date: "09-15-1995"
+        date: "09/15/95"
     },
     {
         id: "MongoDB_id987654236494",
         title: "Paycheck",
         amount: 3000,
         category: "Income",
-        date: "09-30-1995"
+        date: "09/30/95"
     }
 ];
 // TEST DATA
 
 import { useState } from "react";
 import EditingModal from "./EditingModal.jsx";
+import editIcon from "../assets/edit-pencil.svg";
+import deleteIcon from "../assets/delete-bin.svg";
 
 // Child Component: EditingModal.jsx
 export default function TransactionList() {
@@ -87,13 +89,23 @@ export default function TransactionList() {
                                 ${transaction.amount}
                             </td>
                             <td>
-                                <button onClick={() => editTransaction(transaction)}>E</button>
-                                <button onClick={() => deleteTransaction(transaction)}>X</button>
+                                <div className="d-flex justify-content-center gap-1">
+                                    <button onClick={() => editTransaction(transaction)} className="transaction-icon-container bg-primary">
+                                        <img src={editIcon} alt="Edit pencil icon" className="transaction-icon-imgs" />
+                                    </button>
+                                    <button onClick={() => deleteTransaction(transaction)} className="transaction-icon-container bg-danger">
+                                        <img src={deleteIcon} alt="Deletion bin icon" className="transaction-icon-imgs" />
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+            {/* PAGINATION */}
+            <div>
+                <span style={{ color: "red" }}>&lt; PAGINATION WILL GO HERE &gt;</span>
+            </div>
             {/* CHILD COMPONENT */}
             <EditingModal
                 closeModal={closeModal}

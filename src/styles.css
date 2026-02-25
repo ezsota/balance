@@ -129,6 +129,21 @@ nav .active {
     max-width: 350px !important;
 }
 
+/* TRANSACTIONS PAGE */
+.transaction-icon-container {
+    width: 25px !important;
+    height: 25px !important;
+    border: none !important;
+    border-radius: 50px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.transaction-icon-imgs {
+    width: 16px !important;
+}
+
 /* MEDIA QUERIES */
 @media(max-width: 768px) {
     .overview-card-sm .card-header,
