@@ -67,7 +67,7 @@ export default function TransactionList() {
     }
 
     return (
-        <section className="border rounded overflow-auto text-center">
+        <section className="border rounded overflow-auto text-center shadow">
             {/* DATA TABLE */}
             <table className="table table-striped">
                 <thead>
