@@ -1,14 +1,4 @@
-/*
-    ===================================
-              Transaction List
-    -----------------------------------
-    -----------------------------------
-    -----------------------------------
-    ===================================
-
-*/
-
-// DELETE - TEST DATA
+// TEST DATA
 const transactionsTestData = [
     {
         id: "MongoDB_id02938028934",
@@ -39,27 +29,44 @@ const transactionsTestData = [
         date: "09-30-1995"
     }
 ];
-// DELETE - TEST DATA
+// TEST DATA
 
 import { useState } from "react";
 import EditingModal from "./EditingModal.jsx";
 
+// Child Component: EditingModal.jsx
 export default function TransactionList() {
+    // Used by editTransaction() and EditingModal.jsx
     const [modalShow, setModalShow] = useState(false);
     const [selectedTransaction, setSelectedTransaction] = useState({});
 
-    const editTransaction = (transaction) => {
+    function editTransaction(transaction) {
         console.log('Started edit', transaction);
         setSelectedTransaction(transaction);
         setModalShow(true);
     };
 
+    // Used by deleteTransaction()
+    function closeModal() {
+        setModalShow(false);
+        setSelectedTransaction({});
+        console.log('Closed edit modal');
+    };
+
+    // Delete transaction based on confirmation
+    // Used by EditingModal.jsx
     function deleteTransaction(transaction) {
-        console.log('Deleted transaction', transaction);
+        const verifyDeletion = confirm("Are you sure you want to delete the following transaction:", transaction)
+        if (verifyDeletion) {
+            console.log('Deleted transaction', transaction);
+        } else {
+            closeModal();
+        }
     }
 
     return (
         <section className="border rounded overflow-auto text-center">
+            {/* DATA TABLE */}
             <table className="table table-striped">
                 <thead>
                     <tr>
@@ -87,8 +94,9 @@ export default function TransactionList() {
                     ))}
                 </tbody>
             </table>
-
+            {/* CHILD COMPONENT */}
             <EditingModal
+                closeModal={closeModal}
                 modalShow={modalShow}
                 setModalShow={setModalShow}
                 selectedTransaction={selectedTransaction}

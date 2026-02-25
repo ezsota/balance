@@ -1,25 +1,21 @@
 import { Modal } from "react-bootstrap";
 
+// Parent Component: TransactionList.jsx
 export default function EditingModal(props) {
 
-    const closeModal = () => {
-        props.setModalShow(false);
-        props.setSelectedTransaction({}); // Clear selected transaction
-        console.log('Closed edit modal');
-    };
-
-    const saveEdits = (updatedTransaction) => {
+    function saveEdits(updatedTransaction) {
         // [ replace with update logic ]
         console.log('Saved edit', updatedTransaction);
-        closeModal();
+        props.closeModal();
     };
 
     return (
-        <Modal show={props.modalShow} onHide={closeModal} centered>
+        <Modal show={props.modalShow} onHide={props.closeModal} centered>
             <Modal.Header closeButton>
                 <Modal.Title>Edit Transaction</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+                {/* FORM DATA = TransactionList.jsx useState 'selectedTransaction' */}
                 <form>
                     <div className="mb-3">
                         <label htmlFor="date" className="form-label">Date:</label>
@@ -40,6 +36,7 @@ export default function EditingModal(props) {
                 </form>
             </Modal.Body>
             <Modal.Footer>
+                {/* SAVE EDITS */}
                 <button className="btn btn-success bg-green" onClick={() => saveEdits(props.selectedTransaction)}>Save</button>
             </Modal.Footer>
         </Modal>
