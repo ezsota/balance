@@ -1,72 +1,49 @@
 import { useState } from "react";
+import { CATEGORY_GROUPS } from "../helpers/categoryGroups.js";
 
 export default function TransactionForm(props) {
+
+    // Amount state for frontend display
     const [displayAmount, setDisplayAmount] = useState("");
-    const [numericAmount, setNumericAmount] = useState(0);
     console.log('Frontend amount:', displayAmount);
+    // Amount state for backend server (sent via form onSubmit)
+    const [numericAmount, setNumericAmount] = useState(0);
     console.log('Backend amount:', numericAmount);
 
-    // Category Object for form dropdown
-    const CATEGORY_GROUPS = {
-        Financial: [
-            "Business",
-            "Insurance",
-            "Payments",
-            "Savings"
-        ],
-        Living: [
-            "Childcare",
-            "Clothing",
-            "Education",
-            "Food",
-            "Housing",
-            "Transportation",
-            "Utilities"
-        ],
-        Leisure: [
-            "Entertainment",
-            "Occasions",
-            "Recreation",
-            "Social",
-            "Vacations"
-        ],
-        Other: [
-            "Gifts",
-            "Memberships",
-            "Pets",
-            "Seasonal",
-            "Subscriptions"
-        ]
-    };
-
     return (
-        <form className="row gap-3 justify-content-center text-start mx-auto h-100">
+        <form
+            className="row gap-3 justify-content-center text-start mx-auto h-100"
+            onSubmit={(event) => {
+                event.preventDefault();
+                // Obj for backend
+                const formData = {
+                    title: event.target.title.value,
+                    amount: numericAmount,
+                    category: event.target.category.value,
+                    date: event.target.date.value
+                };
 
-            {/* ROW-1 */}
+            }}
+        >
+            {/* ROW-1 DATE */}
             <div className="row col-12 justify-content-center">
-                {/* DATE */}
                 <div className="col-12 col-md-6">
                     <label htmlFor="date" className="form-label">Date</label>
                     <input
                         type="date" id="date"
                         className="form-control px-1 text-center"
-                        placeholder="MM/DD/YY"
                         required />
                 </div>
             </div>
-
-            {/* ROW-2 */}
+            {/* ROW-2 TITLE */}
             <div className="row col-12 justify-content-center">
-                {/* TITLE */}
                 <div className="col-12 col-md-6">
                     <label htmlFor="title" className="form-label">Title</label>
                     <input type="text" id="title" className="form-control text-center" placeholder='Ex: "October Rent"' required />
                 </div>
             </div>
-
-            {/* ROW-3 */}
+            {/* ROW-3 CATEGORY */}
             <div className="row col-12 justify-content-center">
-                {/* CATEGORY */}
                 <div className="col-12 col-md-6">
                     <label htmlFor="category" className="form-label">Category</label>
                     <select
@@ -89,10 +66,8 @@ export default function TransactionForm(props) {
                     </select>
                 </div>
             </div>
-
-            {/* ROW-4 */}
+            {/* ROW-4 AMOUNT */}
             <div className="row col-12 justify-content-center">
-                {/* AMOUNT */}
                 <div className="col-12 col-md-6">
                     <label htmlFor="amount" className="form-label">Amount</label>
                     <input
@@ -139,13 +114,10 @@ export default function TransactionForm(props) {
                     />
                 </div>
             </div>
-
-            {/* BOTTOM ROW */}
+            {/* BOTTOM ROW - SUBMIT */}
             <div className="col-12 text-center">
-                {/* SUBMIT */}
                 <button type="submit" className="btn btn-success bg-green w-100">Add Transaction</button>
             </div>
-
         </form>
     )
 };
