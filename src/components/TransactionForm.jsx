@@ -4,9 +4,11 @@ import { CATEGORY_GROUPS } from "../helpers/categoryGroups.js";
 export default function TransactionForm(props) {
     // Amount state for frontend display
     const [displayAmount, setDisplayAmount] = useState("");
+    // ** TESTING **
     console.log('Frontend amount:', displayAmount);
     // Amount state for backend server (sent via form onSubmit)
     const [numericAmount, setNumericAmount] = useState(0);
+    // ** TESTING **
     console.log('Backend amount:', numericAmount);
 
     return (
@@ -21,12 +23,19 @@ export default function TransactionForm(props) {
                     category: event.target.category.value,
                     date: event.target.date.value
                 };
+                // ** TESTING **
+                console.log("POST TEST", formData);
                 // backend HTTP POST req
                 fetch("/api/transactions", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(formData)
                 });
+                // Clear form DOM inputs
+                event.target.reset();
+                // Reset amount states
+                setDisplayAmount("");
+                setNumericAmount(0);
             }}
         >
             {/* ROW-1 DATE */}
