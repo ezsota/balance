@@ -131,7 +131,6 @@ nav .active {
 
 /* TRANSACTIONS PAGE */
 #transaction-input-box {
-    height: 500px !important;
     width:100% !important;
     max-width: 700px !important;
     margin: 10px auto 30px auto !important;

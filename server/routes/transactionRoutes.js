@@ -15,7 +15,7 @@ router.post("/", createTransaction);
 router.delete("/:id", deleteTransaction);
 
 // Excel imports route + middleware and controller
-// See importExcel.js & transactionController.js
+// Send to excelUpload() -> parseExcel() -> uploadTransactions()
 router.post("/upload", excelUpload, parseExcel, uploadTransactions);
 
 export default router;

@@ -18,7 +18,7 @@ export default function TransactionInputBox() {
     return (
         <section className="card text-center shadow" id="transaction-input-box">
             {/* INPUT NAV */}
-            <div className="card-header px-0 pb-0 pt-2">
+            <div className="card-header px-0 pb-0 pt-2 bg-gray">
                 <ul className="nav nav-tabs justify-content-center gap-2">
                     {/* TAB 1 */}
                     <li className="nav-item">

@@ -71,7 +71,7 @@ export default function TransactionList() {
             {/* DATA TABLE */}
             <table className="table table-striped">
                 <thead>
-                    <tr>
+                    <tr className="table-secondary">
                         <th>Date</th>
                         <th>Title</th>
                         <th>Category</th>

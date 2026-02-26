@@ -4,7 +4,8 @@ import fs from "fs";
 import AppError from "../utils/AppError.js";
 
 // Init multer for file uploads
-// Store in "server/uploads" dir
+// Receive file from ExcelUploader.jsx
+// Store in server "uploads/" dir
 const upload = multer({ dest: "uploads/" });
 
 // Config middleware function
@@ -36,7 +37,8 @@ export const parseExcel = (req, res, next) => {
         }
         // Send valid data
         req.transactions = validFile;
-        next();
+        // Send to uploadTransactions() controller
+        next(); 
     } catch (error) {
         // Catch errors
         next(error);
