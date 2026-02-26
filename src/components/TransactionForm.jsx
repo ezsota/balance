@@ -48,7 +48,7 @@ export default function TransactionForm(props) {
                 <div className="col-12 col-md-6">
                     <label htmlFor="date" className="form-label">Date</label>
                     <input
-                        type="text" id="date"
+                        type="date" id="date"
                         className="form-control px-1 text-center"
                         placeholder="MM/DD/YY"
                         required />
@@ -100,7 +100,7 @@ export default function TransactionForm(props) {
                         id="amount"
                         type="text"
                         className="form-control text-center"
-                        placeholder='Ex: "-1,000.50" OR "1,000.50"'
+                        placeholder='Ex: "-1000.50" OR "1000.50"'
                         value={displayAmount}
                         // Block "Enter" button form submission:
                         onKeyDown={(event) => {

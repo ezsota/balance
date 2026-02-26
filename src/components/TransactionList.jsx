@@ -5,28 +5,28 @@ const transactionsTestData = [
         title: "October Daycare Bill",
         amount: -2456,
         category: "Childcare",
-        date: "09/30/95"
+        date: "09/30/1995"
     },
     {
         id: "MongoDB_id9834508243",
         title: "Vet Bill",
         amount: -312,
         category: "Pets",
-        date: "10/02/95"
+        date: "10/02/1995"
     },
     {
         id: "MongoDB_id098329823043",
         title: "Paycheck",
         amount: 3000,
         category: "Income",
-        date: "09/15/95"
+        date: "09/15/1995"
     },
     {
         id: "MongoDB_id987654236494",
         title: "Paycheck",
         amount: 3000,
         category: "Income",
-        date: "09/30/95"
+        date: "09/30/1995"
     }
 ];
 // TEST DATA

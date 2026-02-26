@@ -8,7 +8,8 @@ const transactionSchema = new mongoose.Schema({
     title: { type: String, required: true },
     amount: { type: Number, required: true },
     category: { type: String, required: true },
-    date: { Date, default: Date.now }
+    // Force UTC default to avoid timezone bugs
+    date: { type: Date, default: () => new Date() }
 });
 
 // Export model as "Transaction" for MongoDB:
