@@ -10,12 +10,18 @@
 */
 import { useState } from "react";
 
-export default function ExcelUploader({ onUpload }) {
+export default function ExcelUploader(props) {
     const [userFile, setUserFile] = useState(null);
 
     function handleFormSubmit(event) {
         event.preventDefault();
-        if (userFile) onUpload(userFile);
+        // Alert if no user file selected:
+        if (!userFile) {
+            alert("Please choose a file to upload");
+            return;
+        }
+        // Send file if selected
+        if (userFile) props.handleUpload(userFile);
     };
 
     return (
@@ -29,6 +35,7 @@ export default function ExcelUploader({ onUpload }) {
             gap-4 
             text-center"
         >
+            {/* FILE INSTRUCTIONS */}
             <header className="row col-12 p-2 bg-light border rounded">
                 <h3>File Requirements</h3>
                 <p className="mb-0">
@@ -38,7 +45,7 @@ export default function ExcelUploader({ onUpload }) {
                     <strong>Headers:</strong> <em>"Date", "Title", "Category",</em> and <em>"Amount".</em>
                 </p>
             </header>
-
+            {/* INPUT FILE */}
             <div className="col-12">
                 <input
                     type="file"
@@ -48,9 +55,9 @@ export default function ExcelUploader({ onUpload }) {
                     className="form-control w-100"
                 />
             </div>
-
+            {/* SEND FILE */}
             <div className="col-12">
-                <button className="btn btn-success bg-green w-100">Upload File</button>
+                <button className="btn btn-success bg-green w-100" disabled={!userFile}>Upload File</button>
             </div>
         </form>
     )
