@@ -1,8 +1,8 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
-export async function getTransaction() {
+export async function getTransactions() {
     const response = await fetch(`${API_URL}/api/transactions`);
-    if (!response.ok) throw new Error("Failed to fetch transactions");
+    if (!response.ok) throw new Error("Failed to fetch all transactions");
     return response.json();
 }
 
@@ -13,7 +13,7 @@ export async function createTransaction(transaction) {
         body: JSON.stringify(transaction)
     });
 
-    if (!response.ok) throw new Error("Failed to create transaction");
+    if (!response.ok) throw new Error(`Failed to create ${transaction}`);
     return response.json();
 }
 
@@ -22,7 +22,7 @@ export async function deleteTransaction(id) {
         method: "DELETE"
     });
 
-    if (!response.ok) throw new Error("Failed to delete transaction");
+    if (!response.ok) throw new Error(`Failed to delete transaction ${id}`);
 }
 
 export async function editTransaction(id, updates) {
@@ -32,7 +32,7 @@ export async function editTransaction(id, updates) {
         body: JSON.stringify(updates)
     });
 
-    if (!response.ok) throw new Error("Failed to update transaction");
+    if (!response.ok) throw new Error(`Failed to update transaction ${id}`);
     return response.json();
 }
 
