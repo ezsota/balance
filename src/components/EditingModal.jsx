@@ -15,17 +15,16 @@ export default function EditingModal(props) {
         }
     }, [props.selectedTransaction]);
 
-    // Handle edit form changes
+    // Sync editData state with form edits
     function handleChange(event) {
         const { name, value } = event.target;
-
         setEditData(prev => ({
             ...prev,
             [name]: value
         }));
     };
 
-    // Send edits to backend for update
+    // Send editData to backend for update
     async function saveEdits() {
         await editTransaction(editData._id, editData);
         props.closeModal();
@@ -37,6 +36,7 @@ export default function EditingModal(props) {
                 <Modal.Title>Edit Transaction</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+                {/* Values fallback to "" to avoid crashes */}
                 <form>
                     <div className="mb-3">
                         <label htmlFor="date" className="form-label">Date:</label>
