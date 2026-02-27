@@ -29,7 +29,7 @@ export const createTransaction = async (req, res, next) => {
     }
 };
 
-// DELETE transaction by ID using URL
+// DELETE transaction by ID using URL param
 // IF nothing to delete then trigger error
 export const deleteTransaction = async (req, res, next) => {
     try {
@@ -38,6 +38,26 @@ export const deleteTransaction = async (req, res, next) => {
             return next(new AppError("Transaction not found", 404));
         }
         res.json({ message: "Transaction Deleted Successfully" });
+    } catch (error) {
+        next(error);
+    }
+};
+
+// PUT (edit) transaction by ID using URL param
+// Error if not found
+export const editTransaction = async (req, res, next) => {
+    try {
+        const editValues = await Transaction.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true, runValidators: true }
+        );
+
+        if (!editValues) {
+            return next(new AppError("Transaction not found", 404));
+        }
+
+        res.json(editValues);
     } catch (error) {
         next(error);
     }

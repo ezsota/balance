@@ -37,18 +37,18 @@ import editIcon from "../assets/edit-pencil.svg";
 import deleteIcon from "../assets/delete-bin.svg";
 
 // Child Component: EditingModal.jsx
-export default function TransactionList() {
-    // Used by editTransaction() and EditingModal.jsx
+export default function TransactionList(props) {
+    // Used by openModal() and EditingModal.jsx
     const [modalShow, setModalShow] = useState(false);
     const [selectedTransaction, setSelectedTransaction] = useState({});
 
-    function editTransaction(transaction) {
-        console.log('Started edit', transaction);
+    function openModal(transaction) {
+        console.log('Opened edit modal', transaction);
         setSelectedTransaction(transaction);
         setModalShow(true);
     };
 
-    // Used by deleteTransaction()
+    // Kept in parent since used by deleteTransaction()
     function closeModal() {
         setModalShow(false);
         setSelectedTransaction({});
@@ -57,10 +57,11 @@ export default function TransactionList() {
 
     // Delete transaction based on confirmation
     // Used by EditingModal.jsx
-    function deleteTransaction(transaction) {
+    function deleteTransaction(id) {
         const verifyDeletion = confirm("Are you sure you want to delete the following transaction:", transaction)
         if (verifyDeletion) {
-            console.log('Deleted transaction', transaction);
+            console.log('Deleted transaction', id);
+            props.deleteTransaction(id)
         } else {
             closeModal();
         }
@@ -90,10 +91,10 @@ export default function TransactionList() {
                             </td>
                             <td>
                                 <div className="d-flex justify-content-center gap-1">
-                                    <button onClick={() => editTransaction(transaction)} className="transaction-icon-container bg-primary">
+                                    <button onClick={() => openModal(transaction)} className="transaction-icon-container bg-primary">
                                         <img src={editIcon} alt="Edit pencil icon" className="transaction-icon-imgs" />
                                     </button>
-                                    <button onClick={() => deleteTransaction(transaction)} className="transaction-icon-container bg-danger">
+                                    <button onClick={() => deleteTransaction(transaction.id)} className="transaction-icon-container bg-danger">
                                         <img src={deleteIcon} alt="Deletion bin icon" className="transaction-icon-imgs" />
                                     </button>
                                 </div>

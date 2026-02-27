@@ -1,6 +1,6 @@
 import express from "express";
 import { excelUpload, parseExcel } from "../middleware/importExcel.js";
-import { getTransactions, createTransaction, deleteTransaction, uploadTransactions } from "../controllers/transactionController.js";
+import { getTransactions, createTransaction, deleteTransaction, editTransaction, uploadTransactions } from "../controllers/transactionController.js";
 
 // Create express router instance
 const router = express.Router();
@@ -13,6 +13,9 @@ router.post("/", createTransaction);
 
 // Define DELETE path by URL param id
 router.delete("/:id", deleteTransaction);
+
+// Define PUT (edit) path by URL param id
+router.put("/:id", editTransaction);
 
 // Excel imports route + middleware and controller
 // Send to excelUpload() -> parseExcel() -> uploadTransactions()

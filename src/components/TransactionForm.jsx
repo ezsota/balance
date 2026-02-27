@@ -25,12 +25,10 @@ export default function TransactionForm(props) {
                 };
                 // ** TESTING **
                 console.log("POST TEST", formData);
+                
                 // backend HTTP POST req
-                fetch("/api/transactions", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(formData)
-                });
+                props.createTransaction(formData);
+
                 // Clear form DOM inputs
                 event.target.reset();
                 // Reset amount states
