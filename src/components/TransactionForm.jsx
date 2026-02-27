@@ -13,7 +13,7 @@ export default function TransactionForm(props) {
 
     return (
         <form
-            className="row gap-3 justify-content-center text-start mx-auto h-100"
+            className="row gap-2 justify-content-center text-start mx-auto h-100"
             onSubmit={(event) => {
                 event.preventDefault();
                 // Obj for backend
@@ -36,7 +36,11 @@ export default function TransactionForm(props) {
                 setNumericAmount(0);
             }}
         >
-            
+
+            <header>
+                <h2 className="text-center">New Transaction</h2>
+            </header>
+
             {/* ROW-1 */}
             <div className="row">
                 {/* DATE */}

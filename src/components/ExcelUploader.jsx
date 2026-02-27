@@ -37,7 +37,7 @@ export default function ExcelUploader(props) {
         >
             {/* FILE INSTRUCTIONS */}
             <header className="row col-12 p-2 bg-light border rounded">
-                <h3>File Requirements</h3>
+                <h3>Upload File Requirements</h3>
                 <p className="mb-0">
                     <strong className="w-auto m-0">Format:</strong> <em>.xlsx</em>
                 </p>
