@@ -54,10 +54,7 @@ export default function TransactionList(props) {
         const verifyDeletion = confirm("Are you sure you want to delete the following transaction:", id)
         if (verifyDeletion) {
             console.log('Deleted transaction', id);
-            props.deleteTransaction(id)
-        } else {
-            closeModal();
-        }
+        };
     }
 
     return (
@@ -103,7 +100,9 @@ export default function TransactionList(props) {
             {/* CHILD COMPONENT */}
             <EditingModal
                 modalShow={modalShow}
+                setModalShow={setModalShow}
                 selectedTransaction={selectedTransaction}
+                setSelectedTransaction={setSelectedTransaction}
             />
         </section>
     );
