@@ -9,14 +9,22 @@ import AppError from "../utils/AppError.js";
 // catch triggers errorHandler.js
 export const getTransactions = async (req, res, next) => {
     try {
-        const transactions = (await Transaction.find()).sort({ date: -1 });
+        // Date filters for FilterBox.jsx
+        const query = {};
+        if (req.query.from || req.query.to) {
+            query.date = {};
+            if (req.query.from) query.date.$gte = new Date(req.query.from);
+            if (req.query.to) query.date.$lte = new Date(req.query.to);
+        }
+        // Get transactions filtered/unfiltered
+        const transactions = await Transaction.find(query).sort({ date: -1 });
         res.json(transactions);
     } catch (error) {
         next(error);
     }
 };
 
-// POST new transaction
+// POST single new transaction
 // Save new transaction using request data
 // Send as JSON if successful (201)
 export const createTransaction = async (req, res, next) => {
@@ -29,7 +37,7 @@ export const createTransaction = async (req, res, next) => {
     }
 };
 
-// DELETE transaction by ID using fetch URL param (not browser URL)
+// DELETE single transaction by ID using fetch URL param (not browser URL)
 // IF nothing to delete then trigger error
 export const deleteTransaction = async (req, res, next) => {
     try {
@@ -43,7 +51,7 @@ export const deleteTransaction = async (req, res, next) => {
     }
 };
 
-// PUT (edit) transaction by ID using fetch URL param (not browser URL)
+// PUT (edit) single transaction by ID using fetch URL param (not browser URL)
 // Error if not found
 export const editTransaction = async (req, res, next) => {
     try {
@@ -63,7 +71,7 @@ export const editTransaction = async (req, res, next) => {
     }
 };
 
-// POST excel import transactions
+// POST excel bulk import transactions
 export const uploadTransactions = async (req, res, next) => {
     try {
         await Transaction.insertMany(req.transactions);
