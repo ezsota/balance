@@ -37,7 +37,6 @@ export default function EditingModal(props) {
                 <Modal.Title>Edit Transaction</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {/* FORM DATA = TransactionList.jsx useState 'selectedTransaction' */}
                 <form>
                     <div className="mb-3">
                         <label htmlFor="date" className="form-label">Date:</label>
