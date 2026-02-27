@@ -13,8 +13,8 @@ export async function createTransaction(transaction) {
         body: JSON.stringify(transaction)
     });
 
-    if (!res.ok) throw new Error("Failed to create transaction");
-    return res.json();
+    if (!response.ok) throw new Error("Failed to create transaction");
+    return response.json();
 }
 
 export async function deleteTransaction(id) {
@@ -32,7 +32,7 @@ export async function editTransaction(id, updates) {
         body: JSON.stringify(updates)
     });
 
-    if (!res.ok) throw new Error("Failed to update transaction");
+    if (!response.ok) throw new Error("Failed to update transaction");
     return response.json();
 }
 
@@ -40,11 +40,11 @@ export async function uploadExcel(file) {
     const formData = new FormData();
     formData.append("file", file);
 
-    const res = await fetch(`${API_URL}/api/transactions/upload`, {
+    const response = await fetch(`${API_URL}/api/transactions/upload`, {
         method: "POST",
         body: formData
     });
 
-    if (!res.ok) throw new Error("Failed to upload file");
-    return res.json();
+    if (!response.ok) throw new Error("Failed to upload file");
+    return response.json();
 }
