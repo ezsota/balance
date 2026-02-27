@@ -36,7 +36,7 @@ export default function EditingModal(props) {
                 <Modal.Title>Edit Transaction</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {/* Values fallback to "" to avoid crashes */}
+                {/* Values opt chained and fallback to avoid crashes */}
                 <form>
                     <div className="mb-3">
                         <label htmlFor="date" className="form-label">Date:</label>
