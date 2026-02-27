@@ -25,7 +25,7 @@ export default function TransactionForm(props) {
                 };
                 // ** TESTING **
                 console.log("POST TEST", formData);
-                
+
                 // backend HTTP POST req
                 props.createTransaction(formData);
 
@@ -36,26 +36,28 @@ export default function TransactionForm(props) {
                 setNumericAmount(0);
             }}
         >
-            {/* ROW-1 DATE */}
-            <div className="row col-12 justify-content-center">
-                <div className="col-12 col-md-6">
+            
+            {/* ROW-1 */}
+            <div className="row">
+                {/* DATE */}
+                <div className="col-12 col-md-6 justify-content-center">
                     <label htmlFor="date" className="form-label">Date</label>
                     <input
                         type="date" id="date"
                         className="form-control px-1 text-center"
                         required />
                 </div>
-            </div>
-            {/* ROW-2 TITLE */}
-            <div className="row col-12 justify-content-center">
-                <div className="col-12 col-md-6">
+                {/* TITLE */}
+                <div className="col-12 col-md-6 justify-content-center">
                     <label htmlFor="title" className="form-label">Title</label>
                     <input type="text" id="title" className="form-control text-center" placeholder='Ex: "October Rent"' required />
                 </div>
             </div>
-            {/* ROW-3 CATEGORY */}
-            <div className="row col-12 justify-content-center">
-                <div className="col-12 col-md-6">
+
+            {/* ROW-2  */}
+            <div className="row">
+                {/* CATEGORY */}
+                <div className="col-12 col-md-6 justify-content-center">
                     <label htmlFor="category" className="form-label">Category</label>
                     <select
                         id="category"
@@ -76,10 +78,8 @@ export default function TransactionForm(props) {
                         ))}
                     </select>
                 </div>
-            </div>
-            {/* ROW-4 AMOUNT */}
-            <div className="row col-12 justify-content-center">
-                <div className="col-12 col-md-6">
+                {/* AMOUNT */}
+                <div className="col-12 col-md-6 justify-content-center">
                     <label htmlFor="amount" className="form-label">Amount</label>
                     <input
                         required
@@ -125,10 +125,11 @@ export default function TransactionForm(props) {
                     />
                 </div>
             </div>
+
             {/* BOTTOM ROW - SUBMIT */}
             <div className="col-12 text-center">
                 <button type="submit" className="btn btn-success bg-green w-100">Add Transaction</button>
             </div>
-        </form>
+        </form >
     )
 };
