@@ -29,7 +29,7 @@ export const createTransaction = async (req, res, next) => {
     }
 };
 
-// DELETE transaction by ID using URL param
+// DELETE transaction by ID using fetch URL param (not browser URL)
 // IF nothing to delete then trigger error
 export const deleteTransaction = async (req, res, next) => {
     try {
@@ -43,7 +43,7 @@ export const deleteTransaction = async (req, res, next) => {
     }
 };
 
-// PUT (edit) transaction by ID using URL param
+// PUT (edit) transaction by ID using fetch URL param (not browser URL)
 // Error if not found
 export const editTransaction = async (req, res, next) => {
     try {

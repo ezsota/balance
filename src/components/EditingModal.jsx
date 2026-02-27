@@ -27,11 +27,18 @@ export default function EditingModal(props) {
     // Send editData to backend for update
     async function saveEdits() {
         await editTransaction(editData._id, editData);
-        props.closeModal();
+        closeModal();
+    };
+
+    // Close component
+    function closeModal() {
+        props.setModalShow(false);
+        props.setSelectedTransaction({});
+        console.log('Closed edit modal');
     };
 
     return (
-        <Modal show={props.modalShow} onHide={props.closeModal} centered>
+        <Modal show={props.modalShow} onHide={closeModal} centered>
             <Modal.Header closeButton>
                 <Modal.Title>Edit Transaction</Modal.Title>
             </Modal.Header>

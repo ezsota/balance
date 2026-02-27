@@ -32,13 +32,14 @@ const transactionsTestData = [
 // TEST DATA
 
 import { useState } from "react";
+import { deleteTransaction } from "../api/backendApi.js";
 import EditingModal from "./EditingModal.jsx";
 import editIcon from "../assets/edit-pencil.svg";
 import deleteIcon from "../assets/delete-bin.svg";
 
 // Child Component: EditingModal.jsx
 export default function TransactionList(props) {
-    // Used by openModal() and EditingModal.jsx
+    // Used by openModal(), closeModal, and EditingModal.jsx
     const [modalShow, setModalShow] = useState(false);
     const [selectedTransaction, setSelectedTransaction] = useState({});
 
@@ -48,17 +49,9 @@ export default function TransactionList(props) {
         setModalShow(true);
     };
 
-    // Kept in parent since used by deleteTransaction()
-    function closeModal() {
-        setModalShow(false);
-        setSelectedTransaction({});
-        console.log('Closed edit modal');
-    };
-
     // Delete transaction based on confirmation
-    // Used by EditingModal.jsx
     function deleteTransaction(id) {
-        const verifyDeletion = confirm("Are you sure you want to delete the following transaction:", transaction)
+        const verifyDeletion = confirm("Are you sure you want to delete the following transaction:", id)
         if (verifyDeletion) {
             console.log('Deleted transaction', id);
             props.deleteTransaction(id)
@@ -109,11 +102,8 @@ export default function TransactionList(props) {
             </div>
             {/* CHILD COMPONENT */}
             <EditingModal
-                closeModal={closeModal}
                 modalShow={modalShow}
-                setModalShow={setModalShow}
                 selectedTransaction={selectedTransaction}
-                setSelectedTransaction={setSelectedTransaction}
             />
         </section>
     );
