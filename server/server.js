@@ -15,7 +15,7 @@ dotenv.config();
 
 // Init Express, CORS, and JSON HTTP reqs
 const app = express();
-app.use(cors());
+app.use(cors({origin: process.env.CLIENT_URL}));
 app.use(express.json());
 // Connect transaction route
 app.use("/api/transactions", transactionRoutes);

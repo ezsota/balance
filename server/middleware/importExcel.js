@@ -29,7 +29,8 @@ export const parseExcel = (req, res, next) => {
             entry.title && 
             typeof entry.amount === "number" &&
             entry.amount !== 0 && 
-            entry.category
+            entry.category,
+            entry.date
         );
         // Throw validation fail error
         if (validFile.length === 0) {

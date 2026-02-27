@@ -1,7 +1,7 @@
 // ==============================================
 // Logic between transactionRoutes.js <=> Transactions.js
 // ==============================================
-import Transaction from "../models/Transactions.js";
+import Transaction from "../models/Transaction.js";
 import AppError from "../utils/AppError.js";
 
 // GET all transactions asyncly
@@ -9,7 +9,7 @@ import AppError from "../utils/AppError.js";
 // catch triggers errorHandler.js
 export const getTransactions = async (req, res, next) => {
     try {
-        const transactions = await Transaction.find();
+        const transactions = (await Transaction.find()).sort({ date: -1 });
         res.json(transactions);
     } catch (error) {
         next(error);
@@ -68,8 +68,8 @@ export const uploadTransactions = async (req, res, next) => {
     try {
         await Transaction.insertMany(req.transactions);
         res.status(201).json({
-            message: "transactions imported successfully",
-            count: req.Transactions.length
+            message: "Transactions imported successfully",
+            count: req.transactions.length
         });
     } catch (error) {
         next(error);

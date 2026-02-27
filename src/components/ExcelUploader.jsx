@@ -1,7 +1,7 @@
 /*
     UPLOADER DATA FLOW
         UI receives file, sends to backend ->
-        POST /api/transactions/uploads/ -> 
+        POST /api/transactions/upload -> 
         multer middleware -> 
         parseExcel() middleware -> 
         transactionController.js -> 
