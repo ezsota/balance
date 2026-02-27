@@ -31,8 +31,8 @@ const transactionsTestData = [
 ];
 // ** TESTING DATA **
 
-import { useState } from "react";
-import { deleteTransaction } from "../api/backendApi.js";
+import { useState, useEffect } from "react";
+import { deleteTransaction, getTransactions } from "../api/backendApi.js";
 import EditingModal from "./EditingModal.jsx";
 import editIcon from "../assets/edit-pencil.svg";
 import deleteIcon from "../assets/delete-bin.svg";
@@ -43,6 +43,12 @@ export default function TransactionList() {
     const [transactionsData, setTransactionsData] = useState([]);
     // ** TESTING ** :
     // const [transactionsData, setTransactionsData] = useState(transactionsTestData);
+
+    // Get and render transactions from backend
+    // ** TEMP CAUSES ERROR: VM583:1 Uncaught (in promise) SyntaxError: Unexpected token '<', "<!doctype "... is not valid JSON **
+    useEffect(() => {
+        getTransactions().then(setTransactionsData);
+    }, []);
 
     // Used by openModal(), closeModal, and EditingModal.jsx
     const [modalShow, setModalShow] = useState(false);

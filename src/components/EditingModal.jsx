@@ -47,7 +47,7 @@ export default function EditingModal(props) {
                 <form>
                     <div className="mb-3">
                         <label htmlFor="date" className="form-label">Date:</label>
-                        <input type="text" name="date" className="form-control" value={editData?.date || ""} onChange={handleChange} />
+                        <input type="date" name="date" className="form-control" value={editData?.date || ""} onChange={handleChange} />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="title" className="form-label">Title:</label>
