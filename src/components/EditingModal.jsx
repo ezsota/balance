@@ -58,7 +58,7 @@ export default function EditingModal(props) {
             </Modal.Body>
             <Modal.Footer>
                 {/* SAVE EDITS */}
-                <button className="btn btn-success bg-green" onClick={() => saveEdits(props.selectedTransaction)}>Save</button>
+                <button className="btn btn-success bg-green" onClick={() => saveEdits(saveEdits)}>Save</button>
             </Modal.Footer>
         </Modal>
     );
