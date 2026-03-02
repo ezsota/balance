@@ -83,9 +83,11 @@ export default function Overview() {
             <header>
                 <h1 className="text-center">Overview</h1>
             </header>
-            {/* COMPONENTS */}
+            {/* CHART */}
             <AreaChart transactions={transactions} />
+            {/* CARDS */}
             <SummaryCards transactions={transactions} />
+            {/* CTA */}
             <CtaBox />
         </div>
     )
