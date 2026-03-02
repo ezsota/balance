@@ -16,7 +16,7 @@ import {
 // Register chart components for use
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
-export default function TransactionChart(props) {
+export default function AreaChart(props) {
     // Sort and memoize by date, avoids canvas recalc/render errors
     const dateSorted = useMemo(() =>
         props.transactions.sort((a, b) => new Date(a.date) - new Date(b.date)),

@@ -15,7 +15,7 @@ Components: TransactionChart.jsx, SummaryCards.jsx
 
 import { useState, useEffect } from "react";
 import { getTransactions } from "../api/backendApi.js";
-import TransactionChart from "../components/TransactionChart.jsx";
+import AreaChart from "../components/AreaChart.jsx";
 import SummaryCards from "../components/SummaryCards.jsx";
 import CtaBox from "../components/CTABox.jsx";
 
@@ -84,7 +84,7 @@ export default function Overview() {
                 <h1 className="text-center">Overview</h1>
             </header>
             {/* COMPONENTS */}
-            <TransactionChart transactions={transactions} />
+            <AreaChart transactions={transactions} />
             <SummaryCards transactions={transactions} />
             <CtaBox />
         </div>
