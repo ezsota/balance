@@ -132,10 +132,10 @@ export default function Reports() {
             </div>
             {/* ROW3 - CARDS & LIST */}
             <div className="row">
-                <section className="col-12 col-md-9">
+                <section className="col-12 col-md-8">
                     <TransactionList transactions={filteredTransactions} />
                 </section>
-                <section className="col-12 col-md-3">
+                <section className="col-12 col-md-4" id="report-cards-container">
                     <IncomeCard income={income} formatCurrencyUSD={formatCurrencyUSD} />
                     <ExpenseCard expenses={expenses} formatCurrencyUSD={formatCurrencyUSD} />
                     <BalanceCard balance={balance} formatCurrencyUSD={formatCurrencyUSD} />

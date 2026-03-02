@@ -162,6 +162,11 @@ nav .active {
     width: 16px !important;
 }
 
+/* REPORTS PAGE */
+#report-cards-container .report-card {
+    width: 100% !important;
+}
+
 
 /* MEDIA QUERIES */
 @media(max-width: 768px) {
