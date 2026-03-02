@@ -31,6 +31,9 @@ import FilterBox from "../components/FilterBox.jsx";
 import AreaChart from "../components/AreaChart.jsx";
 import DoughnutChart from "../components/DoughnutChart.jsx";
 import SummaryCards from "../components/SummaryCards.jsx";
+import IncomeCard from "../components/IncomeCard.jsx";
+import BalanceCard from "../components/BalanceCard.jsx";
+import ExpenseCard from "../components/ExpenseCard.jsx";
 import TransactionList from "../components/TransactionList.jsx";
 
 export default function Reports() {
@@ -83,31 +86,60 @@ export default function Reports() {
         getTransactions(filters).then(setFilteredTransactions);
     }, [filters]);
 
+
+    // =================
+    // SUMMARY CARDS    
+    // =================
+    // Format amounts function
+    function formatCurrencyUSD(amount) {
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        }).format(amount);
+    };
+
+    // Get transactions gt 0 and add those together
+    const income = filteredTransactions
+        .filter(transaction => transaction.amount > 0)
+        .reduce((sum, income) => sum + income.amount, 0);
+
+    // Get transactions lt 0 and add those together
+    const expenses = filteredTransactions
+        .filter(transaction => transaction.amount < 0)
+        .reduce((sum, expense) => sum + expense.amount, 0);
+
+    // Get the account balance
+    const balance = income + expenses;
+
     return (
-        <div className="border border-danger w-100 h-100 container-fluid d-flex flex-column">
-            <nav className="d-flex justify-content-center">
-                <FilterBox setFilters={setFilters} />
-            </nav>
-
-            {/* CHARTS - FLEX BOX */}
-            <section className="border d-flex">
-                <AreaChart transactions={filteredTransactions} />
-                <DoughnutChart transactions={filteredTransactions} />
-            </section>
-
-            {/* SUMMARY & LIST - GRID BOX */}
-            <div className="container text-center">
-                <div className="row">
-                    {/* LIST - FLEX COLUMN */}
-                    <section className="col-12 col-md-9 text-center border border-danger">
-                        <TransactionList transactions={filteredTransactions} />
-                    </section>
-                    {/* SUMMARY - FLEX COLUMN */}
-                    <section className="col-12 col-md-3">
-                        <SummaryCards transactions={filteredTransactions} />
-                    </section>
-
-                </div>
+        <div className="container-fluid w-100 h-100 justify-content-center text-center">
+            {/* ROW1 - FILTER */}
+            <div className="row">
+                <nav className="d-flex justify-content-center">
+                    <FilterBox setFilters={setFilters} />
+                </nav>
+            </div>
+            {/* ROW2- CHARTS */}
+            <div className="row">
+                <section className="col-12 col-md-6">
+                    <AreaChart transactions={filteredTransactions} />
+                </section>
+                <section className="col-12 col-md-6">
+                    <DoughnutChart transactions={filteredTransactions} />
+                </section>
+            </div>
+            {/* ROW3 - CARDS & LIST */}
+            <div className="row">
+                <section className="col-12 col-md-9">
+                    <TransactionList transactions={filteredTransactions} />
+                </section>
+                <section className="col-12 col-md-3">
+                    <IncomeCard income={income} formatCurrencyUSD={formatCurrencyUSD} />
+                    <ExpenseCard expenses={expenses} formatCurrencyUSD={formatCurrencyUSD} />
+                    <BalanceCard balance={balance} formatCurrencyUSD={formatCurrencyUSD} />
+                </section>
             </div>
         </div>
     )
