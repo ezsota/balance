@@ -6,7 +6,6 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import transactionRoutes from "./routes/transactionRoutes.js";
-import goalsRoutes from "./routes/goalsRoutes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 
 
@@ -19,8 +18,6 @@ app.use(cors({origin: process.env.CLIENT_URL}));
 app.use(express.json());
 // Connect transaction route
 app.use("/api/transactions", transactionRoutes);
-// Connect goals route
-app.use("/api/goals", goalsRoutes)
 // Error Handler (must be last)
 app.use(errorHandler);
 

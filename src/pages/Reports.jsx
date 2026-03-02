@@ -21,12 +21,12 @@ Components: Filterbox.jsx, TransactionChart.jsx, TransactionList.jsx SummaryCard
     ------------------------------  |Balance |
     ------------------------------  |Card    | 
     ===========================================
+                [EXPORT TO PDF]
+    ===========================================
     */
 
 export default function Reports() {
     return (
-        // GET REPORT FOR LAST XYZ ??
-        // SAVE TO PDF ??
         <h1>This is the Reports page</h1>
     )
 };
