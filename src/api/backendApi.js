@@ -1,7 +1,9 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
-export async function getTransactions() {
-    const response = await fetch(`${API_URL}/api/transactions`);
+// Get ALL transaction data, if there is a filter then get FILTERED
+export async function getTransactions(filters = {}) {
+    const params = new URLSearchParams(filters);
+    const response = await fetch(`${API_URL}/api/transactions?${params}`);
     if (!response.ok) throw new Error("Failed to fetch all transactions");
     return response.json();
 }
