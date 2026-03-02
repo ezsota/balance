@@ -27,9 +27,13 @@ Components: Filterbox.jsx, TransactionChart.jsx, TransactionList.jsx SummaryCard
 
 import { useState } from "react";
 import { getTransactions } from "../api/backendApi.js";
+import FilterBox from "../components/FilterBox.jsx";
 import TransactionChart from "../components/TransactionChart";
 
 export default function Reports() {
+    // Date filters
+    const [filters, setFilters] = useState({});
+    console.log('Filtered dates:', filters);
     // Transactions for report data
     const [filteredTransactions, setFilteredTransactions] = useState([
         {
@@ -59,6 +63,9 @@ export default function Reports() {
     ]);
 
     return (
-        <TransactionChart transactions={filteredTransactions} />
+        <>
+            <FilterBox setFilters={setFilters} />
+            <TransactionChart transactions={filteredTransactions} />
+        </>
     )
 };
