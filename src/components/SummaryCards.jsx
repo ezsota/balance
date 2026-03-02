@@ -21,7 +21,7 @@ export default function SummaryCards(props) {
                     <article className="card overview-cards overview-card-sm shadow mx-auto">
                         <header className="card-header">Income</header>
                         <div className="card-body">
-                            <p className="card-text" style={{ color: "green" }}>{income}</p>
+                            <p className="card-text" style={{ color: "green" }}>${income}</p>
                         </div>
                     </article>
                 </div>
@@ -30,7 +30,7 @@ export default function SummaryCards(props) {
                     <article className="card overview-cards overview-card-sm shadow mx-auto">
                         <header className="card-header">Expenses</header>
                         <div className="card-body">
-                            <p className="card-text" style={{ color: "red" }}>{expenses}</p>
+                            <p className="card-text" style={{ color: "red" }}>${expenses}</p>
                         </div>
                     </article>
                 </div>
@@ -38,7 +38,7 @@ export default function SummaryCards(props) {
                     <article className="card overview-cards overview-card-sm shadow mx-auto">
                         <header className="card-header">Balance</header>
                         <div className="card-body">
-                            <p className="card-text">{balance}</p>
+                            <p className="card-text">${balance}</p>
                         </div>
                     </article>
                 </div>
