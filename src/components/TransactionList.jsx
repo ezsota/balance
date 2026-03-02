@@ -38,7 +38,7 @@ import editIcon from "../assets/edit-pencil.svg";
 import deleteIcon from "../assets/delete-bin.svg";
 
 // Child Component: EditingModal.jsx
-export default function TransactionList(props) {
+export default function TransactionList() {
     // Transaction data state
     const [transactionsData, setTransactionsData] = useState([]);
     // ** TESTING ** :
