@@ -6,7 +6,7 @@ export default function SummaryCards(props) {
 
     // Get transactions lt 0 and add those together
     const expenses = props.transactions
-        .filter(transaction => transaction < 0)
+        .filter(transaction => transaction.amount < 0)
         .reduce((sum, expense) => sum + expense.amount, 0);
 
     // Get the account balance

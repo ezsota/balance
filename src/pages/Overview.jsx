@@ -21,7 +21,12 @@ import CtaBox from "../components/CTABox.jsx";
 
 export default function Overview() {
     // Transactions state (primary)
-    const [transactions, setTransactions] = useState([]);
+    const [transactions, setTransactions] = useState([
+        {amount: 1000.50}, 
+        {amount: -100.25},
+        {amount: 1000.50},
+        {amount: -500.25}
+    ]);
 
     // Get transactions on page render
     useEffect(() => {
