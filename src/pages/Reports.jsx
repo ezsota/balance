@@ -88,16 +88,27 @@ export default function Reports() {
             <nav className="d-flex justify-content-center">
                 <FilterBox setFilters={setFilters} />
             </nav>
+
+            {/* CHARTS - FLEX BOX */}
             <section className="border d-flex">
                 <AreaChart transactions={filteredTransactions} />
-                <DoughnutChart transactions={filteredTransactions}/>
+                <DoughnutChart transactions={filteredTransactions} />
             </section>
-            <section className="border d-flex col-5">
-                <SummaryCards transactions={filteredTransactions} />
-            </section>
-            <section className="border d-flex col-7 justify-content-center">
-                <TransactionList transactions={filteredTransactions} />
-            </section>
+
+            {/* SUMMARY & LIST - GRID BOX */}
+            <div className="container text-center">
+                <div className="row">
+                    {/* LIST - FLEX COLUMN */}
+                    <section className="col-12 col-md-9 text-center border border-danger">
+                        <TransactionList transactions={filteredTransactions} />
+                    </section>
+                    {/* SUMMARY - FLEX COLUMN */}
+                    <section className="col-12 col-md-3">
+                        <SummaryCards transactions={filteredTransactions} />
+                    </section>
+
+                </div>
+            </div>
         </div>
     )
 };

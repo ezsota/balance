@@ -79,14 +79,21 @@ export default function Overview() {
 
     return (
         <div className="d-flex flex-column justify-content-center h-100 w-100">
-            {/* HEADER */}
             <header>
                 <h1 className="text-center">Overview</h1>
             </header>
+
             {/* CHART */}
             <AreaChart transactions={transactions} />
-            {/* CARDS */}
-            <SummaryCards transactions={transactions} />
+
+            {/* CARDS - GRID BOX */}
+            <section className="container text-center">
+                {/* CARDS - GRID ROW */}
+                <div className="row justify-content-center">
+                    <SummaryCards transactions={transactions} />
+                </div>
+            </section>
+
             {/* CTA */}
             <CtaBox />
         </div>

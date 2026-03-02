@@ -127,6 +127,7 @@ nav .active {
 }
 
 .overview-card-sm {
+    min-width: 180px !important;
     max-width: 350px !important;
 }
 
@@ -160,6 +161,7 @@ nav .active {
 .transaction-icon-imgs {
     width: 16px !important;
 }
+
 
 /* MEDIA QUERIES */
 @media(max-width: 768px) {
