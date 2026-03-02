@@ -22,10 +22,54 @@ import CtaBox from "../components/CTABox.jsx";
 export default function Overview() {
     // Transactions state (primary)
     const [transactions, setTransactions] = useState([
-        {amount: 1000.50}, 
-        {amount: -100.25},
-        {amount: 1000.50},
-        {amount: -500.25}
+        {
+            title: "Test1",
+            amount: 2000.50,
+            category: "Test1 Data",
+            date: new Date("2023-01-09").getTime()
+        },
+        {
+            title: "Test2",
+            amount: -200.25,
+            category: "Test2 Data",
+            date: new Date("2023-05-22").getTime()
+        },
+        {
+            title: "Test3",
+            amount: 3000.50,
+            category: "Test3 Data",
+            date: new Date("2023-08-15").getTime()
+        },
+        {
+            title: "Test4",
+            amount: -2000,
+            category: "Test4 Data",
+            date: new Date("2023-12-02").getTime()
+        },
+        {
+            title: "Test5",
+            amount: 12000.75,
+            category: "Test5 Data",
+            date: new Date("2024-05-15").getTime()
+        },
+        {
+            title: "Test6",
+            amount: -3300.50,
+            category: "Test6 Data",
+            date: new Date("2024-08-03").getTime()
+        },
+        {
+            title: "Test7",
+            amount: 10000.50,
+            category: "Test7 Data",
+            date: new Date("2025-02-17").getTime()
+        },
+        {
+            title: "Test8",
+            amount: -2525.25,
+            category: "Test8 Data",
+            date: new Date("2026-02-05").getTime()
+        }
     ]);
 
     // Get transactions on page render

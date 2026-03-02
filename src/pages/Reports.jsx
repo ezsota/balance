@@ -25,8 +25,40 @@ Components: Filterbox.jsx, TransactionChart.jsx, TransactionList.jsx SummaryCard
     ===========================================
     */
 
+import { useState } from "react";
+import { getTransactions } from "../api/backendApi.js";
+import TransactionChart from "../components/TransactionChart";
+
 export default function Reports() {
+    // Transactions for report data
+    const [filteredTransactions, setFilteredTransactions] = useState([
+        {
+            title: "Test1",
+            amount: 2000.50,
+            category: "Test1 Data",
+            date: new Date("2023-01-09").getTime()
+        },
+        {
+            title: "Test2",
+            amount: -200.25,
+            category: "Test2 Data",
+            date: new Date("2023-05-22").getTime()
+        },
+        {
+            title: "Test3",
+            amount: 3000.50,
+            category: "Test3 Data",
+            date: new Date("2023-08-15").getTime()
+        },
+        {
+            title: "Test4",
+            amount: -300.25,
+            category: "Test4 Data",
+            date: new Date("2023-12-02").getTime()
+        }
+    ]);
+
     return (
-        <h1>This is the Reports page</h1>
+        <TransactionChart transactions={filteredTransactions} />
     )
 };
