@@ -5,17 +5,30 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
+import rateLimit from "express-rate-limit";
 import transactionRoutes from "./routes/transactionRoutes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
-
 
 // Load environment variables from server/.env
 dotenv.config();
 
-// Init Express, CORS, and JSON HTTP reqs
+// Init Express app
 const app = express();
-app.use(cors({origin: process.env.CLIENT_URL}));
+
+// Register CORS and Express.json
+app.use(cors({ origin: process.env.CLIENT_URL }));
 app.use(express.json());
+
+// Rate Limiter (avoids server spamming)
+const limiter = rateLimit({
+    windowMs: 1 * 60 * 1000, // req window (1 min)
+    max: 5, // # request per IP address
+    standardHeaders: true,
+    legacyHeaders: false
+});
+// Register rate limiter (for all below routes -> api/*)
+app.use("/api", limiter);
+
 // Connect transaction route
 app.use("/api/transactions", transactionRoutes);
 // Error Handler (must be last)
