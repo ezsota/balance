@@ -1,8 +1,18 @@
 // ==============================================
 // Logic between transactionRoutes.js <=> Transactions.js
 // ==============================================
+import sanitizeHtml from "sanitize-html";
 import Transaction from "../models/Transaction.js";
 import AppError from "../utils/AppError.js";
+
+// Sanitize user generate strings
+// Avoids script injection
+function sanitizeString(value) {
+    return sanitizeHtml(value, {
+        allowedTags: [],
+        allowedAttributes: {}
+    });
+}
 
 // GET all transactions asyncly
 // Send as JSON to client/app
@@ -29,7 +39,16 @@ export const getTransactions = async (req, res, next) => {
 // Send as JSON if successful (201)
 export const createTransaction = async (req, res, next) => {
     try {
-        const transaction = new Transaction(req.body);
+        // Sanitize requests
+        const sanitizedData = {
+            ...req.body,
+            title: sanitizeString(req.body.title),
+            category: sanitizeString(req.body.category),
+            amount: typeof req.body.amount === 'number' ? req.body.amount : NaN, // Forces number or NaN
+            date: new Date(req.body.date), // Forces date
+        }
+        // Create sanitized request
+        const transaction = new Transaction(sanitizedData);
         await transaction.save();
         res.status(201).json(transaction);
     } catch (error) {
@@ -55,16 +74,24 @@ export const deleteTransaction = async (req, res, next) => {
 // Error if not found
 export const editTransaction = async (req, res, next) => {
     try {
+        // Sanitize requests
+        const sanitizedData = {
+            title: sanitizeString(req.body.title),
+            category: sanitizeString(req.body.category),
+            amount: typeof req.body.amount === 'number' ? req.body.amount : NaN, // Forces number or NaN
+            date: new Date(req.body.date), // Forces date
+        }
+        // Save sanitized edits
         const editValues = await Transaction.findByIdAndUpdate(
             req.params.id,
-            req.body,
+            sanitizedData,
             { new: true, runValidators: true }
         );
-
+        // Error fallback
         if (!editValues) {
             return next(new AppError("Transaction not found", 404));
         }
-
+        // Update
         res.json(editValues);
     } catch (error) {
         next(error);

@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 // Define model schema via mongoose
 // Restrictions avoid script insertion and invalid data
 // Categories must match src/helpers/categoryGroups.js
-// Force UTC default to avoid timezone bugs
+// Force date UTC default to avoid timezone bugs
 const transactionSchema = new mongoose.Schema({
     title: { type: String, required: true, trim: true, maxlength: 100 },
     amount: {
