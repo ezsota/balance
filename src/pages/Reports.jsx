@@ -114,13 +114,14 @@ export default function Reports() {
     const balance = income + expenses;
 
     return (
-        <div className="container-fluid w-100 h-100 justify-content-center text-center">
+        <div className="container-fluid w-100 h-100 text-center border">
             {/* ROW1 - FILTER */}
             <div className="row">
                 <nav className="d-flex justify-content-center">
                     <FilterBox setFilters={setFilters} />
                 </nav>
             </div>
+
             {/* ROW2- CHARTS */}
             <div className="row">
                 <section className="col-12 col-md-6">
