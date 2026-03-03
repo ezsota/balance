@@ -2,6 +2,7 @@
 // Logic between transactionRoutes.js <=> Transactions.js
 // ==============================================
 import sanitizeHtml from "sanitize-html";
+import { checkBadWords } from "../utils/badwordsFilter.js";
 import Transaction from "../models/Transaction.js";
 import AppError from "../utils/AppError.js";
 
@@ -39,6 +40,11 @@ export const getTransactions = async (req, res, next) => {
 // Send as JSON if successful (201)
 export const createTransaction = async (req, res, next) => {
     try {
+        // Check for bad words, (throws error if contains)
+        checkBadWords({
+            title: req.body.title,
+            category: req.body.category
+        })
         // Sanitize requests
         const sanitizedData = {
             ...req.body,
@@ -74,6 +80,11 @@ export const deleteTransaction = async (req, res, next) => {
 // Error if not found
 export const editTransaction = async (req, res, next) => {
     try {
+        // Check for bad words, (throws error if contains)
+        checkBadWords({
+            title: req.body.title,
+            category: req.body.category
+        })
         // Sanitize requests
         const sanitizedData = {
             title: sanitizeString(req.body.title),
