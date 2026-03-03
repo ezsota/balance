@@ -27,11 +27,39 @@ const transactionsTestData = [
         amount: 3000,
         category: "Income",
         date: "09/30/1995"
+    },
+    {
+        _id: "MongoDB_id029380dg43",
+        title: "September Daycare Bill",
+        amount: -2456,
+        category: "Childcare",
+        date: "10/30/1995"
+    },
+    {
+        _id: "MongoDB_id983ergt43e",
+        title: "Vet Bill",
+        amount: -312,
+        category: "Pets",
+        date: "11/02/1995"
+    },
+    {
+        _id: "MongoDB_idsgtyhyrh7",
+        title: "Paycheck",
+        amount: 3000,
+        category: "Income",
+        date: "10/15/1995"
+    },
+    {
+        _id: "MongoDB_id989786u5ryteg",
+        title: "Paycheck",
+        amount: 3000,
+        category: "Income",
+        date: "10/30/1995"
     }
 ];
 // ** TESTING DATA **
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { deleteTransaction, getTransactions } from "../api/backendApi.js";
 import EditingModal from "./EditingModal.jsx";
 import editIcon from "../assets/edit-pencil.svg";
@@ -39,26 +67,40 @@ import deleteIcon from "../assets/delete-bin.svg";
 
 // Child Component: EditingModal.jsx
 export default function TransactionList() {
-    // Transaction data state
-    // const [transactionsData, setTransactionsData] = useState([]);
-    // ** TESTING ** :
+    // ** TESTING **
     const [transactionsData, setTransactionsData] = useState(transactionsTestData);
 
-    // Get and render transactions from backend
-    // ** TEMP CAUSES ERROR: VM583:1 Uncaught (in promise) SyntaxError: Unexpected token '<', "<!doctype "... is not valid JSON **
     useEffect(() => {
-        getTransactions().then(setTransactionsData);
+        const sorted = [...transactionsData].sort(
+            (a, b) => new Date(a.date) - new Date(b.date)
+        );
+        setTransactionsData(sorted);
     }, []);
-
-    // Used by openModal(), closeModal, and EditingModal.jsx
-    const [modalShow, setModalShow] = useState(false);
-    const [selectedTransaction, setSelectedTransaction] = useState({});
 
     function openModal(transaction) {
         setSelectedTransaction(transaction);
         setModalShow(true);
         console.log('Opened edit modal', transaction);
     };
+    // ** TESTING **
+
+    // Transaction data state
+    // const [transactionsData, setTransactionsData] = useState([]);
+
+    // Get transactions from backend then render date sorted
+    // ** TEMP CAUSES ERROR: VM583:1 Uncaught (in promise) SyntaxError: Unexpected token '<', "<!doctype "... is not valid JSON **
+    // useEffect(() => {
+    //     getTransactions().then(data => {
+    //         const sorted = [...data].sort(
+    //             (a, b) => new Date(a.date) - new Date(b.date)
+    //         );
+    //         setTransactionsData(sorted);
+    //     });
+    // }, []);
+
+    // Used by openModal(), closeModal, and EditingModal.jsx
+    const [modalShow, setModalShow] = useState(false);
+    const [selectedTransaction, setSelectedTransaction] = useState({});
 
     // Delete transaction based on confirmation
     async function handleDelete(transaction) {
@@ -80,9 +122,16 @@ export default function TransactionList() {
         console.log(`Deleted ${transaction._id}`);
     };
 
+    // PAGINATION
+    const [pageCounter, setPageCounter] = useState(1);
+    const ITEMS_PER_PAGE = 5;
+    const startAtItem = (pageCounter - 1) * ITEMS_PER_PAGE;
+    const paginatedList = transactionsData.slice(startAtItem, startAtItem + ITEMS_PER_PAGE);
+
+
     return (
         <section className="border rounded overflow-auto text-center shadow">
-            <header>
+            <header className="sticky">
                 <h2 className="text-center">History</h2>
             </header>
             {/* DATA TABLE */}
@@ -98,7 +147,7 @@ export default function TransactionList() {
                 </thead>
                 <tbody>
                     {(transactionsData.length > 0)
-                        ? transactionsData.map(transaction => (
+                        ? paginatedList.map(transaction => (
                             <tr key={transaction._id}>
                                 <td>{transaction.date}</td>
                                 <td>{transaction.title}</td>
@@ -123,7 +172,25 @@ export default function TransactionList() {
             </table>
             {/* PAGINATION */}
             <div>
-                {(transactionsData.length > 0) && <span style={{ color: "red" }}>&lt; PAGINATION WILL GO HERE &gt;</span>}
+                {(transactionsData.length > 0) &&
+                    <span>
+                        {/* BACK BUTTON */}
+                        <button
+                            className="btn bg-green py-0"
+                            disabled={pageCounter === 1}
+                            onClick={() => setPageCounter(page => page - 1)}
+                        >
+                            &lt;
+                        </button>
+                        {/* NEXT BUTTON */}
+                        <button
+                            className="btn bg-green py-0"
+                            disabled={startAtItem + ITEMS_PER_PAGE >= transactionsData.length}
+                            onClick={() => setPageCounter(page => page + 1)}
+                        >
+                            &gt;
+                        </button>
+                    </span>}
             </div>
             {/* CHILD COMPONENT */}
             <EditingModal
