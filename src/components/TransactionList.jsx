@@ -40,9 +40,9 @@ import deleteIcon from "../assets/delete-bin.svg";
 // Child Component: EditingModal.jsx
 export default function TransactionList() {
     // Transaction data state
-    const [transactionsData, setTransactionsData] = useState([]);
+    // const [transactionsData, setTransactionsData] = useState([]);
     // ** TESTING ** :
-    // const [transactionsData, setTransactionsData] = useState(transactionsTestData);
+    const [transactionsData, setTransactionsData] = useState(transactionsTestData);
 
     // Get and render transactions from backend
     // ** TEMP CAUSES ERROR: VM583:1 Uncaught (in promise) SyntaxError: Unexpected token '<', "<!doctype "... is not valid JSON **
