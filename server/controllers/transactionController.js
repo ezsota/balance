@@ -1,19 +1,10 @@
 // ==============================================
 // Logic between transactionRoutes.js <=> Transactions.js
 // ==============================================
-import sanitizeHtml from "sanitize-html";
+import { sanitizeString } from "../utils/sanitizeString.js";
 import { checkBadWords } from "../utils/badwordsFilter.js";
 import Transaction from "../models/Transaction.js";
 import AppError from "../utils/AppError.js";
-
-// Sanitize user generate strings
-// Avoids script injection
-function sanitizeString(value) {
-    return sanitizeHtml(value, {
-        allowedTags: [],
-        allowedAttributes: {}
-    });
-}
 
 // GET all transactions asyncly
 // Send as JSON to client/app

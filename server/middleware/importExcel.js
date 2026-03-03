@@ -2,6 +2,8 @@ import multer from "multer";
 import XLSX from "xlsx";
 import fs from "fs";
 import AppError from "../utils/AppError.js";
+import { checkBadWords } from "../utils/badwordsFilter.js";
+import { sanitizeString } from "../utils/sanitizeString.js";
 
 // Init multer for file uploads
 // Receive file from ExcelUploader.jsx
@@ -26,20 +28,34 @@ export const parseExcel = (req, res, next) => {
         const data = XLSX.utils.sheet_to_json(sheet);
         // Validate file
         const validFile = data.filter(entry =>
-            entry.title && 
+            entry.title &&
             typeof entry.amount === "number" &&
-            entry.amount !== 0 && 
-            entry.category,
+            entry.amount !== 0 &&
+            entry.category &&
             entry.date
         );
         // Throw validation fail error
         if (validFile.length === 0) {
             throw new AppError("No valid transaction data found", 400);
         }
+        // Check validated file for bad words
+        validFile.forEach(entry => {
+            checkBadWords({
+                title: entry.title,
+                category: entry.category
+            });
+        });
+        // Sanitize validated file
+        const sanitizedData = validFile.map(entry => ({
+            title: sanitizeString(entry.title),
+            category: sanitizeString(entry.category),
+            amount: entry.amount,
+            date: new Date(entry.date),
+        }));
         // Send valid data
-        req.transactions = validFile;
+        req.transactions = sanitizedData;
         // Send to uploadTransactions() controller
-        next(); 
+        next();
     } catch (error) {
         // Catch errors
         next(error);
