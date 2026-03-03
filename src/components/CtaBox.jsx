@@ -10,7 +10,7 @@ export default function CtaBox() {
     }
 
     return (
-        <aside className="text-center mt-3 mt-md-5">
+        <aside className="text-center mt-3 mt-md-4">
             <h2>New Transactions?</h2>
             <p>Use the transactions tab to update your data.</p>
             <button className="btn btn-success bg-green px-5" onClick={handleCtaClick}>Add Transactions</button>

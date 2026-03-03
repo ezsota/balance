@@ -130,15 +130,18 @@ export default function Reports() {
                     <DoughnutChart transactions={filteredTransactions} />
                 </section>
             </div>
-            {/* ROW3 - CARDS & LIST */}
-            <div className="row">
-                <section className="col-12 col-md-8">
+
+            {/* ROW3 - CARDS */}
+            <section className="row col-12 mx-auto" id="report-cards-container">
+                <IncomeCard income={income} formatCurrencyUSD={formatCurrencyUSD} />
+                <ExpenseCard expenses={expenses} formatCurrencyUSD={formatCurrencyUSD} />
+                <BalanceCard balance={balance} formatCurrencyUSD={formatCurrencyUSD} />
+            </section>
+
+            {/* ROW4 - LIST */}
+            <div className="row mt-md-4">
+                <section className="col-12">
                     <TransactionList transactions={filteredTransactions} />
-                </section>
-                <section className="col-12 col-md-4" id="report-cards-container">
-                    <IncomeCard income={income} formatCurrencyUSD={formatCurrencyUSD} />
-                    <ExpenseCard expenses={expenses} formatCurrencyUSD={formatCurrencyUSD} />
-                    <BalanceCard balance={balance} formatCurrencyUSD={formatCurrencyUSD} />
                 </section>
             </div>
         </div>

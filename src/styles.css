@@ -110,20 +110,11 @@ nav .active {
     color: #04AA6D !important;
 }
 
-/* OVERVIEW PAGE */
-#demo-del-btn {
-    font-size: 12px;
-}
-
-#overview-chart {
-    height: 400px;
-    width:100% !important;
-    max-width: 700px !important;
-}
-
+/* SUMMARY CARDS */
 .overview-cards {
     padding: 0 !important;
     background-color: #E7E9EB !important;
+    min-height: 80px !important;
 }
 
 .overview-card-sm {
@@ -131,9 +122,26 @@ nav .active {
     max-width: 350px !important;
 }
 
+.overview-cards .card-body {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+/* OVERVIEW PAGE */
+#demo-del-btn {
+    font-size: 12px;
+}
+
+#overview-chart {
+    height: 400px;
+    width: 100% !important;
+    max-width: 700px !important;
+}
+
 /* TRANSACTIONS PAGE */
 #transaction-input-box {
-    width:100% !important;
+    width: 100% !important;
     max-width: 700px !important;
     margin: 10px auto 30px auto !important;
 }
@@ -170,12 +178,19 @@ nav .active {
 
 /* MEDIA QUERIES */
 @media(max-width: 768px) {
+
     .overview-card-sm .card-header,
     .overview-card-sm .card-body {
         padding: 2px !important;
     }
 
     .overview-card-sm {
-        margin: 8px auto !important;
+        margin: auto !important;
+
+    }
+
+    .overview-cards-container {
+        padding-top: 2px !important;
+        padding-bottom: 20px !important;
     }
 }
