@@ -56,7 +56,7 @@ export default function DoughnutChart(props) {
     };
 
     return (
-        <section className="border rounded text-center my-2 my-md-4 mx-auto" id="overview-chart">
+        <section className="border rounded shadow p-2 text-center my-2 mb-md-4 mx-auto" id="overview-chart">
             {/* CHART RENDER */}
             <Doughnut data={data} options={chartOptions} />
         </section>

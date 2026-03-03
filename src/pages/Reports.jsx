@@ -117,6 +117,9 @@ export default function Reports() {
         <div className="container-fluid w-100 h-100 text-center">
             {/* ROW1 - FILTER */}
             <div className="row">
+                <header>
+                    <h2>Filter Range</h2>
+                </header>
                 <nav className="d-flex justify-content-center">
                     <FilterBox setFilters={setFilters} />
                 </nav>
@@ -124,6 +127,9 @@ export default function Reports() {
 
             {/* ROW2- CHARTS */}
             <div className="row">
+                <header className="mt-4">
+                    <h2>Charts</h2>
+                </header>
                 <section className="col-12 col-md-6">
                     <AreaChart transactions={filteredTransactions} />
                 </section>
@@ -134,6 +140,9 @@ export default function Reports() {
 
             {/* ROW3 - CARDS */}
             <section className="row col-12 mx-auto" id="report-cards-container">
+                <header>
+                    <h2>Summary</h2>
+                </header>
                 <IncomeCard income={income} formatCurrencyUSD={formatCurrencyUSD} />
                 <ExpenseCard expenses={expenses} formatCurrencyUSD={formatCurrencyUSD} />
                 <BalanceCard balance={balance} formatCurrencyUSD={formatCurrencyUSD} />

@@ -54,7 +54,7 @@ export default function AreaChart(props) {
     };
 
     return (
-        <section className="border rounded text-center my-2 my-md-4 mx-auto" id="overview-chart">
+        <section className="border rounded shadow text-center my-2 mb-md-4 mx-auto" id="overview-chart">
             {/* CHART RENDER */}
             <Line data={data} options={chartOptions} />
         </section>
