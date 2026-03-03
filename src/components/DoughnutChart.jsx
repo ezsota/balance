@@ -1,6 +1,5 @@
 // React ChartJS Dougnut demo: https://react-chartjs-2.js.org/examples/doughnut-chart
 
-import { useMemo } from "react";
 // Doughnut chart library and components
 import { Doughnut } from "react-chartjs-2";
 import {
@@ -13,11 +12,6 @@ import {
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function DoughnutChart(props) {
-    // Get unique categories
-    const labels = Array.from(new Set(
-        props.transactions.map(transaction => transaction.category)
-    ));
-
     // Category count obj container
     const categoryCounts = {};
     // Count each category occurrence
@@ -32,19 +26,44 @@ export default function DoughnutChart(props) {
         }
     });
 
-    // Create dataPoints array for chart data
-    const dataPoints = labels.map(category => categoryCounts[category] || 0);
+    // Calculate total transactions
+    const totalCount = Object.values(categoryCounts).reduce((sum, count) => sum + count, 0);
+
+    // Calculate percentages and labels
+    const labels = Object.keys(categoryCounts).map(category => {
+        const percent = Math.round((categoryCounts[category] / totalCount) * 100);
+        return `${category} (${percent}%)`; // label format
+    });
+
+    // Create dataPoints array for chart data using percentages
+    const dataPoints = Object.values(categoryCounts).map(count => Math.round((count / totalCount) * 100));
+
+    // Gnerate fill colors, with color difference
+    function generateColors(categoryCount) {
+        const backgroundColors = [];
+
+        for (let i = 0; i < categoryCount; i++) {
+            const r = (i * 40) % 256;
+            const g = (i * 80) % 256;
+            const b = (i * 120) % 256;
+            backgroundColors.push(`rgba(${r}, ${g}, ${b}, 1)`);
+        }
+
+        return { backgroundColors };
+    };
+    // Assign generated fill colors
+    const { backgroundColors } = generateColors(dataPoints.length);
 
     // Chart data configuration
     const data = {
         labels,
         datasets: [
             {
-                label: "Category Count",
+                label: "Percentage",
                 data: dataPoints,
                 borderWidth: 2,
-                backgroundColor: 'rgba(38, 226, 226, 0.2)', // Area color
-                borderColor: 'rgba(75, 192, 192, 1)', // Line color
+                backgroundColor: backgroundColors, // Fill color
+                borderColor: `rgb(255, 255, 255)`, // Line color
             }
         ]
     };

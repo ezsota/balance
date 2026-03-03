@@ -41,8 +41,8 @@ export default function AreaChart(props) {
                 borderWidth: 2,
                 tension: 0, // Line sharpness
                 fill: true, //Area chart on
-                backgroundColor: 'rgba(38, 226, 226, 0.2)', // Area color
-                borderColor: 'rgba(75, 192, 192, 1)', // Line color
+                backgroundColor: 'rgba(77, 222, 108, 0.65)', // Area color
+                borderColor: 'rgb(124, 147, 147)', // Line color
             }
         ]
     };
