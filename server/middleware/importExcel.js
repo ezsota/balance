@@ -51,6 +51,8 @@ export const parseExcel = (req, res, next) => {
             category: sanitizeString(entry.category),
             amount: entry.amount,
             date: new Date(entry.date),
+            // TTL (time-to-live) del after 1hr [for demo, reduce backend clutter]:
+            expiresAt: new Date(Date.now() + 60 * 60 * 1000)
         }));
         // Send valid data
         req.transactions = sanitizedData;
