@@ -176,7 +176,7 @@ export default function TransactionList() {
                     <span>
                         {/* BACK BUTTON */}
                         <button
-                            className="btn bg-green py-0"
+                            className="btn btn-success bg-green m-1 py-0"
                             disabled={pageCounter === 1}
                             onClick={() => setPageCounter(page => page - 1)}
                         >
@@ -184,7 +184,7 @@ export default function TransactionList() {
                         </button>
                         {/* NEXT BUTTON */}
                         <button
-                            className="btn bg-green py-0"
+                            className="btn btn-success bg-green m-1  py-0"
                             disabled={startAtItem + ITEMS_PER_PAGE >= transactionsData.length}
                             onClick={() => setPageCounter(page => page + 1)}
                         >
