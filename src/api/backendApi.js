@@ -1,6 +1,11 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
 // Get ALL transaction data, if there is a filter then get FILTERED
+/*	FilterBox.js receives dates from user input -> 
+	FilterBox onSubmit setFilters in parent -> 
+	Parent component init getTransactions(filters) -> 
+    api/backendApi.js returns filtered transactions-> 
+	Parent component updates state to filtered transactions */
 export async function getTransactions(filters = {}) {
     const params = new URLSearchParams(filters);
     const response = await fetch(`${API_URL}/api/transactions?${params}`);

@@ -44,5 +44,5 @@ const transactionSchema = new mongoose.Schema({
     date: { type: Date, default: () => new Date(), required: true }
 });
 
-// Export model as "Transaction" to MongoDB:
+// Export model as "Transaction" to Express:
 export default mongoose.model("Transaction", transactionSchema);
