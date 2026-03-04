@@ -1,30 +1,3 @@
-/*
-Components: Filterbox.jsx, TransactionChart.jsx, TransactionList.jsx SummaryCards.jsx
-
-                       REPORT
-    ===========================================
-                    [FILTER BOX]
-    ===========================================
-         
-          ~Area Chart of Filtered History~
-    
-    ===========================================
-    ------------------------------  |Filtered|
-    ------------------------------  |Expenses|
-    ------------------------------  |Card    |
-    ------------------------------  ----------
-            FILTERED                |Filtered|
-        TRANSACTIONS LIST           |Income  |
-    ------------------------------  |Card    |
-    ------------------------------  ----------
-    ------------------------------  |Filtered|
-    ------------------------------  |Balance |
-    ------------------------------  |Card    | 
-    ===========================================
-                [EXPORT TO PDF]
-    ===========================================
-    */
-
 import { useState, useEffect } from "react";
 import { getTransactions } from "../api/backendApi.js";
 import FilterBox from "../components/FilterBox.jsx";
@@ -35,6 +8,7 @@ import IncomeCard from "../components/IncomeCard.jsx";
 import BalanceCard from "../components/BalanceCard.jsx";
 import ExpenseCard from "../components/ExpenseCard.jsx";
 import TransactionList from "../components/TransactionList.jsx";
+import PdfExporter from "../components/PdfExporter.jsx";
 
 export default function Reports() {
     // Date filters
@@ -152,6 +126,13 @@ export default function Reports() {
             <div className="row mt-md-4">
                 <section className="col-12">
                     <TransactionList transactions={filteredTransactions} />
+                </section>
+            </div>
+
+            {/* ROW5 - EXPORT PDF */}
+            <div className="row mt-md-4">
+                <section className="col-12">
+                    <PdfExporter />
                 </section>
             </div>
         </div>
