@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import { editTransaction } from "../api/backendApi.js";
-import { formatCurrencyUSD } from "../helpers/calculateCards.js";
 
 // Parent Component: TransactionList.jsx
 export default function EditingModal(props) {

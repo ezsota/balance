@@ -61,7 +61,7 @@ const transactionsTestData = [
 
 import { useState, useEffect } from "react";
 import { deleteTransaction, getTransactions } from "../api/backendApi.js";
-import { formatCurrencyUSD } from "../helpers/calculateCards.js";
+import { formatCurrencyUSD } from "../helpers/formatUSD.js";
 import EditingModal from "./EditingModal.jsx";
 import editIcon from "../assets/edit-pencil.svg";
 import deleteIcon from "../assets/delete-bin.svg";

@@ -1,6 +1,17 @@
-import { calcIncome } from "../helpers/calculateCards.js";
+import { formatCurrencyUSD } from "../helpers/formatUSD.js";
 
 export default function IncomeCard(props) {
+
+    // Get transactions gt 0 and add those together
+    const calcIncome = (transactions) => {
+        const totalIncome = transactions
+            .filter(transaction => transaction.amount > 0)
+            .reduce((sum, income) => sum + income.amount, 0);
+
+        return formatCurrencyUSD(totalIncome);
+    };
+
+
     return (
         <div className="col-12 col-md-4 overview-cards-container">
             <article className="card overview-cards overview-card-sm shadow mx-auto report-card">
