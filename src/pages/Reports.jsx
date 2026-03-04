@@ -3,7 +3,6 @@ import { getTransactions } from "../api/backendApi.js";
 import FilterBox from "../components/FilterBox.jsx";
 import AreaChart from "../components/AreaChart.jsx";
 import DoughnutChart from "../components/DoughnutChart.jsx";
-import SummaryCards from "../components/SummaryCards.jsx";
 import IncomeCard from "../components/IncomeCard.jsx";
 import BalanceCard from "../components/BalanceCard.jsx";
 import ExpenseCard from "../components/ExpenseCard.jsx";
@@ -60,33 +59,6 @@ export default function Reports() {
         getTransactions(filters).then(setFilteredTransactions);
     }, [filters]);
 
-
-    // =================
-    // SUMMARY CARDS    
-    // =================
-    // Format amounts function
-    function formatCurrencyUSD(amount) {
-        return new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-        }).format(amount);
-    };
-
-    // Get transactions gt 0 and add those together
-    const income = filteredTransactions
-        .filter(transaction => transaction.amount > 0)
-        .reduce((sum, income) => sum + income.amount, 0);
-
-    // Get transactions lt 0 and add those together
-    const expenses = filteredTransactions
-        .filter(transaction => transaction.amount < 0)
-        .reduce((sum, expense) => sum + expense.amount, 0);
-
-    // Get the account balance
-    const balance = income + expenses;
-
     return (
         <div className="container-fluid w-100 h-100 text-center">
             {/* ROW1 - FILTER */}
@@ -117,9 +89,9 @@ export default function Reports() {
                 <header>
                     <h2>Summary</h2>
                 </header>
-                <IncomeCard income={income} formatCurrencyUSD={formatCurrencyUSD} />
-                <ExpenseCard expenses={expenses} formatCurrencyUSD={formatCurrencyUSD} />
-                <BalanceCard balance={balance} formatCurrencyUSD={formatCurrencyUSD} />
+                <IncomeCard transactions={filteredTransactions} />
+                <ExpenseCard transactions={filteredTransactions} />
+                <BalanceCard transactions={filteredTransactions} />
             </section>
 
             {/* ROW4 - LIST */}

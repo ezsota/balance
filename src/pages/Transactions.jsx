@@ -1,17 +1,3 @@
-/* 
-Components: TransactionInputs.jsx + Transaction List.jsx
-    ===================================
-    Transaction Input Form / XL Uploader 
-            (Toggle Between)
-    ===================================
-              Transaction List
-    -----------------------------------
-    -----------------------------------
-    -----------------------------------
-    ===================================
-
-*/
-
 import TransactionInputBox from "../components/TransactionInputBox.jsx";
 import TransactionList from "../components/TransactionList.jsx";
 

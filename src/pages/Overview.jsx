@@ -1,22 +1,9 @@
-/* 
-Components: TransactionChart.jsx, SummaryCards.jsx
-                       OUTLOOK
-    ===========================================
-         
-           ~Area Chart of entire history~
-    
-    ===========================================
-    |Total   |       |Total   |      |Net     |
-    |Expenses|       |Income  |      |Balance |
-    |Card    |       |Card    |      |Card    |
-    ===========================================
-              [ADD TRANSACTIONS CTA]
-*/
-
 import { useState, useEffect } from "react";
 import { getTransactions } from "../api/backendApi.js";
 import AreaChart from "../components/AreaChart.jsx";
-import SummaryCards from "../components/SummaryCards.jsx";
+import IncomeCard from "../components/IncomeCard.jsx";
+import BalanceCard from "../components/BalanceCard.jsx";
+import ExpenseCard from "../components/ExpenseCard.jsx";
 import CtaBox from "../components/CTABox.jsx";
 
 export default function Overview() {
@@ -87,10 +74,11 @@ export default function Overview() {
             <AreaChart transactions={transactions} />
 
             {/* CARDS - GRID BOX */}
-            <section className="container text-center">
-                {/* CARDS - GRID ROW */}
+            <section className="container text-center mt-4">
                 <div className="row justify-content-center">
-                    <SummaryCards transactions={transactions} />
+                    <IncomeCard transactions={transactions} />
+                    <ExpenseCard transactions={transactions} />
+                    <BalanceCard transactions={transactions} />
                 </div>
             </section>
 

@@ -31,6 +31,7 @@ server/.env
 
 #Etc
 my_dev_notes*
+/retired
 
 #Env Vars
 *.env*
