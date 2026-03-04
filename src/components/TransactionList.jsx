@@ -59,8 +59,9 @@ const transactionsTestData = [
 ];
 // ** TESTING DATA **
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { deleteTransaction, getTransactions } from "../api/backendApi.js";
+import { formatCurrencyUSD } from "../helpers/calculateCards.js";
 import EditingModal from "./EditingModal.jsx";
 import editIcon from "../assets/edit-pencil.svg";
 import deleteIcon from "../assets/delete-bin.svg";
@@ -153,7 +154,7 @@ export default function TransactionList() {
                                 <td>{transaction.title}</td>
                                 <td>{transaction.category}</td>
                                 <td className={transaction.amount.toString().startsWith('-') ? 'table-danger' : 'table-success'}>
-                                    ${transaction.amount}
+                                    {formatCurrencyUSD(transaction.amount)}
                                 </td>
                                 <td>
                                     <div className="d-flex justify-content-center gap-1">

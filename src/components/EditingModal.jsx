@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import { editTransaction } from "../api/backendApi.js";
+import { formatCurrencyUSD } from "../helpers/calculateCards.js";
 
 // Parent Component: TransactionList.jsx
 export default function EditingModal(props) {
@@ -47,19 +48,19 @@ export default function EditingModal(props) {
                 <form>
                     <div className="mb-3">
                         <label htmlFor="date" className="form-label">Date:</label>
-                        <input type="date" name="date" className="form-control" value={editData?.date || ""} onChange={handleChange} />
+                        <input type="date" name="date" className="form-control" value={editData?.date || ""} required onChange={handleChange} />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="title" className="form-label">Title:</label>
-                        <input type="text" name="title" className="form-control" value={editData?.title || ""} onChange={handleChange} />
+                        <input type="text" name="title" className="form-control" value={editData?.title || ""} maxLength={50} required onChange={handleChange} />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="category" className="form-label">Category:</label>
-                        <input type="text" name="category" className="form-control" value={editData?.category || ""} onChange={handleChange} />
+                        <input type="text" name="category" className="form-control" value={editData?.category || ""} required onChange={handleChange} />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="amount" className="form-label">Amount:</label>
-                        <input type="number" name="amount" className="form-control" value={editData?.amount || ""} onChange={handleChange} />
+                        <input type="number" name="amount" className="form-control" value={editData?.amount || ""} required onChange={handleChange} />
                     </div>
                 </form>
             </Modal.Body>

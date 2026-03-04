@@ -54,7 +54,13 @@ export default function TransactionForm(props) {
                 {/* TITLE */}
                 <div className="col-12 col-md-6 justify-content-center">
                     <label htmlFor="title" className="form-label">Title</label>
-                    <input type="text" id="title" className="form-control text-center" placeholder='Ex: "October Rent"' required />
+                    <input
+                        type="text"
+                        id="title"
+                        className="form-control text-center"
+                        placeholder='Ex: "October Rent"'
+                        maxLength={50}
+                        required />
                 </div>
             </div>
 

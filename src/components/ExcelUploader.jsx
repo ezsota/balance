@@ -53,6 +53,7 @@ export default function ExcelUploader(props) {
                     accept=".xlsx"
                     onChange={event => setUserFile(event.target.files[0])}
                     className="form-control w-100"
+                    required
                 />
             </div>
             {/* SEND FILE */}

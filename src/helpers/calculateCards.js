@@ -1,5 +1,5 @@
 // Format amounts to USD function
-function formatCurrencyUSD(amount) {
+export function formatCurrencyUSD(amount) {
     return new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
