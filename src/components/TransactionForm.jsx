@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createTransaction } from "../api/backendApi.js";
 import { CATEGORY_GROUPS } from "../helpers/categoryGroups.js";
 
 export default function TransactionForm(props) {
@@ -66,7 +67,7 @@ export default function TransactionForm(props) {
 
             {/* ROW-2  */}
             <div className="row">
-                {/* CATEGORY */}
+                {/* CATEGORY DROPDOWN*/}
                 <div className="col-12 col-md-6 justify-content-center">
                     <label htmlFor="category" className="form-label">Category</label>
                     <select

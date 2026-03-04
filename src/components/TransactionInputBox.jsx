@@ -1,10 +1,3 @@
-/*
-    ===================================
-    Transaction Input Form / XL Uploader 
-            (Toggle Between)
-    ===================================
-*/
-
 import { useState } from "react";
 import { createTransaction, uploadExcel } from "../api/backendApi.js";
 import TransactionForm from "./TransactionForm.jsx";

@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import { editTransaction } from "../api/backendApi.js";
+import { CATEGORY_GROUPS } from "../helpers/categoryGroups.js";
 
 // Parent Component: TransactionList.jsx
 export default function EditingModal(props) {
     // Local edit data state
     const [editData, setEditData] = useState(null);
+    console.log('edit data', editData.category);
 
     // Set editData when props.selectedTransaction changes
     // Allows changes within EditingModal.jsx component
@@ -55,7 +57,28 @@ export default function EditingModal(props) {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="category" className="form-label">Category:</label>
-                        <input type="text" name="category" className="form-control" value={editData?.category || ""} required onChange={handleChange} />
+                        <select
+                            id="category"
+                            className="form-select"
+                            value={editData?.category || ""}
+                            required
+                            name="category"
+                            onChange={handleChange}
+                            >
+                            <option value="" disabled>
+                                Select a Category
+                            </option>
+                            {Object.entries(CATEGORY_GROUPS).map(([groupName, categories]) => (
+                                <optgroup key={groupName} label={groupName}>
+                                    {categories.map(category => (
+                                        <option key={category} value={category}>
+                                            {category}
+                                        </option>
+                                    ))}
+                                </optgroup>
+                            ))}
+                        </select>
+                        {/* <input type="text" name="category" className="form-control" value={editData?.category || ""} required onChange={handleChange} /> */}
                     </div>
                     <div className="mb-3">
                         <label htmlFor="amount" className="form-label">Amount:</label>
