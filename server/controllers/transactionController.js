@@ -44,8 +44,11 @@ export const createTransaction = async (req, res, next) => {
             amount: typeof req.body.amount === 'number' ? req.body.amount : NaN, // Forces number or NaN
             date: new Date(req.body.date), // Forces date
         }
-        // Create sanitized request
-        const transaction = new Transaction(sanitizedData);
+        // Create sanitized request + TTL after 1 hour
+        const transaction = new Transaction({
+            ...sanitizedData,
+            expiresAt: new Date(Date.now() + 60 * 60 * 1000)
+        });
         await transaction.save();
         res.status(201).json(transaction);
     } catch (error) {

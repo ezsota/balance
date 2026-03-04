@@ -18,31 +18,43 @@ const transactionSchema = new mongoose.Schema({
     },
     category: {
         type: String, required: true, enum: [
-        "Business",
-        "Insurance",
-        "Payments",
-        "Savings",
-        "Childcare",
-        "Clothing",
-        "Education",
-        "Food",
-        "Housing",
-        "Transportation",
-        "Utilities",
-        "Entertainment",
-        "Occasions",
-        "Recreation",
-        "Social",
-        "Vacations",
-        "Gifts",
-        "Memberships",
-        "Pets",
-        "Seasonal",
-        "Subscriptions"
+            "Business",
+            "Insurance",
+            "Payments",
+            "Savings",
+            "Childcare",
+            "Clothing",
+            "Education",
+            "Food",
+            "Housing",
+            "Transportation",
+            "Utilities",
+            "Entertainment",
+            "Occasions",
+            "Recreation",
+            "Social",
+            "Vacations",
+            "Gifts",
+            "Memberships",
+            "Pets",
+            "Seasonal",
+            "Subscriptions"
         ]
     },
-    date: { type: Date, default: () => new Date(), required: true }
+    date: { type: Date, default: () => new Date(), required: true },
+
+    //TTL
+    expiresAt: {
+        type: Date,
+        default: null
+    }
 });
+
+// TTL index, MongoDB deletes after expiresAt is reached
+transactionSchema.index(
+    { expiresAt: 1 },
+    { expireAfterSeconds: 0 }
+);
 
 // Export model as "Transaction" to Express:
 export default mongoose.model("Transaction", transactionSchema);
