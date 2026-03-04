@@ -1,19 +1,31 @@
 import { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import { editTransaction } from "../api/backendApi.js";
+import { formatCurrencyUSD } from "../helpers/formatUSD.js";
 import { CATEGORY_GROUPS } from "../helpers/categoryGroups.js";
 
 // Parent Component: TransactionList.jsx
 export default function EditingModal(props) {
-    // Local edit data state
+    // Local edits
     const [editData, setEditData] = useState(null);
+    console.log('edit data', editData);
+    // Local amount rendered
+    const [amountDisplayed, setAmountDisplayed] = useState("");
+    console.log('amount input', amountDisplayed);
+    // Toggle amount edit state
+    const [isEditingAmount, setIsEditingAmount] = useState(false);
+    console.log('is editing?', isEditingAmount);
+
 
     // Set editData when props.selectedTransaction changes
     // Allows changes within EditingModal.jsx component
     useEffect(() => {
-        if (props.selectedTransaction) {
-            setEditData(props.selectedTransaction);
-        }
+        if (!props.selectedTransaction) return;
+
+        setEditData(props.selectedTransaction);
+        setAmountDisplayed(
+            props.selectedTransaction.amount?.toString() ?? ""
+        );
     }, [props.selectedTransaction]);
 
     // Sync editData state with form edits
@@ -46,14 +58,17 @@ export default function EditingModal(props) {
             <Modal.Body>
                 {/* Values opt chained and fallback to avoid crashes */}
                 <form>
+                    {/* DATE EDIT */}
                     <div className="mb-3">
                         <label htmlFor="date" className="form-label">Date:</label>
                         <input type="date" name="date" className="form-control" value={editData?.date || ""} required onChange={handleChange} />
                     </div>
+                    {/* TITLE EDIT */}
                     <div className="mb-3">
                         <label htmlFor="title" className="form-label">Title:</label>
                         <input type="text" name="title" className="form-control" value={editData?.title || ""} maxLength={50} required onChange={handleChange} />
                     </div>
+                    {/* CATEGORY EDIT */}
                     <div className="mb-3">
                         <label htmlFor="category" className="form-label">Category:</label>
                         <select
@@ -63,7 +78,7 @@ export default function EditingModal(props) {
                             required
                             name="category"
                             onChange={handleChange}
-                            >
+                        >
                             <option value="" disabled>
                                 Select a Category
                             </option>
@@ -78,9 +93,48 @@ export default function EditingModal(props) {
                             ))}
                         </select>
                     </div>
+                    {/* AMOUNT EDIT */}
                     <div className="mb-3">
                         <label htmlFor="amount" className="form-label">Amount:</label>
-                        <input type="number" name="amount" className="form-control" value={editData?.amount || ""} required onChange={handleChange} />
+                        <input
+                            required
+                            id="amount"
+                            type="text"
+                            className="form-control"
+                            placeholder='Ex: "-1000.50" OR "1000.50"'
+                            value={
+                                isEditingAmount
+                                    ? amountDisplayed
+                                    : formatCurrencyUSD(editData?.amount ?? 0)
+                            }
+                            onFocus={() => {
+                                // Activate input rendering
+                                setIsEditingAmount(true);
+                            }}
+                            onChange={(event) => {
+                                const rawValue = event.target.value;
+                                // Store only digits, minus, and periods
+                                const cleanedValue = rawValue.replace(/[^0-9.-]/g, "");
+                                setAmountDisplayed(cleanedValue);
+                            }}
+                            onBlur={() => {
+                                setIsEditingAmount(false);
+
+                                const num = Number(amountDisplayed);
+                                if (Number.isNaN(num)) {
+                                    return;
+                                }
+
+                                // store NUMBER in state
+                                setEditData(prev => ({
+                                    ...prev,
+                                    amount: Number(num.toFixed(2))
+                                }));
+
+                                // keep input in sync
+                                setAmountDisplayed(num.toFixed(2));
+                            }}
+                        />
                     </div>
                 </form>
             </Modal.Body>

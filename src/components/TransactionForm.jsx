@@ -115,7 +115,7 @@ export default function TransactionForm(props) {
                             const validValue = strippedValue.replace(/[^0-9.-]/g, "");
                             // Store display value (for frontend)
                             setDisplayAmount(validValue);
-                            // Store calc value (for backend)
+                            // Store number value (for backend)
                             const calcValue = Number(validValue);
                             setNumericAmount(Number.isNaN(calcValue) ? 0 : calcValue);
                         }}
