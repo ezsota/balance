@@ -7,7 +7,6 @@ import { CATEGORY_GROUPS } from "../helpers/categoryGroups.js";
 export default function EditingModal(props) {
     // Local edit data state
     const [editData, setEditData] = useState(null);
-    console.log('edit data', editData.category);
 
     // Set editData when props.selectedTransaction changes
     // Allows changes within EditingModal.jsx component
@@ -78,7 +77,6 @@ export default function EditingModal(props) {
                                 </optgroup>
                             ))}
                         </select>
-                        {/* <input type="text" name="category" className="form-control" value={editData?.category || ""} required onChange={handleChange} /> */}
                     </div>
                     <div className="mb-3">
                         <label htmlFor="amount" className="form-label">Amount:</label>
