@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { createTransaction, uploadExcel } from "../api/backendApi.js";
 import TransactionForm from "./TransactionForm.jsx";
-import ExcelUploader from "./ExcelUploader.jsx";
 
 export default function TransactionInputBox() {
     // NAV TAB STATE -> used consts for clarity and avoiding typos
@@ -35,9 +33,9 @@ export default function TransactionInputBox() {
             {/* INPUT DISPLAY */}
             <div className="card-body">
                 {/* TAB 1 */}
-                {activeTab === tab1 && <TransactionForm createTransaction={createTransaction} />}
+                {activeTab === tab1 && <TransactionForm />}
                 {/* TAB 2 */}
-                {activeTab === tab2 && <ExcelUploader handleUpload={uploadExcel} />}
+                {activeTab === tab2 && <ExcelUploader />}
             </div>
         </section>
     )

@@ -9,6 +9,7 @@
         MongoDB
 */
 import { useState } from "react";
+import { uploadExcel } from "../api/backendApi.js";
 
 export default function ExcelUploader(props) {
     const [userFile, setUserFile] = useState(null);
@@ -21,7 +22,7 @@ export default function ExcelUploader(props) {
             return;
         }
         // Send file if selected
-        if (userFile) props.handleUpload(userFile);
+        if (userFile) uploadExcel(userFile);
     };
 
     return (

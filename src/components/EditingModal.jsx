@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { apiCaller } from "../helpers/apiCaller";
 import { editTransaction } from "../api/backendApi.js";
 import { formatCurrencyUSD } from "../helpers/formatUSD.js";
 import { CATEGORY_GROUPS } from "../helpers/categoryGroups.js";
@@ -38,8 +40,9 @@ export default function EditingModal(props) {
     };
 
     // Send editData to backend for update
+    const navigate = useNavigate();
     async function saveEdits() {
-        await editTransaction(editData._id, editData);
+        await apiCaller(() => editTransaction(editData._id, editData), navigate);
         closeModal();
     };
 

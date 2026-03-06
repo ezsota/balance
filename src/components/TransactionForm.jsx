@@ -1,8 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { apiCaller } from "../helpers/apiCaller";
 import { createTransaction } from "../api/backendApi.js";
 import { CATEGORY_GROUPS } from "../helpers/categoryGroups.js";
 
-export default function TransactionForm(props) {
+export default function TransactionForm() {
+    const navigate = useNavigate();
+
     // Amount state for frontend display
     const [displayAmount, setDisplayAmount] = useState("");
     // ** TESTING **
@@ -15,7 +19,7 @@ export default function TransactionForm(props) {
     return (
         <form
             className="row gap-2 justify-content-center text-start mx-auto h-100"
-            onSubmit={(event) => {
+            onSubmit={async (event) => {
                 event.preventDefault();
                 // Obj for backend
                 const formData = {
@@ -27,8 +31,8 @@ export default function TransactionForm(props) {
                 // ** TESTING **
                 console.log("POST TEST", formData);
 
-                // backend HTTP POST req
-                props.createTransaction(formData);
+                // backend HTTP POST req via helper
+                await apiCaller(() => createTransaction(formData), navigate);
 
                 // Clear form DOM inputs
                 event.target.reset();

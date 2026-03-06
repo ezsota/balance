@@ -60,6 +60,8 @@ const transactionsTestData = [
 // ** TESTING DATA **
 
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { apiCaller } from "../helpers/apiCaller.js";
 import { deleteTransaction, getTransactions } from "../api/backendApi.js";
 import { formatCurrencyUSD } from "../helpers/formatUSD.js";
 import EditingModal from "./EditingModal.jsx";
@@ -77,27 +79,37 @@ export default function TransactionList() {
         );
         setTransactionsData(sorted);
     }, []);
+    // ** TESTING **
+
+    // Transaction data state
+    // const [transactionsData, setTransactionsData] = useState([]);
+
+    // Get transactions sorted from backend
+    // Handle errors via useNavigate and apiCaller.js
+    // const navigate = useNavigate();
+    // useEffect(() => {
+    //     async function loadTransactions() {
+    //         // Send to helper, handle errors
+    //         const data = await apiCaller(getTransactions, navigate);
+    //         if (!data) return;
+
+    //         // Sort newset top
+    //         const sorted = [...data].sort(
+    //             (a, b) => new Date(b.date) - new Date(a.date)
+    //         );
+
+    //         // Set state to sorted return data
+    //         setTransactionsData(sorted);
+    //     }
+
+    //     loadTransactions();
+    // }, []);
 
     function openModal(transaction) {
         setSelectedTransaction(transaction);
         setModalShow(true);
         console.log('Opened edit modal', transaction);
     };
-    // ** TESTING **
-
-    // Transaction data state
-    // const [transactionsData, setTransactionsData] = useState([]);
-
-    // Get transactions from backend then render date sorted
-    // ** TEMP CAUSES ERROR: VM583:1 Uncaught (in promise) SyntaxError: Unexpected token '<', "<!doctype "... is not valid JSON **
-    // useEffect(() => {
-    //     getTransactions().then(data => {
-    //         const sorted = [...data].sort(
-    //             (a, b) => new Date(a.date) - new Date(b.date)
-    //         );
-    //         setTransactionsData(sorted);
-    //     });
-    // }, []);
 
     // Used by openModal(), closeModal, and EditingModal.jsx
     const [modalShow, setModalShow] = useState(false);
@@ -113,8 +125,8 @@ export default function TransactionList() {
             Amount: $${transaction.amount}`);
         // IF cancel delete
         if (!verifyDeletion) return;
-        // ELSE Delete transaction backend
-        await deleteTransaction(transaction._id);
+        // ELSE Delete transaction backend using helper
+        await apiCaller(() => deleteTransaction(transaction._id), navigate);
         // ELSE Delete transaction frontend
         setTransactionsData(prev =>
             prev.filter(data => data._id !== transaction._id)
