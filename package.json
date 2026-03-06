@@ -13,6 +13,7 @@
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.8",
     "chart.js": "^4.5.1",
+    "html2canvas": "^1.4.1",
     "install": "^0.13.0",
     "npm": "^11.10.0",
     "react": "^19.2.0",

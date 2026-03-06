@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { getTransactions } from "../api/backendApi.js";
 import FilterBox from "../components/FilterBox.jsx";
 import AreaChart from "../components/AreaChart.jsx";
@@ -7,9 +7,11 @@ import IncomeCard from "../components/IncomeCard.jsx";
 import BalanceCard from "../components/BalanceCard.jsx";
 import ExpenseCard from "../components/ExpenseCard.jsx";
 import TransactionList from "../components/TransactionList.jsx";
-import PdfExporter from "../components/PdfExporter.jsx";
+import ReportExporter from "../components/ReportExporter.jsx";
 
 export default function Reports() {
+    const reportRef = useRef();
+
     // Date filters
     const [filters, setFilters] = useState({});
     console.log('Filtered dates:', filters);
@@ -51,6 +53,18 @@ export default function Reports() {
             amount: 2000.25,
             category: "Test4 Data",
             date: new Date("2026-03-01").getTime()
+        },
+        {
+            title: "Test30",
+            amount: 5000.50,
+            category: "Test30 Data",
+            date: new Date("2026-04-20").getTime()
+        },
+        {
+            title: "Test40",
+            amount: 5000.25,
+            category: "Test40 Data",
+            date: new Date("2026-04-01").getTime()
         }
     ]);
 
@@ -61,18 +75,24 @@ export default function Reports() {
 
     return (
         <div className="container-fluid w-100 h-100 text-center">
-            {/* ROW1 - FILTER */}
-            <div className="row">
+            {/* ROW1 - FILTER / EXPORT */}
+            <div className="row sticky-top bg-gray pb-4">
                 <header>
                     <h2>Filter Range</h2>
                 </header>
                 <nav className="d-flex justify-content-center">
                     <FilterBox setFilters={setFilters} />
                 </nav>
+                {/* ROW5 - EXPORT PDF */}
+                <div className="row mt-md-4">
+                    <section className="col-12">
+                        <ReportExporter reportRef={reportRef} />
+                    </section>
+                </div>
             </div>
 
             {/* === START PDF PRINTABLE === */}
-            <div  >
+            <div id="printable-report" ref={reportRef}>
                 {/* ROW2- CHARTS */}
                 <div className="row">
                     <header className="mt-4">
@@ -108,12 +128,6 @@ export default function Reports() {
             </div>
             {/* === END PDF PRINTABLE === */}
 
-            {/* ROW5 - EXPORT PDF */}
-            <div className="row mt-md-4">
-                <section className="col-12">
-                    <PdfExporter />
-                </section>
-            </div>
         </div>
     )
 };
