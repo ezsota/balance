@@ -20,7 +20,7 @@ export default function ReportExporter({ reportRef }) {
 
     return (
         <button
-            className="btn btn-success bg-green w-100 mt-4 mt-md-2"
+            className="btn btn-primary w-100 mt-4 mt-md-2"
             onClick={handleExport}
         >
             Export Report as Image

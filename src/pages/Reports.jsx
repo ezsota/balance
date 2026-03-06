@@ -80,15 +80,14 @@ export default function Reports() {
                 <header>
                     <h2>Filter Range</h2>
                 </header>
+                {/* filter */}
                 <nav className="d-flex justify-content-center">
                     <FilterBox setFilters={setFilters} />
                 </nav>
-                {/* ROW5 - EXPORT PDF */}
-                <div className="row mt-md-4">
-                    <section className="col-12">
-                        <ReportExporter reportRef={reportRef} />
-                    </section>
-                </div>
+                {/* export */}
+                <section className="col-12">
+                    <ReportExporter reportRef={reportRef} />
+                </section>
             </div>
 
             {/* === START PDF PRINTABLE === */}
