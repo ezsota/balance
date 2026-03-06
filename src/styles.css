@@ -194,11 +194,3 @@ nav .active {
         padding-bottom: 20px !important;
     }
 }
-
-/* PDF PRINTING */
-@media print {
-    .overflow-auto {
-        overflow: visible !important;
-        max-height: none !important;
-    }
-}
