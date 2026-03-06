@@ -69,7 +69,7 @@ import editIcon from "../assets/edit-pencil.svg";
 import deleteIcon from "../assets/delete-bin.svg";
 
 // Child Component: EditingModal.jsx
-export default function TransactionList() {
+export default function TransactionList(props) {
     // ** TESTING **
     const [transactionsData, setTransactionsData] = useState(transactionsTestData);
 
@@ -139,7 +139,9 @@ export default function TransactionList() {
     const [pageCounter, setPageCounter] = useState(1);
     const ITEMS_PER_PAGE = 5;
     const startAtItem = (pageCounter - 1) * ITEMS_PER_PAGE;
-    const paginatedList = transactionsData.slice(startAtItem, startAtItem + ITEMS_PER_PAGE);
+    const paginatedList = props.removePagination
+        ? transactionsData
+        : transactionsData.slice(startAtItem, startAtItem + ITEMS_PER_PAGE);
 
 
     return (
@@ -185,7 +187,7 @@ export default function TransactionList() {
             </table>
             {/* PAGINATION */}
             <div>
-                {(transactionsData.length > 0) &&
+                {!props.removePagination && (transactionsData.length > 0) &&
                     <span>
                         {/* BACK BUTTON */}
                         <button

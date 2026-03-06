@@ -71,35 +71,42 @@ export default function Reports() {
                 </nav>
             </div>
 
-            {/* ROW2- CHARTS */}
-            <div className="row">
-                <header className="mt-4">
-                    <h2>Charts</h2>
-                </header>
-                <section className="col-12 col-md-6">
-                    <AreaChart transactions={filteredTransactions} />
-                </section>
-                <section className="col-12 col-md-6">
-                    <DoughnutChart transactions={filteredTransactions} />
-                </section>
-            </div>
+            {/* === START PDF PRINTABLE === */}
+            <div  >
+                {/* ROW2- CHARTS */}
+                <div className="row">
+                    <header className="mt-4">
+                        <h2>Charts</h2>
+                    </header>
+                    <section className="col-12 col-md-6">
+                        <AreaChart transactions={filteredTransactions} />
+                    </section>
+                    <section className="col-12 col-md-6">
+                        <DoughnutChart transactions={filteredTransactions} />
+                    </section>
+                </div>
 
-            {/* ROW3 - CARDS */}
-            <section className="row col-12 mx-auto" id="report-cards-container">
-                <header>
-                    <h2>Summary</h2>
-                </header>
-                <IncomeCard transactions={filteredTransactions} />
-                <ExpenseCard transactions={filteredTransactions} />
-                <BalanceCard transactions={filteredTransactions} />
-            </section>
-
-            {/* ROW4 - LIST */}
-            <div className="row mt-md-4">
-                <section className="col-12">
-                    <TransactionList transactions={filteredTransactions} />
+                {/* ROW3 - CARDS */}
+                <section className="row col-12 mx-auto" id="report-cards-container">
+                    <header>
+                        <h2>Summary</h2>
+                    </header>
+                    <IncomeCard transactions={filteredTransactions} />
+                    <ExpenseCard transactions={filteredTransactions} />
+                    <BalanceCard transactions={filteredTransactions} />
                 </section>
+
+                {/* ROW4 - LIST */}
+                <div className="row mt-md-4">
+                    <section className="col-12">
+                        <TransactionList
+                            transactions={filteredTransactions}
+                            removePagination={true}
+                        />
+                    </section>
+                </div>
             </div>
+            {/* === END PDF PRINTABLE === */}
 
             {/* ROW5 - EXPORT PDF */}
             <div className="row mt-md-4">
