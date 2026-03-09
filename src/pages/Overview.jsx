@@ -4,7 +4,7 @@ import AreaChart from "../components/AreaChart.jsx";
 import IncomeCard from "../components/IncomeCard.jsx";
 import BalanceCard from "../components/BalanceCard.jsx";
 import ExpenseCard from "../components/ExpenseCard.jsx";
-import CtaBox from "../components/CTABox.jsx";
+import CtaBox from "../components/CtaBox.jsx";
 
 export default function Overview() {
     // Transactions state (primary)
