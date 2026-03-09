@@ -1,7 +1,8 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
+  "type": "module",
+  "description": "balance",
   "main": "index.js",
   "scripts": {
     "start": "node server/server.js"
