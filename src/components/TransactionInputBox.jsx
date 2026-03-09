@@ -1,5 +1,6 @@
 import { useState } from "react";
 import TransactionForm from "./TransactionForm.jsx";
+import ExcelUploader from "../components/ExcelUploader.jsx";
 
 export default function TransactionInputBox() {
     // NAV TAB STATE -> used consts for clarity and avoiding typos

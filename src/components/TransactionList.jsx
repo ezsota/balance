@@ -251,7 +251,7 @@ export default function TransactionList(props) {
 
     // PAGINATION
     const [pageCounter, setPageCounter] = useState(1);
-    const ITEMS_PER_PAGE = 5;
+    const ITEMS_PER_PAGE = 20;
     const startAtItem = (pageCounter - 1) * ITEMS_PER_PAGE;
     const paginatedList = props.removePagination
         ? transactionsData
