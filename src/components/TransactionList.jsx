@@ -240,7 +240,8 @@ export default function TransactionList(props) {
         // IF cancel delete
         if (!verifyDeletion) return;
         // ELSE Delete transaction backend using helper
-        await apiCaller(() => deleteTransaction(transaction._id), navigate);
+        const result = await apiCaller(() => deleteTransaction(transaction._id), navigate);
+        if (!result) return;
         // ELSE Delete transaction frontend
         setTransactionsData(prev =>
             prev.filter(data => data._id !== transaction._id)
