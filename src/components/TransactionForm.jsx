@@ -9,12 +9,9 @@ export default function TransactionForm() {
 
     // Amount state for frontend display
     const [displayAmount, setDisplayAmount] = useState("");
-    // ** TESTING **
-    console.log('Frontend amount:', displayAmount);
+
     // Amount state for backend server (sent via form onSubmit)
     const [numericAmount, setNumericAmount] = useState(0);
-    // ** TESTING **
-    console.log('Backend amount:', numericAmount);
 
     return (
         <form
@@ -28,8 +25,6 @@ export default function TransactionForm() {
                     category: event.target.category.value,
                     date: event.target.date.value
                 };
-                // ** TESTING **
-                console.log("POST TEST", formData);
 
                 // backend HTTP POST req via helper
                 await apiCaller(() => createTransaction(formData), navigate);
