@@ -76,7 +76,7 @@ export default function Reports() {
     return (
         <div className="container-fluid w-100 h-100 text-center">
             {/* ROW1 - FILTER / EXPORT */}
-            <div className="row sticky-top bg-gray pb-4">
+            <div className="row sticky-top bg-gray rounded pb-4">
                 <header>
                     <h2>Filter Range</h2>
                 </header>
@@ -90,7 +90,7 @@ export default function Reports() {
                 </section>
             </div>
 
-            {/* === START PDF PRINTABLE === */}
+            {/* === START PRINTABLE === */}
             <div id="printable-report" ref={reportRef}>
                 {/* ROW2- CHARTS */}
                 <div className="row">
@@ -125,7 +125,7 @@ export default function Reports() {
                     </section>
                 </div>
             </div>
-            {/* === END PDF PRINTABLE === */}
+            {/* === END PRINTABLE === */}
 
         </div>
     )
