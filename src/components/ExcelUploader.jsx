@@ -11,7 +11,7 @@
 import { useState } from "react";
 import { uploadExcel } from "../api/backendApi.js";
 
-export default function ExcelUploader(props) {
+export default function ExcelUploader() {
     const [userFile, setUserFile] = useState(null);
 
     function handleFormSubmit(event) {

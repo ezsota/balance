@@ -17,56 +17,7 @@ export default function Reports() {
     console.log('Filtered dates:', filters);
 
     // Transactions for report data
-    const [filteredTransactions, setFilteredTransactions] = useState([
-        {
-            title: "Test1",
-            amount: 2000.50,
-            category: "Test1 Data",
-            date: new Date("2026-01-02").getTime()
-        },
-        {
-            title: "Test1",
-            amount: 2000.50,
-            category: "Test1 Data",
-            date: new Date("2026-01-15").getTime()
-        },
-        {
-            title: "Test2",
-            amount: -200.25,
-            category: "Test2 Data",
-            date: new Date("2026-02-02").getTime()
-        },
-        {
-            title: "Test1",
-            amount: -1000.50,
-            category: "Test1 Data",
-            date: new Date("2026-02-15").getTime()
-        },
-        {
-            title: "Test3",
-            amount: 1000.50,
-            category: "Test3 Data",
-            date: new Date("2026-02-20").getTime()
-        },
-        {
-            title: "Test4",
-            amount: 2000.25,
-            category: "Test4 Data",
-            date: new Date("2026-03-01").getTime()
-        },
-        {
-            title: "Test30",
-            amount: 5000.50,
-            category: "Test30 Data",
-            date: new Date("2026-04-20").getTime()
-        },
-        {
-            title: "Test40",
-            amount: 5000.25,
-            category: "Test40 Data",
-            date: new Date("2026-04-01").getTime()
-        }
-    ]);
+    const [filteredTransactions, setFilteredTransactions] = useState([]);
 
     // Get transactions when filters change
     useEffect(() => {

@@ -10,7 +10,7 @@ import deleteIcon from "../assets/delete-bin.svg";
 // Child Component: EditingModal.jsx
 export default function TransactionList(props) {
     // Transaction data state
-    const [transactionsData, setTransactionsData] = useState();
+    const [transactionsData, setTransactionsData] = useState([]);
 
     // Get transactions sorted from backend
     // Handle errors via useNavigate and apiCaller.js
