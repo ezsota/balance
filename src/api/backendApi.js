@@ -2,14 +2,18 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 // Get ALL transaction data, if there is a filter then get FILTERED
 /*	FilterBox.js receives dates from user input -> 
-	FilterBox onSubmit setFilters in parent -> 
-	Parent component init getTransactions(filters) -> 
+    FilterBox onSubmit setFilters in parent -> 
+    Parent component init getTransactions(filters) -> 
     api/backendApi.js returns filtered transactions-> 
-	Parent component updates state to filtered transactions */
+    Parent component updates state to filtered transactions */
 export async function getTransactions(filters = {}) {
     const params = new URLSearchParams(filters);
     const response = await fetch(`${API_URL}/api/transactions?${params}`);
-    if (!response.ok) throw new Error("Failed to fetch all transactions");
+    if (response.status === 429) {
+        throw new Error("Request limit reached, please try again later.");
+    } else if (!response.ok) {
+        throw new Error("Failed to fetch all transactions");
+    }
     return response.json();
 }
 

@@ -14,7 +14,7 @@ export default function TransactionList(props) {
 
     // Get transactions sorted from backend
     // Handle errors via useNavigate and apiCaller.js
-    // No data: Unexpected token '<', "<!doctype "... is not valid JSON
+    // LOCAL ERROR: No data: Unexpected token '<', "<!doctype "... is not valid JSON
     const navigate = useNavigate();
     useEffect(() => {
         async function loadTransactions() {
