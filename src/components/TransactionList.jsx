@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTransactionContext } from "../context/TransactionContext.jsx";
 import { apiCaller } from "../helpers/apiCaller.js";
-import { deleteTransaction, getTransactions } from "../api/backendApi.js";
+import { deleteTransaction } from "../api/backendApi.js";
 import { formatCurrencyUSD } from "../helpers/formatUSD.js";
 import EditingModal from "./EditingModal.jsx";
 import editIcon from "../assets/edit-pencil.svg";
@@ -9,30 +10,14 @@ import deleteIcon from "../assets/delete-bin.svg";
 
 // Child Component: EditingModal.jsx
 export default function TransactionList(props) {
-    // Transaction data state
-    const [transactionsData, setTransactionsData] = useState([]);
+    // Transaction context data
+    const { transactions, setTransactions } = useTransactionContext();
 
-    // Get transactions sorted from backend
-    // Handle errors via useNavigate and apiCaller.js
     // LOCAL ERROR: No data: Unexpected token '<', "<!doctype "... is not valid JSON
-    const navigate = useNavigate();
-    useEffect(() => {
-        async function loadTransactions() {
-            // Send to helper, handle errors
-            const data = await apiCaller(getTransactions, navigate);
-            if (!data) return;
-
-            // Sort newset top
-            const sorted = [...data].sort(
-                (a, b) => new Date(b.date) - new Date(a.date)
-            );
-
-            // Set state to sorted return data
-            setTransactionsData(sorted);
-        }
-
-        loadTransactions();
-    }, []);
+    // Sort newset transactions to top
+    const sorted = [...transactions].sort(
+        (a, b) => new Date(b.date) - new Date(a.date)
+    );
 
     function openModal(transaction) {
         setSelectedTransaction(transaction);
@@ -45,6 +30,7 @@ export default function TransactionList(props) {
     const [selectedTransaction, setSelectedTransaction] = useState({});
 
     // Delete transaction based on confirmation
+    const navigate = useNavigate();
     async function handleDelete(transaction) {
         // Verify delete
         const verifyDeletion = confirm(`Are you sure you want to delete the following transaction:
@@ -56,9 +42,8 @@ export default function TransactionList(props) {
         if (!verifyDeletion) return;
         // ELSE Delete transaction backend using helper
         const result = await apiCaller(() => deleteTransaction(transaction._id), navigate);
-        if (!result) return;
         // ELSE Delete transaction frontend
-        setTransactionsData(prev =>
+        setTransactions(prev =>
             prev.filter(data => data._id !== transaction._id)
         );
         // Log

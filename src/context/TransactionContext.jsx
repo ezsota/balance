@@ -1,5 +1,7 @@
 import { useState, useEffect, createContext, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { getTransactions } from "../api/backendApi.js";
+import { apiCaller } from "../helpers/apiCaller.js";
 
 // Init context()
 const TransactionContext = createContext();
@@ -10,10 +12,18 @@ export function TransactionContextProvider({ children }) {
     const [transactions, setTransactions] = useState([]);
 
     // Async set context state to transaction data + error handling
+    const navigate = useNavigate();
     async function loadTransactions() {
         try {
-            const data = await getTransactions();
-            setTransactions(data);
+            // Get data using apiCaller with error handling
+            const data = await apiCaller(getTransactions, navigate);
+            if (!data) return;
+            // Sort data for components
+            const sortedData = data.sort(
+                (a, b) => new Date(b.date) - new Date(a.date)
+            );
+            // Set transaction state sorted
+            setTransactions(sortedData);
         } catch (error) {
             console.error("Transaction context provider failed to retrieve data", error);
         }
