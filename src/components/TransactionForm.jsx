@@ -1,17 +1,25 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { apiCaller } from "../helpers/apiCaller";
+// Backend API:
 import { createTransaction } from "../api/backendApi.js";
+// Context:
+import { useTransactionContext } from "../context/TransactionContext.jsx";
+// Helpers:
+import { apiCaller } from "../helpers/apiCaller";
 import { CATEGORY_GROUPS } from "../helpers/categoryGroups.js";
 
 export default function TransactionForm() {
-    const navigate = useNavigate();
+    // Transaction data context
+    const { setTransactionsData } = useTransactionContext();
 
     // Amount state for frontend display
     const [displayAmount, setDisplayAmount] = useState("");
 
     // Amount state for backend server (sent via form onSubmit)
     const [numericAmount, setNumericAmount] = useState(0);
+
+    // Init useNavigate() for form onSubmit()
+    const navigate = useNavigate();
 
     return (
         <form
@@ -25,13 +33,18 @@ export default function TransactionForm() {
                     category: event.target.category.value,
                     date: event.target.date.value
                 };
-
-                // backend HTTP POST req via helper
-                await apiCaller(() => createTransaction(formData), navigate);
-
+                // Backend HTTP POST req via apiCaller + error handling
+                const newTransaction = await apiCaller(() => createTransaction(formData), navigate);
+                if (!newTransaction) return;
+                // Update frontend display; preserve date sorting
+                setTransactionsData(prev =>
+                    [newTransaction, ...prev].sort(
+                        (a, b) => new Date(b.date) - new Date(a.date)
+                    )
+                );
                 // Clear form DOM inputs
                 event.target.reset();
-                // Reset amount states
+                // Reset frontend amount states
                 setDisplayAmount("");
                 setNumericAmount(0);
             }}

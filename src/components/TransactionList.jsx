@@ -13,7 +13,7 @@ import editIcon from "../assets/edit-pencil.svg";
 import deleteIcon from "../assets/delete-bin.svg";
 
 export default function TransactionList(props) {
-    // Transaction context data
+    // Transaction data context
     const { transactionsData, setTransactionsData } = useTransactionContext();
 
     // Delete transaction based on confirmation
