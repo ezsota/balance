@@ -4,7 +4,7 @@ import { getTransactions } from "../api/backendApi.js";
 // Init context()
 const TransactionContext = createContext();
 
-// Used to wrap app in index.jsx
+// Export context to APPLICATION via index.jsx
 export function TransactionContextProvider({ children }) {
     // Context transaction state (will be used globally)
     const [transactions, setTransactions] = useState([]);
@@ -42,7 +42,7 @@ export function TransactionContextProvider({ children }) {
     );
 }
 
-// Export context for global component access
+// Export context access for global COMPONENTS
 export function useTransactionContext() {
     return useContext(TransactionContext);
 }
