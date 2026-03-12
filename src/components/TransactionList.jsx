@@ -8,20 +8,9 @@ import EditingModal from "./EditingModal.jsx";
 import editIcon from "../assets/edit-pencil.svg";
 import deleteIcon from "../assets/delete-bin.svg";
 
-// Child Component: EditingModal.jsx
 export default function TransactionList(props) {
     // Transaction context data
-    const { transactions, setTransactions } = useTransactionContext();
-
-    function openModal(transaction) {
-        setSelectedTransaction(transaction);
-        setModalShow(true);
-        console.log('Opened edit modal', transaction);
-    };
-
-    // Used by openModal(), closeModal, and EditingModal.jsx
-    const [modalShow, setModalShow] = useState(false);
-    const [selectedTransaction, setSelectedTransaction] = useState({});
+    const { transactionsData, setTransactionsData } = useTransactionContext();
 
     // Delete transaction based on confirmation
     const navigate = useNavigate();
@@ -37,21 +26,32 @@ export default function TransactionList(props) {
         // ELSE Delete transaction backend using helper
         const result = await apiCaller(() => deleteTransaction(transaction._id), navigate);
         // ELSE Delete transaction frontend
-        setTransactions(prev =>
+        setTransactionsData(prev =>
             prev.filter(data => data._id !== transaction._id)
         );
         // Log
         console.log(`Deleted ${transaction._id}`);
     };
 
-    // PAGINATION
+    /* === EDIT MODAL === */
+    // Used by openModal() and EditingModal.jsx
+    const [modalShow, setModalShow] = useState(false);
+    const [selectedTransaction, setSelectedTransaction] = useState({});
+
+    // Edit modal init
+    function openModal(transaction) {
+        setSelectedTransaction(transaction);
+        setModalShow(true);
+        console.log('Opened edit modal', transaction);
+    };
+
+    /* === PAGINATION === */
     const [pageCounter, setPageCounter] = useState(1);
     const ITEMS_PER_PAGE = 20;
     const startAtItem = (pageCounter - 1) * ITEMS_PER_PAGE;
     const paginatedList = props.removePagination
         ? transactionsData
         : transactionsData.slice(startAtItem, startAtItem + ITEMS_PER_PAGE);
-
 
     return (
         <section className="border rounded overflow-auto text-center shadow">
