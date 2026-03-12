@@ -18,7 +18,7 @@ export function TransactionContextProvider({ children }) {
             // Get data using apiCaller with error handling
             const data = await apiCaller(getTransactions, navigate);
             if (!data) return;
-            // Sort data for components
+            // Sort data for components -> CAUSES ERROR UNHOSTED: No data: Unexpected token '<', "<!doctype "... is not valid JSON
             const sortedData = data.sort(
                 (a, b) => new Date(b.date) - new Date(a.date)
             );

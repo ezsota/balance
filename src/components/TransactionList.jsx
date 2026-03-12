@@ -13,12 +13,6 @@ export default function TransactionList(props) {
     // Transaction context data
     const { transactions, setTransactions } = useTransactionContext();
 
-    // LOCAL ERROR: No data: Unexpected token '<', "<!doctype "... is not valid JSON
-    // Sort newset transactions to top
-    const sorted = [...transactions].sort(
-        (a, b) => new Date(b.date) - new Date(a.date)
-    );
-
     function openModal(transaction) {
         setSelectedTransaction(transaction);
         setModalShow(true);
