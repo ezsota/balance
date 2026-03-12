@@ -1,7 +1,6 @@
 import { formatCurrencyUSD } from "../helpers/formatUSD.js";
 
 export default function ExpenseCard(props) {
-
     // Get transactions lt 0 and add those together
     const calcExpenses = (transactions) => {
         const totalExpenses = transactions

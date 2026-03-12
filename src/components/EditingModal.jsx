@@ -1,23 +1,31 @@
 import { useState, useEffect } from "react";
-import { Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { apiCaller } from "../helpers/apiCaller";
+import { Modal } from "react-bootstrap";
+// Context:
+import { useTransactionContext } from "../context/TransactionContext.jsx";
+// Backend API:
 import { editTransaction } from "../api/backendApi.js";
+// Helpers:
+import { apiCaller } from "../helpers/apiCaller";
 import { formatCurrencyUSD } from "../helpers/formatUSD.js";
 import { CATEGORY_GROUPS } from "../helpers/categoryGroups.js";
 
 // Parent Component: TransactionList.jsx
 export default function EditingModal(props) {
-    // Local edits
+    // Global transaction data context
+    const { setTransactionsData } = useTransactionContext();
+
+    // Local edits state
     const [editData, setEditData] = useState(null);
     console.log('edit data', editData);
-    // Local amount rendered
+
+    // Local amount rendered state
     const [amountDisplayed, setAmountDisplayed] = useState("");
     console.log('amount input', amountDisplayed);
+
     // Toggle amount edit state
     const [isEditingAmount, setIsEditingAmount] = useState(false);
     console.log('is editing?', isEditingAmount);
-
 
     // Set editData when props.selectedTransaction changes
     // Allows changes within EditingModal.jsx component
@@ -39,14 +47,23 @@ export default function EditingModal(props) {
         }));
     };
 
-    // Send editData to backend for update
+    // Send editData to backend, update frontend display sorted, close modal
     const navigate = useNavigate();
     async function saveEdits() {
-        await apiCaller(() => editTransaction(editData._id, editData), navigate);
+        const updatedTransaction = await apiCaller(() => editTransaction(editData._id, editData), navigate);
+        if (!updatedTransaction) return;
+        setTransactionsData(prev =>
+            prev.map(currentTransaction =>
+                currentTransaction._id === updatedTransaction._id
+                    ? updatedTransaction
+                    : currentTransaction
+            ).sort(
+                (a, b) => new Date(b.date) - new Date(a.date)
+            ));
         closeModal();
     };
 
-    // Close component
+    // Close modal component
     function closeModal() {
         props.setModalShow(false);
         props.setSelectedTransaction({});

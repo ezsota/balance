@@ -1,7 +1,6 @@
 import { formatCurrencyUSD } from "../helpers/formatUSD.js";
 
 export default function IncomeCard(props) {
-
     // Get transactions gt 0 and add those together
     const calcIncome = (transactions) => {
         const totalIncome = transactions
@@ -10,7 +9,6 @@ export default function IncomeCard(props) {
 
         return formatCurrencyUSD(totalIncome);
     };
-
 
     return (
         <div className="col-12 col-md-4 overview-cards-container">

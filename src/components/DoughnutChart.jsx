@@ -1,6 +1,4 @@
 // React ChartJS Dougnut demo: https://react-chartjs-2.js.org/examples/doughnut-chart
-
-// Doughnut chart library and components
 import { Doughnut } from "react-chartjs-2";
 import {
     Chart as ChartJS,

@@ -1,7 +1,5 @@
 // React ChartJS demo: https://github.com/reactchartjs/react-chartjs-2/blob/master/sandboxes/line/area/App.tsx
-
 import { useMemo } from "react";
-// Line chart library and components
 import { Line } from "react-chartjs-2";
 import {
     Chart as ChartJS,

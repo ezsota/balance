@@ -49,7 +49,7 @@ export default function TransactionForm() {
                 setNumericAmount(0);
             }}
         >
-
+            {/* HEADER */}
             <header>
                 <h2 className="text-center">New Transaction</h2>
             </header>
