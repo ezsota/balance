@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useTransactionContext } from "../context/TransactionContext.jsx";
-import { apiCaller } from "../helpers/apiCaller.js";
+// Backend API:
 import { deleteTransaction } from "../api/backendApi.js";
+// Context:
+import { useTransactionContext } from "../context/TransactionContext.jsx";
+// Helpers:
+import { apiCaller } from "../helpers/apiCaller.js";
 import { formatCurrencyUSD } from "../helpers/formatUSD.js";
+//Modal:
 import EditingModal from "./EditingModal.jsx";
 import editIcon from "../assets/edit-pencil.svg";
 import deleteIcon from "../assets/delete-bin.svg";
