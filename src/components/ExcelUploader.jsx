@@ -14,15 +14,19 @@ import { uploadExcel } from "../api/backendApi.js";
 export default function ExcelUploader() {
     const [userFile, setUserFile] = useState(null);
 
-    function handleFormSubmit(event) {
+    async function handleFormSubmit(event) {
         event.preventDefault();
         // Alert if no user file selected:
         if (!userFile) {
             alert("Please choose a file to upload");
             return;
         }
-        // Send file if selected
-        if (userFile) uploadExcel(userFile);
+        // Send file, if selected, or throw error
+        try {
+            await uploadExcel(userFile);
+        } catch (error) {
+            alert(error.message);
+        }
     };
 
     return (

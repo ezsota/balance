@@ -16,16 +16,16 @@ export default function App() {
 
   return (
     <>
-      {disclaimerShow && <DisclaimerModal setDisclaimerShow={setDisclaimerShow}/>}
-
+      {/* DISCLAIMER */}
+      {disclaimerShow && <DisclaimerModal setDisclaimerShow={setDisclaimerShow} />}
+      {/* APPLICATION */}
       <Routes>
-        {/* App Pages */}
         <Route element={<DashboardLayout />}>
           <Route index element={<Overview />} />
           <Route path="/transactions-view" element={<Transactions />} />
           <Route path="/reports-view" element={<Reports />} />
           {/* Error Page */}
-          <Route path="*" element={<Errors />} />
+          <Route path="/error" element={<Errors />} />
         </Route>
       </Routes>
     </>

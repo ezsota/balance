@@ -50,7 +50,7 @@ export const parseExcel = (req, res, next) => {
             title: sanitizeString(entry.title),
             category: sanitizeString(entry.category),
             amount: entry.amount,
-            date: new Date(entry.date),
+            date: new Date(entry.date).toISOString(),
             expiresAt: new Date(Date.now() + 60 * 60 * 1000)
         }));
         // Send valid data

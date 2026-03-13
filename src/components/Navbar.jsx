@@ -18,7 +18,6 @@ export default function Navbar() {
                     <NavLink className="nav-link" to="/transactions-view">Transactions</NavLink>
                     <NavLink className="nav-link" to="/reports-view">Reports</NavLink>
                 </nav>
-
             </div>
         </div>
     )
