@@ -9,6 +9,8 @@ import { useTransactionContext } from "../context/TransactionContext.jsx";
 // Helpers:
 import { apiCaller } from "../helpers/apiCaller";
 import { CATEGORY_GROUPS } from "../helpers/categoryGroups.js";
+// Init bad words filter (not ever render)
+const filter = new Filter();
 
 export default function TransactionForm() {
     // Transaction data context
@@ -21,13 +23,10 @@ export default function TransactionForm() {
     const [numericAmount, setNumericAmount] = useState(0);
 
     // Form error message state
-    const [errorMessage, setErrorMessage] = useState();
+    const [errorMessage, setErrorMessage] = useState("");
 
     // Init useNavigate() for form onSubmit()
     const navigate = useNavigate();
-
-    // Init bad words filter
-    const filter = new Filter();
 
     return (
         <form

@@ -5,27 +5,32 @@ import { Modal } from "react-bootstrap";
 import { useTransactionContext } from "../context/TransactionContext.jsx";
 // Backend API:
 import { editTransaction } from "../api/backendApi.js";
+// Bad words:
+import { Filter } from "bad-words";
 // Helpers:
 import { apiCaller } from "../helpers/apiCaller";
 import { formatCurrencyUSD } from "../helpers/formatUSD.js";
 import { CATEGORY_GROUPS } from "../helpers/categoryGroups.js";
 
+// Init bad words filter (not ever render)
+const filter = new Filter();
+
 // Parent Component: TransactionList.jsx
 export default function EditingModal(props) {
+    // Form error message state
+    const [errorMessage, setErrorMessage] = useState("");
+
     // Global transaction data context
     const { setTransactionsData } = useTransactionContext();
 
     // Local edits state
     const [editData, setEditData] = useState(null);
-    console.log('edit data', editData);
 
     // Local amount rendered state
     const [amountDisplayed, setAmountDisplayed] = useState("");
-    console.log('amount input', amountDisplayed);
 
     // Toggle amount edit state
     const [isEditingAmount, setIsEditingAmount] = useState(false);
-    console.log('is editing?', isEditingAmount);
 
     // Set editData when props.selectedTransaction changes
     // Allows changes within EditingModal.jsx component
@@ -45,29 +50,44 @@ export default function EditingModal(props) {
             ...prev,
             [name]: value
         }));
+        // Updates change error message
+        setErrorMessage("");
     };
 
     // Send editData to backend, update frontend display sorted, close modal
     const navigate = useNavigate();
-    async function saveEdits() {
-        const updatedTransaction = await apiCaller(() => editTransaction(editData._id, editData), navigate);
-        if (!updatedTransaction) return;
-        setTransactionsData(prev =>
-            prev.map(currentTransaction =>
-                currentTransaction._id === updatedTransaction._id
-                    ? updatedTransaction
-                    : currentTransaction
-            ).sort(
-                (a, b) => new Date(b.date) - new Date(a.date)
-            ));
-        closeModal();
+
+    async function saveEdits(editData) {
+        if (!editData) return;
+
+        try {
+            // Check for bad words
+            if (filter.isProfane(editData.title)) {
+                setErrorMessage("Please remove foul language, then try again.");
+                return;
+            }
+            // Update edit
+            const updatedTransaction = await apiCaller(() => editTransaction(editData._id, editData), navigate);
+            if (!updatedTransaction) return;
+            setTransactionsData(prev =>
+                prev.map(currentTransaction =>
+                    currentTransaction._id === updatedTransaction._id
+                        ? updatedTransaction
+                        : currentTransaction
+                ).sort(
+                    (a, b) => new Date(b.date) - new Date(a.date)
+                ));
+            closeModal();
+        } catch (error) {
+            // used to display error in form
+            setErrorMessage(error.message);
+        }
     };
 
     // Close modal component
     function closeModal() {
         props.setModalShow(false);
         props.setSelectedTransaction({});
-        console.log('Closed edit modal');
     };
 
     return (
@@ -159,8 +179,14 @@ export default function EditingModal(props) {
                 </form>
             </Modal.Body>
             <Modal.Footer>
-                {/* SAVE EDITS */}
-                <button className="btn btn-success bg-green" onClick={saveEdits}>Save</button>
+                {/* ERROR MESSAGE DISPLAY */}
+                {errorMessage && (
+                    <div className="w-100 alert alert-danger text-center my-1">
+                        {errorMessage}
+                    </div>
+                )}
+                {/* SAVE EDITS BTN */}
+                <button className="btn btn-success bg-green" onClick={() => saveEdits(editData)}>Save</button>
             </Modal.Footer>
         </Modal>
     );
