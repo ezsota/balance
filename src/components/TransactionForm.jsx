@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+// Bad words:
+import { Filter } from "bad-words";
 // Backend API:
 import { createTransaction } from "../api/backendApi.js";
 // Context:
@@ -24,6 +26,9 @@ export default function TransactionForm() {
     // Init useNavigate() for form onSubmit()
     const navigate = useNavigate();
 
+    // Init bad words filter
+    const filter = new Filter();
+
     return (
         <form
             className="row gap-2 justify-content-center text-start mx-auto h-100"
@@ -37,11 +42,16 @@ export default function TransactionForm() {
                     date: event.target.date.value
                 };
                 try {
+                    // Check for bad words
+                    if (filter.isProfane(formData.title)) {
+                        setErrorMessage("Please remove foul language, then try again.");
+                        return;
+                    }
                     // Backend HTTP POST req via apiCaller + error handling
                     const newTransaction = await apiCaller(() => createTransaction(formData), navigate);
                     if (!newTransaction) {
                         // if no error but failed
-                        setErrorMessage("Transaction creation failed: no data returned.");
+                        setErrorMessage("Transaction creation failed, verify all fields entered.");
                         return;
                     }
                     // Update frontend display; preserve date sorting
@@ -164,12 +174,12 @@ export default function TransactionForm() {
 
             {/* BOTTOM ROW - ERROR MSG & SUBMIT BTN */}
             {errorMessage && (
-                <div className="col-12 alert alert-danger text-center">
+                <div className="col-12 alert alert-danger text-center my-1">
                     {errorMessage}
                 </div>
             )}
 
-            <div className="col-12 text-center">
+            <div className="col-12 text-center px-0">
                 <button type="submit" className="btn btn-success bg-green w-100">Add Transaction</button>
             </div>
         </form >
