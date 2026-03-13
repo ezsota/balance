@@ -18,6 +18,9 @@ export default function TransactionForm() {
     // Amount state for backend server (sent via form onSubmit)
     const [numericAmount, setNumericAmount] = useState(0);
 
+    // Form error message state
+    const [errorMessage, setErrorMessage] = useState();
+
     // Init useNavigate() for form onSubmit()
     const navigate = useNavigate();
 
@@ -33,20 +36,30 @@ export default function TransactionForm() {
                     category: event.target.category.value,
                     date: event.target.date.value
                 };
-                // Backend HTTP POST req via apiCaller + error handling
-                const newTransaction = await apiCaller(() => createTransaction(formData), navigate);
-                if (!newTransaction) return;
-                // Update frontend display; preserve date sorting
-                setTransactionsData(prev =>
-                    [newTransaction, ...prev].sort(
-                        (a, b) => new Date(b.date) - new Date(a.date)
-                    )
-                );
-                // Clear form DOM inputs
-                event.target.reset();
-                // Reset frontend amount states
-                setDisplayAmount("");
-                setNumericAmount(0);
+                try {
+                    // Backend HTTP POST req via apiCaller + error handling
+                    const newTransaction = await apiCaller(() => createTransaction(formData), navigate);
+                    if (!newTransaction) {
+                        // if no error but failed
+                        setErrorMessage("Transaction creation failed: no data returned.");
+                        return;
+                    }
+                    // Update frontend display; preserve date sorting
+                    setTransactionsData(prev =>
+                        [newTransaction, ...prev].sort(
+                            (a, b) => new Date(b.date) - new Date(a.date)
+                        )
+                    );
+                    // Clear form DOM inputs
+                    event.target.reset();
+                    // Reset frontend amount states
+                    setDisplayAmount("");
+                    setNumericAmount(0);
+                    setErrorMessage("");
+                } catch (error) {
+                    // used to display error in form
+                    setErrorMessage(error.message);
+                }
             }}
         >
             {/* HEADER */}
@@ -149,7 +162,13 @@ export default function TransactionForm() {
                 </div>
             </div>
 
-            {/* BOTTOM ROW - SUBMIT */}
+            {/* BOTTOM ROW - ERROR MSG & SUBMIT BTN */}
+            {errorMessage && (
+                <div className="col-12 alert alert-danger text-center">
+                    {errorMessage}
+                </div>
+            )}
+
             <div className="col-12 text-center">
                 <button type="submit" className="btn btn-success bg-green w-100">Add Transaction</button>
             </div>
