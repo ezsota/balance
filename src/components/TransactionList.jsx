@@ -25,16 +25,20 @@ export default function TransactionList(props) {
             Title: "${transaction.title}"
             Category: ${transaction.category}
             Amount: $${transaction.amount}`);
-        // IF cancel delete
         if (!verifyDeletion) return;
-        // ELSE Delete transaction backend using helper
-        const result = await apiCaller(() => deleteTransaction(transaction._id), navigate);
-        // ELSE Delete transaction frontend
-        setTransactionsData(prev =>
-            prev.filter(data => data._id !== transaction._id)
-        );
-        // Log
-        console.log(`Deleted ${transaction._id}`);
+        // Delete or throw error
+        try {
+            // Backend delete using helper
+            await apiCaller(() => deleteTransaction(transaction._id), navigate);
+            // Frontend delete
+            setTransactionsData(prev =>
+                prev.filter(data => data._id !== transaction._id)
+            );
+            // Log verify
+            console.log(`Deleted ${transaction._id}`);
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     /* === EDIT MODAL === */
