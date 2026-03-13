@@ -9,12 +9,16 @@ const API_URL = import.meta.env.VITE_API_URL;
 export async function getTransactions(filters = {}) {
     const params = new URLSearchParams(filters);
     const response = await fetch(`${API_URL}/api/transactions?${params}`);
+    // get JSON response or backend error message
+    const data = await response.json();
+    // throw backend error message
     if (response.status === 429) {
         throw new Error("Request limit reached, please try again later.");
     } else if (!response.ok) {
-        throw new Error("Failed to fetch all transactions");
+        throw new Error(data.message || "Failed to retieve all transactions");
     }
-    return response.json();
+    // return JSON response
+    return data;
 }
 
 export async function createTransaction(transaction) {
@@ -23,13 +27,11 @@ export async function createTransaction(transaction) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(transaction)
     });
-    // get JSON response or backend error message
+
     const data = await response.json();
-    // throw backend error message
     if (!response.ok) {
         throw new Error(data.message || "Failed to create transaction");
     }
-    // return JSON response
     return data;
 }
 
@@ -38,7 +40,11 @@ export async function deleteTransaction(id) {
         method: "DELETE"
     });
 
-    if (!response.ok) throw new Error(`Failed to delete transaction ${id}`);
+    const data = await response.json();
+    if (!response.ok) {
+        throw new Error(data.message || "Failed to delete transaction");
+    }
+    return data;
 }
 
 export async function editTransaction(id, updates) {
@@ -48,8 +54,11 @@ export async function editTransaction(id, updates) {
         body: JSON.stringify(updates)
     });
 
-    if (!response.ok) throw new Error(`Failed to update transaction ${id}`);
-    return response.json();
+    const data = await response.json();
+    if (!response.ok) {
+        throw new Error(data.message || "Failed to update transaction");
+    }
+    return data;
 }
 
 export async function uploadExcel(file) {
@@ -61,6 +70,9 @@ export async function uploadExcel(file) {
         body: formData
     });
 
-    if (!response.ok) throw new Error("Failed to upload file");
-    return response.json();
+    const data = await response.json();
+    if (!response.ok) {
+        throw new Error(data.message || "Failed to upload file");
+    }
+    return data;
 }
