@@ -23,9 +23,14 @@ export async function createTransaction(transaction) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(transaction)
     });
-
-    if (!response.ok) throw new Error(`Failed to create ${transaction}`);
-    return response.json();
+    // get JSON response or backend error message
+    const data = await response.json();
+    // throw backend error message
+    if (!response.ok) {
+        throw new Error(data.message || "Failed to create transaction");
+    }
+    // return JSON response
+    return data;
 }
 
 export async function deleteTransaction(id) {
