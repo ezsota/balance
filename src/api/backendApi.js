@@ -37,7 +37,13 @@ export async function createTransaction(transaction) {
     if (!response.ok) {
         throw new Error(data.message || "Failed to create transaction");
     }
-    return data;
+    // return JSON response with formatted dates
+    const formattedData = data.map(transaction => ({
+        ...transaction,
+        date: new Date(transaction.date).toISOString().split("T")[0]
+    }));
+
+    return formattedData;
 }
 
 export async function deleteTransaction(id) {
