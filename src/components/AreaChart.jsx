@@ -1,5 +1,6 @@
 // React ChartJS demo: https://github.com/reactchartjs/react-chartjs-2/blob/master/sandboxes/line/area/App.tsx
 import { useMemo } from "react";
+import { formatCurrencyUSD } from "../helpers/formatUSD";
 import { Line } from "react-chartjs-2";
 import {
     Chart as ChartJS,
@@ -59,7 +60,8 @@ export default function AreaChart(props) {
                         return dateSorted[index].title;
                     },
                     label: function (tooltipItem) {
-                        return `Amount: $${tooltipItem.dataset.data[tooltipItem.dataIndex]}`;
+                        const amount = tooltipItem.dataset.data[tooltipItem.dataIndex];
+                        return `Amount: ${formatCurrencyUSD(amount)}`;
                     }
                 }
             }
