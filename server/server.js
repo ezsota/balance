@@ -22,7 +22,7 @@ app.use(express.json());
 // Rate Limiter (avoids server spamming)
 const limiter = rateLimit({
     windowMs: 1 * 60 * 1000, // req window (1 min)
-    max: 5, // # request per IP address
+    max: 20, // # request per IP address
     standardHeaders: true,
     legacyHeaders: false
 });
