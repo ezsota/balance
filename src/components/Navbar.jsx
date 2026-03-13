@@ -9,7 +9,7 @@ export default function Navbar() {
             d-flex flex-row align-items-center 
             px-2 py-3
             ">
-                <img src={iconImg} alt="Icon of a scale" id="main-icon"/>
+                <img src={iconImg} alt="Icon of a scale" id="main-icon" />
                 <p className="roboto-condensed-bold mb-0 ms-2 fs-5">BALANCE</p>
             </div>
             <div className="bg-ink flex-fill">
@@ -18,6 +18,7 @@ export default function Navbar() {
                     <NavLink className="nav-link" to="/transactions-view">Transactions</NavLink>
                     <NavLink className="nav-link" to="/reports-view">Reports</NavLink>
                 </nav>
+
             </div>
         </div>
     )

@@ -1,4 +1,7 @@
+import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
+// Disclaimer:
+import DisclaimerModal from "./components/DisclaimerModal.jsx";
 // Layouts:
 import DashboardLayout from "./layouts/DashboardLayout";
 // Pages:
@@ -8,16 +11,23 @@ import Reports from "./pages/Reports.jsx";
 import Errors from "./pages/Errors.jsx";
 
 export default function App() {
+  // Disclaimer modal state
+  const [disclaimerShow, setDisclaimerShow] = useState(true);
+
   return (
-    <Routes>
-      {/* App Pages */}
-      <Route element={<DashboardLayout />}>
-        <Route index element={<Overview />} />
-        <Route path="/transactions-view" element={<Transactions />} />
-        <Route path="/reports-view" element={<Reports />} />
-        {/* Error Page */}
-        <Route path="*" element={<Errors />} />
-      </Route>
-    </Routes>
+    <>
+      {disclaimerShow && <DisclaimerModal setDisclaimerShow={setDisclaimerShow}/>}
+
+      <Routes>
+        {/* App Pages */}
+        <Route element={<DashboardLayout />}>
+          <Route index element={<Overview />} />
+          <Route path="/transactions-view" element={<Transactions />} />
+          <Route path="/reports-view" element={<Reports />} />
+          {/* Error Page */}
+          <Route path="*" element={<Errors />} />
+        </Route>
+      </Routes>
+    </>
   )
 }
