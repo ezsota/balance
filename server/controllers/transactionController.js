@@ -88,6 +88,16 @@ export const deleteTransaction = async (req, res, next) => {
 // Error if not found
 export const editTransaction = async (req, res, next) => {
     try {
+        // Find transaction
+        const transaction = await Transaction.findById(req.params.id);
+        // Error handling
+        if (!transaction) {
+            return next(new AppError("Transaction not found", 404));
+        }
+        // Block edits if demo
+        if (transaction.isDemo) {
+            return next(new AppError("Demo transactions cannot be edited", 403));
+        }
         // Check for bad words, (throws error if contains)
         checkBadWords({
             title: req.body.title,
@@ -100,21 +110,12 @@ export const editTransaction = async (req, res, next) => {
             amount: typeof req.body.amount === 'number' ? req.body.amount : NaN, // Forces number or NaN
             date: new Date(req.body.date), // Forces date
         }
-        // Queue transaction edit
+        // Find and save edit
         const editValues = await Transaction.findByIdAndUpdate(
             req.params.id,
             sanitizedData,
             { new: true, runValidators: true }
         );
-
-        // Error handling
-        if (!editValues) {
-            return next(new AppError("Transaction not found", 404));
-        }
-        // BLOCK DEMO EDITS IN QUEUE
-        if (editValues.isDemo) {
-            return next(new AppError("Demo transactions cannot be edited", 403));
-        }
         // Respond with updated transaction from queue
         res.json(editValues);
     } catch (error) {
