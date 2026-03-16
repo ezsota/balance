@@ -7,6 +7,7 @@ const API_URL = import.meta.env.VITE_API_URL;
     api/backendApi.js returns filtered transactions-> 
     Parent component updates state to filtered transactions */
 export async function getTransactions(filters = {}) {
+    console.log('GETTING TRANSACTIONS')
     // default params to none
     const params = new URLSearchParams();
     // set params if date filter exists
