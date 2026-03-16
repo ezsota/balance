@@ -17,7 +17,7 @@ export async function getTransactions(filters = {}) {
     // if (filters.to) {
     //     params.append("to", filters.to);
     // }
-    console.log("URL Params BUILT");
+    console.log("URL Params BUILT", params);
     const response = await fetch(`${API_URL}/api/transactions?${params}`);
     // get JSON response or backend error message
     const data = await response.json();
