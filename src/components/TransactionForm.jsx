@@ -48,14 +48,19 @@ export default function TransactionForm() {
                     }
                     // Backend HTTP POST req via apiCaller + error handling
                     const newTransaction = await apiCaller(() => createTransaction(formData), navigate);
-                    if (!newTransaction) {
+                    if (!newTransaction || !newTransaction._id) {
                         // if no error but failed
                         setErrorMessage("Transaction creation failed, verify all fields entered.");
                         return;
                     }
+                    //Format frontend date
+                    const formattedTransaction = {
+                        ...newTransaction,
+                        date: new Date(newTransaction.date).toISOString().slice(0, 10)
+                    };
                     // Update frontend display; preserve date sorting
                     setTransactionsData(prev =>
-                        [newTransaction, ...prev].sort(
+                        [formattedTransaction, ...prev].sort(
                             (a, b) => new Date(b.date) - new Date(a.date)
                         )
                     );
