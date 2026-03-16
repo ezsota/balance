@@ -12,9 +12,9 @@ export async function getTransactions(filters = {}) {
     const params = new URLSearchParams(filters);
     console.log("URL Params BUILT", params);
     const response = await fetch(`${API_URL}/api/transactions?${params}`);
-    console.log("Response", response);
     // get JSON response or backend error message
     const data = await response.json();
+    console.log("Response data", data);
     // throw backend error message
     if (response.status === 429) {
         throw new Error("Request limit reached, please try again later.");
