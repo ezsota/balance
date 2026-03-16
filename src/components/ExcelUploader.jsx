@@ -31,7 +31,7 @@ export default function ExcelUploader() {
 
     return (
         <form
-            onSubmit={handleFormSubmit}
+            // onSubmit={handleFormSubmit}
             className="
             d-flex
             flex-column
@@ -41,6 +41,7 @@ export default function ExcelUploader() {
             text-center"
         >
             {/* FILE INSTRUCTIONS */}
+            <p className="col-12 text-white bg-danger rounded-pill p-0 m-0">** UNDER CONSTRUCTION **</p>
             <header className="row col-12 p-2 bg-light border rounded">
                 <h3>Upload File Requirements</h3>
                 <p className="mb-0">
@@ -59,11 +60,18 @@ export default function ExcelUploader() {
                     onChange={event => setUserFile(event.target.files[0])}
                     className="form-control w-100"
                     required
+                    disabled
                 />
             </div>
             {/* SEND FILE */}
             <div className="col-12">
-                <button className="btn btn-success bg-green w-100" disabled={!userFile}>Upload File</button>
+                <button
+                    className="btn btn-success bg-green w-100"
+                    // disabled={!userFile}
+                    disabled
+                >
+                    Upload File
+                </button>
             </div>
         </form>
     )
