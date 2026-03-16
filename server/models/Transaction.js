@@ -47,7 +47,8 @@ const transactionSchema = new mongoose.Schema({
     expiresAt: {
         type: Date,
         default: null
-    }
+    },
+    isDemo: { type: Boolean, default: false }
 });
 
 // TTL index, MongoDB deletes after expiresAt is reached
