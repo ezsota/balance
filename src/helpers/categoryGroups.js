@@ -4,6 +4,7 @@ export const CATEGORY_GROUPS = {
         "Business",
         "Insurance",
         "Payments",
+        "Income",
         "Savings"
     ],
     Living: [
