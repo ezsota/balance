@@ -10,6 +10,7 @@ import AppError from "../utils/AppError.js";
 // Send as JSON to client/app
 // catch triggers errorHandler.js
 export const getTransactions = async (req, res, next) => {
+    console.log("get transaction request", req);
     try {
         // Date filters for FilterBox.jsx
         const query = {};
