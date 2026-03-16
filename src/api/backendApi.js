@@ -9,15 +9,15 @@ const API_URL = import.meta.env.VITE_API_URL;
 export async function getTransactions(filters = {}) {
     console.log('GETTING TRANSACTIONS')
     // default params to none
-    const params = new URLSearchParams();
+    const params = new URLSearchParams(filters);
     // set params if date filter exists
-    if (filters.from) {
-        params.append("from", filters.from);
-    }
-    if (filters.to) {
-        params.append("to", filters.to);
-    }
-    console.log("URL Params:", params);
+    // if (filters.from) {
+    //     params.append("from", filters.from);
+    // }
+    // if (filters.to) {
+    //     params.append("to", filters.to);
+    // }
+    console.log("URL Params BUILT");
     const response = await fetch(`${API_URL}/api/transactions?${params}`);
     // get JSON response or backend error message
     const data = await response.json();
