@@ -66,15 +66,18 @@ export const createTransaction = async (req, res, next) => {
 // IF nothing to delete then trigger error
 export const deleteTransaction = async (req, res, next) => {
     try {
-        const deletionResult = await Transaction.findByIdAndDelete(req.params.id);
-        if (!deletionResult) {
+        // Find transaction
+        const transactionCheck = await Transaction.findById(req.params.id);
+        // Error handle
+        if (!transactionCheck) {
             return next(new AppError("Transaction not found", 404));
         }
-        //BLOCK DEMO DELETIONS
-        if (transaction.isDemo) {
+        // Block DEMO deletions
+        if (transactionCheck.isDemo) {
             return next(new AppError("Demo transactions cannot be deleted", 403));
         }
-        await transaction.deleteOne();
+        // Delete transaction
+        await transactionCheck.deleteOne();
         res.json({ message: "Transaction Deleted Successfully" });
     } catch (error) {
         next(error);
@@ -97,22 +100,22 @@ export const editTransaction = async (req, res, next) => {
             amount: typeof req.body.amount === 'number' ? req.body.amount : NaN, // Forces number or NaN
             date: new Date(req.body.date), // Forces date
         }
-        // BLOCK DEMO EDITS
-        const transactionCheck = await Transaction.findById(req.params.id);
-        if (transactionCheck.isDemo) {
-            return next(new AppError("Demo transactions cannot be edited", 403));
-        }
-        // Save sanitized edits
+        // Queue transaction edit
         const editValues = await Transaction.findByIdAndUpdate(
             req.params.id,
             sanitizedData,
             { new: true, runValidators: true }
         );
-        // Error fallback
+
+        // Error handling
         if (!editValues) {
             return next(new AppError("Transaction not found", 404));
         }
-        // Update
+        // BLOCK DEMO EDITS IN QUEUE
+        if (editValues.isDemo) {
+            return next(new AppError("Demo transactions cannot be edited", 403));
+        }
+        // Respond with updated transaction from queue
         res.json(editValues);
     } catch (error) {
         next(error);
