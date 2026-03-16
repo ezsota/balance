@@ -15,8 +15,14 @@ export const getTransactions = async (req, res, next) => {
         const query = {};
         if (req.query.from || req.query.to) {
             query.date = {};
-            if (req.query.from) query.date.$gte = new Date(req.query.from);
-            if (req.query.to) query.date.$lte = new Date(req.query.to);
+            if (req.query.from) {
+                query.date.$gte = new Date(req.query.from);
+            }
+            if (req.query.to) {
+                const endOfDay = new Date(req.query.to);
+                endOfDay.setHours(23, 59, 59, 999);
+                query.date.$lte = endOfDay;
+            }
         }
         // Get transactions filtered/unfiltered
         const transactions = await Transaction.find(query).sort({ date: -1 });
