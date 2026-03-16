@@ -48,6 +48,7 @@ const transactionSchema = new mongoose.Schema({
         type: Date,
         default: null
     },
+    // NON-demo data
     isDemo: { type: Boolean, default: false }
 });
 
