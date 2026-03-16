@@ -7,10 +7,15 @@ const API_URL = import.meta.env.VITE_API_URL;
     api/backendApi.js returns filtered transactions-> 
     Parent component updates state to filtered transactions */
 export async function getTransactions(filters = {}) {
-    const params = new URLSearchParams({
-        from: filters.from ? new Date(filters.from).toISOString() : undefined,
-        to: filters.to ? new Date(filters.to).toISOString() : undefined
-    });
+    // default params to none
+    const params = new URLSearchParams();
+    // set params if date filter exists
+    if (filters.from) {
+        params.append("from", filters.from);
+    }
+    if (filters.to) {
+        params.append("to", filters.to);
+    }
     const response = await fetch(`${API_URL}/api/transactions?${params}`);
     // get JSON response or backend error message
     const data = await response.json();
