@@ -70,6 +70,11 @@ export const deleteTransaction = async (req, res, next) => {
         if (!deletionResult) {
             return next(new AppError("Transaction not found", 404));
         }
+        //BLOCK DEMO DELETIONS
+        if (transaction.isDemo) {
+            return next(new AppError("Demo transactions cannot be deleted", 403));
+        }
+        await transaction.deleteOne();
         res.json({ message: "Transaction Deleted Successfully" });
     } catch (error) {
         next(error);
@@ -92,6 +97,11 @@ export const editTransaction = async (req, res, next) => {
             amount: typeof req.body.amount === 'number' ? req.body.amount : NaN, // Forces number or NaN
             date: new Date(req.body.date), // Forces date
         }
+        // BLOCK DEMO EDITS
+        const transactionCheck = await Transaction.findById(req.params.id);
+        if (transactionCheck.isDemo) {
+            return next(new AppError("Demo transactions cannot be edited", 403));
+        }
         // Save sanitized edits
         const editValues = await Transaction.findByIdAndUpdate(
             req.params.id,
@@ -109,13 +119,19 @@ export const editTransaction = async (req, res, next) => {
     }
 };
 
-// POST excel bulk import transactions
+// POST excel bulk import transactions WITH 1 HOUR TTL
 export const uploadTransactions = async (req, res, next) => {
     try {
-        await Transaction.insertMany(req.transactions);
+        const transactionsWithTTL = req.transactions.map(transaction => ({
+            ...transaction,
+            expiresAt: new Date(Date.now() + 60 * 60 * 1000) // 1 hour TTL
+        }));
+
+        await Transaction.insertMany(transactionsWithTTL);
+
         res.status(201).json({
             message: "Transactions imported successfully",
-            count: req.transactions.length
+            count: transactionsWithTTL.length
         });
     } catch (error) {
         next(error);
