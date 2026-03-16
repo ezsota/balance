@@ -66,13 +66,22 @@ export default function EditingModal(props) {
                 setErrorMessage("Please remove foul language, then try again.");
                 return;
             }
-            // Update edit
+            // Update edit and handle errors
             const updatedTransaction = await apiCaller(() => editTransaction(editData._id, editData), navigate);
-            if (!updatedTransaction) return;
+            if (!updatedTransaction || !updatedTransaction._id) {
+                setErrorMessage("Failed to update transaction.");
+                return;
+            }
+            //Format frontend date
+            const formattedTransaction = {
+                ...updatedTransaction,
+                date: new Date(updatedTransaction.date).toISOString().slice(0, 10)
+            };
+            // Update frontend display; preserve date sorting and format date                   
             setTransactionsData(prev =>
                 prev.map(currentTransaction =>
-                    currentTransaction._id === updatedTransaction._id
-                        ? updatedTransaction
+                    currentTransaction._id === formattedTransaction._id
+                        ? formattedTransaction
                         : currentTransaction
                 ).sort(
                     (a, b) => new Date(b.date) - new Date(a.date)
