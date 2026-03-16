@@ -14,9 +14,11 @@ export default function Reports() {
 
     // Date filters
     const [filters, setFilters] = useState({});
+    console.log('Date filters', filters);
 
     // Transactions for report data
     const [filteredTransactions, setFilteredTransactions] = useState([]);
+    console.log('Filtered transactions', filteredTransactions);
 
     // Get transactions when filters change
     useEffect(() => {
