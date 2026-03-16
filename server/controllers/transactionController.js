@@ -27,7 +27,7 @@ export const getTransactions = async (req, res, next) => {
                 query.date.$lte = to;
             }
         }
-        console.log(query);
+        console.log('Query', query);
         // Get transactions filtered/unfiltered
         const transactions = await Transaction.find(query).sort({ date: -1 });
         res.json(transactions);
