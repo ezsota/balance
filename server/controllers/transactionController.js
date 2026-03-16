@@ -17,13 +17,13 @@ export const getTransactions = async (req, res, next) => {
         if (req.query.from || req.query.to) {
             query.date = {};
             if (req.query.from) {
-                // const from = new Date(req.query.from);
+                const from = new Date(req.query.from).toISOString();
                 // from.setHours(0, 0, 0, 0);
                 query.date.$gte = from;
             }
 
             if (req.query.to) {
-                // const to = new Date(req.query.to);
+                const to = new Date(req.query.to).toISOString();
                 // to.setHours(23, 59, 59, 999);
                 query.date.$lte = to;
             }
