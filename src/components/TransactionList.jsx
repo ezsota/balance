@@ -15,7 +15,7 @@ import deleteIcon from "../assets/delete-bin.svg";
 export default function TransactionList(props) {
     // Transaction data context
     const { contextData, setContextData } = useTransactionContext();
-    console.log("transactionlist.jsx context data", transactionsData);
+    console.log("transactionlist.jsx context data", contextData);
     // Transaction local data
     const { transactionsData, setTransactionsData } = useState(contextData);
     console.log("transactionlist.jsx display data", transactionsData);
@@ -29,7 +29,6 @@ export default function TransactionList(props) {
     useEffect(() => {
         setTransactionsData(contextData);
     }, [contextData]);
-
 
     // Delete transaction based on confirmation
     const navigate = useNavigate();
