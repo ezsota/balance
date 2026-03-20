@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // Backend API:
 import { deleteTransaction } from "../api/backendApi.js";
@@ -15,7 +15,12 @@ import deleteIcon from "../assets/delete-bin.svg";
 export default function TransactionList(props) {
     // Transaction data context
     const { transactionsData, setTransactionsData } = useTransactionContext();
-    // test
+    console.log("transactionlist data", transactionsData);
+
+    // Set data to filter
+    useEffect(() => {
+        setTransactionsData(props.transactions);
+        }, [props.transactions])
 
     // Delete transaction based on confirmation
     const navigate = useNavigate();
