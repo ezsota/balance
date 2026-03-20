@@ -9,8 +9,9 @@ import ExpenseCard from "../components/ExpenseCard.jsx";
 import CtaBox from "../components/CtaBox.jsx";
 
 export default function Overview() {
-    // Transactions state (primary)
     // const [transactions, setTransactions] = useState([]);
+    
+    // Transactions data context
     const { transactionsData } = useTransactionContext();
 
     // Get transactions on page render

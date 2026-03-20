@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // Backend API:
 import { deleteTransaction } from "../api/backendApi.js";
 // Context:
-import { useTransactionContext } from "../context/TransactionContext.jsx";
+// import { useTransactionContext } from "../context/TransactionContext.jsx";
 // Helpers:
 import { apiCaller } from "../helpers/apiCaller.js";
 import { formatCurrencyUSD } from "../helpers/formatUSD.js";
@@ -14,7 +14,15 @@ import deleteIcon from "../assets/delete-bin.svg";
 
 export default function TransactionList(props) {
     // Transaction data context
-    const { transactionsData, setTransactionsData } = useTransactionContext();
+    // const { transactionsData, setTransactionsData } = useTransactionContext();
+
+    // Transactions props data
+    const [transactionsData, setTransactionsData] = useState([]);
+    // Update list data whenever parent parent context or filter updates
+    useEffect(() => {
+        setTransactionsData(props.transactions);
+    }, [props.transactions]);
+
     console.log("transactionlist.jsx data", transactionsData);
 
     // Delete transaction based on confirmation

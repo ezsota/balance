@@ -7,7 +7,7 @@ const API_URL = import.meta.env.VITE_API_URL;
     api/backendApi.js returns filtered transactions-> 
     Parent component updates state to filtered transactions */
 export async function getTransactions(filters = {}) {
-    console.log('GETTING TRANSACTIONS')
+    console.log('GETTING MONGO TRANSACTIONS')
     // set params
     const params = new URLSearchParams(filters);
     console.log("URL Params BUILT", params);
@@ -27,7 +27,9 @@ export async function getTransactions(filters = {}) {
         ...transaction,
         date: new Date(transaction.date).toISOString().split("T")[0]
     }));
+    console.log("Response formatted", formattedData);
 
+    console.log('RETURNING MONGO TRANSACTIONS')
     return formattedData;
 }
 
