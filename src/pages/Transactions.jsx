@@ -6,7 +6,7 @@ import TransactionList from "../components/TransactionList.jsx";
 
 
 export default function Transactions() {
-    // Transactions data context
+    // Get transactions data from context
     const { transactionsData } = useTransactionContext();
 
     return (

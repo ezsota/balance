@@ -2,8 +2,6 @@ import { useState , useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // Backend API:
 import { deleteTransaction } from "../api/backendApi.js";
-// Context:
-// import { useTransactionContext } from "../context/TransactionContext.jsx";
 // Helpers:
 import { apiCaller } from "../helpers/apiCaller.js";
 import { formatCurrencyUSD } from "../helpers/formatUSD.js";
@@ -13,17 +11,14 @@ import editIcon from "../assets/edit-pencil.svg";
 import deleteIcon from "../assets/delete-bin.svg";
 
 export default function TransactionList(props) {
-    // Transaction data context
-    // const { transactionsData, setTransactionsData } = useTransactionContext();
+    // Component level transactions data
+    const [listData, setListData] = useState([]);
+    console.log("transactionlist.jsx component data", listData);
 
-    // Transactions props data
-    const [transactionsData, setTransactionsData] = useState([]);
-    // Update list data whenever parent parent context or filter updates
+    // Update component data whenever parent renders (transactions.jsx) or parent filters (reports.jsx)
     useEffect(() => {
-        setTransactionsData(props.transactions);
+        setListData(props.transactions);
     }, [props.transactions]);
-
-    console.log("transactionlist.jsx data", transactionsData);
 
     // Delete transaction based on confirmation
     const navigate = useNavigate();
@@ -40,7 +35,7 @@ export default function TransactionList(props) {
             // Backend delete using helper
             await apiCaller(() => deleteTransaction(transaction._id), navigate);
             // Frontend delete
-            setTransactionsData(prev =>
+            setListData(prev =>
                 prev.filter(data => data._id !== transaction._id)
             );
             // Log verify
@@ -67,8 +62,8 @@ export default function TransactionList(props) {
     const ITEMS_PER_PAGE = 20;
     const startAtItem = (pageCounter - 1) * ITEMS_PER_PAGE;
     const paginatedList = props.removePagination
-        ? transactionsData
-        : transactionsData.slice(startAtItem, startAtItem + ITEMS_PER_PAGE);
+        ? listData
+        : listData.slice(startAtItem, startAtItem + ITEMS_PER_PAGE);
 
     return (
         <section className="border rounded overflow-auto text-center shadow">
@@ -87,7 +82,7 @@ export default function TransactionList(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {(transactionsData.length > 0)
+                    {(listData.length > 0)
                         ? paginatedList.map(transaction => (
                             <tr key={transaction._id}>
                                 <td>{transaction.date}</td>
@@ -113,7 +108,7 @@ export default function TransactionList(props) {
             </table>
             {/* PAGINATION */}
             <div>
-                {!props.removePagination && (transactionsData.length > 0) &&
+                {!props.removePagination && (listData.length > 0) &&
                     <span>
                         {/* BACK BUTTON */}
                         <button
@@ -126,7 +121,7 @@ export default function TransactionList(props) {
                         {/* NEXT BUTTON */}
                         <button
                             className="btn btn-success bg-green m-1  py-0"
-                            disabled={startAtItem + ITEMS_PER_PAGE >= transactionsData.length}
+                            disabled={startAtItem + ITEMS_PER_PAGE >= listData.length}
                             onClick={() => setPageCounter(page => page + 1)}
                         >
                             &gt;

@@ -10,17 +10,18 @@ import TransactionList from "../components/TransactionList.jsx";
 import ReportExporter from "../components/ReportExporter.jsx";
 
 export default function Reports() {
+    // Ref for screen capture
     const reportRef = useRef();
 
     // Date filters
     const [filters, setFilters] = useState({});
     console.log('Date filters', filters);
 
-    // Transactions for report data
+    // Transactions for report data (updates report page transactionlist.jsx)
     const [filteredTransactions, setFilteredTransactions] = useState([]);
     console.log('Filtered transactions', filteredTransactions);
 
-    // Get transactions when filters change
+    // Get fresh transactions from MongoDB when filters change
     useEffect(() => {
         getTransactions(filters).then(setFilteredTransactions);
     }, [filters]);
