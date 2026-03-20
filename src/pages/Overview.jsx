@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-// import { getTransactions } from "../api/backendApi.js";
-// Context:
-import { useTransactionContext } from "../context/TransactionContext.jsx";
+import { getTransactions } from "../api/backendApi.js";
 import AreaChart from "../components/AreaChart.jsx";
 import IncomeCard from "../components/IncomeCard.jsx";
 import BalanceCard from "../components/BalanceCard.jsx";
@@ -10,13 +8,12 @@ import CtaBox from "../components/CtaBox.jsx";
 
 export default function Overview() {
     // Transactions state (primary)
-    // const [transactions, setTransactions] = useState([]);
-    const [transactions, setTransactions] = useTransactionContext();
+    const [transactions, setTransactions] = useState([]);
 
     // Get transactions on page render
-    // useEffect(() => {
-    //     getTransactions().then(setTransactions).catch(console.error);
-    // }, []);
+    useEffect(() => {
+        getTransactions().then(setTransactions).catch(console.error);
+    }, []);
 
     return (
         <div className="d-flex flex-column justify-content-center h-100 w-100">
