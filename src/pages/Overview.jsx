@@ -1,5 +1,5 @@
 // Context:
-import { useTransactionContext } from "../context/TransactionContext.jsx";
+import { useTransactionContext, loading } from "../context/TransactionContext.jsx";
 // Components
 import AreaChart from "../components/AreaChart.jsx";
 import IncomeCard from "../components/IncomeCard.jsx";
@@ -11,6 +11,16 @@ export default function Overview() {
     // Get transactions data from context
     const { transactionsData } = useTransactionContext();
 
+    // LOADING
+    if (loading) {
+        return (
+            <div className="spinner-border text-success" role="status">
+                <span className="sr-only">Loading Transactions...</span>
+            </div>
+        )
+    }
+
+    //NOT LOADING
     return (
         <div className="d-flex flex-column justify-content-center h-100 w-100">
             <header>

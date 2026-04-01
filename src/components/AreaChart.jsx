@@ -61,8 +61,8 @@ export default function AreaChart(props) {
                         const balance = tooltipItem.dataset.data[index];
 
                         return [
-                            `Item Amount: ${formatCurrencyUSD(amount)}`,
-                            `Displayed Balance: ${formatCurrencyUSD(balance)}`
+                            `Amount: ${formatCurrencyUSD(amount)}`,
+                            `Balance Effect: ${formatCurrencyUSD(balance)}`
                         ];
                     }
                 }

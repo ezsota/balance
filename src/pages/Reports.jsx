@@ -21,11 +21,25 @@ export default function Reports() {
     const [filteredTransactions, setFilteredTransactions] = useState([]);
     console.log('Filtered transactions', filteredTransactions);
 
-    // Get fresh transactions from MongoDB when filters change
+    // Loading + Get fresh transactions from MongoDB when filters change
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
-        getTransactions(filters).then(setFilteredTransactions);
+        setLoading(true);
+        getTransactions(filters)
+            .then(setFilteredTransactions)
+            .finally(() => setLoading(false));
     }, [filters]);
 
+    // LOADING
+    if (loading) {
+        return (
+            <div className="spinner-border text-success" role="status">
+                <span className="sr-only">Loading Transactions...</span>
+            </div>
+        )
+    }
+
+    //NOT LOADING
     return (
         <div className="container-fluid w-100 h-100 text-center">
             {/* ROW1 - FILTER / EXPORT */}

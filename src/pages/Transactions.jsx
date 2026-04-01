@@ -1,5 +1,5 @@
 // Context:
-import { useTransactionContext } from "../context/TransactionContext.jsx";
+import { useTransactionContext, loading } from "../context/TransactionContext.jsx";
 // Components
 import TransactionInputBox from "../components/TransactionInputBox.jsx";
 import TransactionList from "../components/TransactionList.jsx";
@@ -9,6 +9,16 @@ export default function Transactions() {
     // Get transactions data from context
     const { transactionsData } = useTransactionContext();
 
+    // LOADING
+    if (loading) {
+        return (
+            <div className="spinner-border text-success" role="status">
+                <span className="sr-only">Loading Transactions...</span>
+            </div>
+        )
+    }
+
+    //NOT LOADING
     return (
         <div className="d-flex flex-column justify-content-center w-100">
             {/* HEADER */}
