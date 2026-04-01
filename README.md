@@ -8,6 +8,7 @@ Built with a React Router frontend and a Node/Express backend connected to a Mon
 
 > [!NOTE]
 > Retrieval from MongoDB may take longer than expected, please be patient.
+
 https://balance-taupe.vercel.app
 
 ## Tech Stack
@@ -45,6 +46,8 @@ https://balance-taupe.vercel.app
 ### File Upload (Under Constructio / Disabled)
 > [!NOTE]
 > Feature currently under construction.
+
+> [!CAUTION]
 > Disabled as security precaution.
 
 - Will allow `.csv` file uploads for batch transaction imports
