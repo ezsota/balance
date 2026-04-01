@@ -8,6 +8,7 @@ import BalanceCard from "../components/BalanceCard.jsx";
 import ExpenseCard from "../components/ExpenseCard.jsx";
 import TransactionList from "../components/TransactionList.jsx";
 import ReportExporter from "../components/ReportExporter.jsx";
+import LoadingMessage from "../components/LoadingMessage.jsx";
 
 export default function Reports() {
     // Ref for screen capture
@@ -32,11 +33,7 @@ export default function Reports() {
 
     // LOADING
     if (loadingMessage) {
-        return (
-            <div className="spinner-border text-success" role="status">
-                <span className="sr-only">Loading Transactions...</span>
-            </div>
-        )
+        return <LoadingMessage />
     }
 
     //NOT LOADING

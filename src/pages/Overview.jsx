@@ -6,6 +6,7 @@ import IncomeCard from "../components/IncomeCard.jsx";
 import BalanceCard from "../components/BalanceCard.jsx";
 import ExpenseCard from "../components/ExpenseCard.jsx";
 import CtaBox from "../components/CtaBox.jsx";
+import LoadingMessage from "../components/LoadingMessage.jsx";
 
 export default function Overview() {
     // Get transactions data from context
@@ -14,11 +15,7 @@ export default function Overview() {
     // LOADING
     const { loadingMessage } = useTransactionContext();
     if (loadingMessage) {
-        return (
-            <div className="spinner-border text-success" role="status">
-                <span className="sr-only">Loading Transactions...</span>
-            </div>
-        )
+        return <LoadingMessage />
     }
 
     //NOT LOADING

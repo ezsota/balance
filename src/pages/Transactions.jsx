@@ -3,7 +3,7 @@ import { useTransactionContext } from "../context/TransactionContext.jsx";
 // Components
 import TransactionInputBox from "../components/TransactionInputBox.jsx";
 import TransactionList from "../components/TransactionList.jsx";
-
+import LoadingMessage from "../components/LoadingMessage.jsx";
 
 export default function Transactions() {
     // Get transactions data from context
@@ -12,11 +12,7 @@ export default function Transactions() {
     // LOADING
     const { loadingMessage } = useTransactionContext();
     if (loadingMessage) {
-        return (
-            <div className="spinner-border text-success" role="status">
-                <span className="sr-only">Loading Transactions...</span>
-            </div>
-        )
+        return <LoadingMessage />
     }
 
     //NOT LOADING

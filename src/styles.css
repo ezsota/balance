@@ -79,6 +79,10 @@ html {
     color: #bdbdbd;
 }
 
+.font-green {
+    color: #04AA6D;
+}
+
 .shadow {
     box-shadow: 0 3px 5px #979797 !important;
 }
