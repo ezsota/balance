@@ -43,12 +43,14 @@ https://balance-taupe.vercel.app
 - Dynamic filtering by date range
 - Summary cards (income, expenses, balance)
 
-### File Upload (Under Constructio / Disabled)
+### File Upload (Disabled / Under Construction)
+> [!CAUTION]
+> Disabled as security precaution.
+
 > [!NOTE]
 > Feature currently under construction.
 
-> [!CAUTION]
-> Disabled as security precaution.
+
 
 - Will allow `.csv` file uploads for batch transaction imports
 - Will Handle:
