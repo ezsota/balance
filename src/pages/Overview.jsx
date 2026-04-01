@@ -1,5 +1,5 @@
 // Context:
-import { useTransactionContext, loadingMessage } from "../context/TransactionContext.jsx";
+import { useTransactionContext } from "../context/TransactionContext.jsx";
 // Components
 import AreaChart from "../components/AreaChart.jsx";
 import IncomeCard from "../components/IncomeCard.jsx";
@@ -12,6 +12,7 @@ export default function Overview() {
     const { transactionsData } = useTransactionContext();
 
     // LOADING
+    const { loadingMessage } = useTransactionContext();
     if (loadingMessage) {
         return (
             <div className="spinner-border text-success" role="status">
