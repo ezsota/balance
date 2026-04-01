@@ -45,7 +45,7 @@ export default function ExcelUploader() {
             <header className="row col-12 p-2 bg-light border rounded">
                 <h3>Upload File Requirements</h3>
                 <p className="mb-0">
-                    <strong className="w-auto m-0">Format:</strong> <em>.xlsx</em>
+                    <strong className="w-auto m-0">Format:</strong> <em>.csv</em>
                 </p>
                 <p className="mb-0">
                     <strong>Headers:</strong> <em>"Date", "Title", "Category",</em> and <em>"Amount".</em>
@@ -56,7 +56,7 @@ export default function ExcelUploader() {
                 <input
                     type="file"
                     id="file-input"
-                    accept=".xlsx"
+                    accept=".csv"
                     onChange={event => setUserFile(event.target.files[0])}
                     className="form-control w-100"
                     required
