@@ -18,14 +18,12 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Filler, 
 export default function AreaChart(props) {
     // Sort and memoize by date, avoids canvas recalc/render errors
     const dateSorted = useMemo(() =>
-        props.transactions.sort((a, b) => new Date(a.date) - new Date(b.date)),
+        [...props.transactions].sort((a, b) => new Date(a.date) - new Date(b.date)),
         [props.transactions]
     );
 
     // Create date strings for x-axis (using dateSorted)
-    const labels = dateSorted.map(transaction => {
-        return new Date(transaction.date).toLocaleDateString();
-    });
+    const labels = dateSorted.map(transaction => transaction.date);
     // Create amounts for y-axis (using dateSorted)
     let balanceTotal = 0;
     const dataPoints = dateSorted.map(transaction => (balanceTotal += transaction.amount));
