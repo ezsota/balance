@@ -3,11 +3,11 @@ A full-stack personal finance SPA for users to track financial transactions and 
 Built with a React Router frontend and a Node/Express backend connected to a MongoDB cluster.
 
 ## Live Demo
-> [!WARNING]
+> [!CAUTION]
 > All user-generated content is automatically removed after 1 hour.
+
 > [!NOTE]
 > Retrieval from MongoDB may take longer than expected, please be patient.
-
 https://balance-taupe.vercel.app
 
 ## Tech Stack
@@ -42,9 +42,10 @@ https://balance-taupe.vercel.app
 - Dynamic filtering by date range
 - Summary cards (income, expenses, balance)
 
-### File Upload (Disabled / Under Construction)
+### File Upload (Under Constructio / Disabled)
 > [!NOTE]
 > Feature currently under construction.
+> Disabled as security precaution.
 
 - Will allow `.csv` file uploads for batch transaction imports
 - Will Handle:
