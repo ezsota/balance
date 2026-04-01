@@ -8,6 +8,8 @@ import {
 } from "chart.js";
 // Register chart components for use
 ChartJS.register(ArcElement, Tooltip, Legend);
+// Currency format helper
+import { formatCurrencyUSD } from "../helpers/formatUSD";
 
 export default function DoughnutChart(props) {
     // Category count obj for tool tip pecentage
