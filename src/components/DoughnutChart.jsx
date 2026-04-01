@@ -10,17 +10,26 @@ import {
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function DoughnutChart(props) {
-    // Category count obj container
+    // Category count obj for tool tip pecentage
     const categoryCounts = {};
+    //Category totals obj for tool tip amount
+    const categoryTotals = {};
     // Count each category occurrence
     props.transactions.forEach(transaction => {
         const category = transaction.category;
+        // Counts:
         if (categoryCounts[category]) {
             // Increment category count if exists
             categoryCounts[category]++;
         } else {
             // Init category count if new
             categoryCounts[category] = 1;
+        }
+        // Totals:
+        if (categoryTotals[category]) {
+            categoryTotals[category] += transaction.amount;
+        } else {
+            categoryTotals[category] = transaction.amount;
         }
     });
 
@@ -66,10 +75,28 @@ export default function DoughnutChart(props) {
         ]
     };
 
-    // Make chart responsive
+    // Make chart responsive + tooltips
     const chartOptions = {
         responsive: true,
         maintainAspectRatio: false,
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    label: function (tooltipItem) {
+                        const index = tooltipItem.dataIndex;
+                        const category = Object.keys(categoryCounts)[index];
+
+                        const percent = tooltipItem.raw;
+                        const total = categoryTotals[category];
+
+                        return [
+                            `Percent: ${percent}%`,
+                            `Total: ${formatCurrencyUSD(total)}`
+                        ];
+                    }
+                }
+            }
+        }
     };
 
     return (
