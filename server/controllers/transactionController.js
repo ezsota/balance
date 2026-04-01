@@ -130,6 +130,15 @@ export const editTransaction = async (req, res, next) => {
 
 // POST excel bulk import transactions WITH 1 HOUR TTL
 export const uploadTransactions = async (req, res, next) => {
+    // Block uploads using env vars
+    if (process.env.ENABLE_UPLOADS !== "true") {
+        console.log("Upload blocked: demo mode");
+        return res.status(403).json({
+            message: "File uploads are currently disabled."
+        });
+    }
+  
+    // Process uploads if env vars allow
     try {
         const transactionsWithTTL = req.transactions.map(transaction => ({
             ...transaction,
@@ -141,7 +150,8 @@ export const uploadTransactions = async (req, res, next) => {
         res.status(201).json({
             message: "Transactions imported successfully",
             count: transactionsWithTTL.length
-        });
+           
+        }); 
     } catch (error) {
         next(error);
     }

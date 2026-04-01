@@ -90,7 +90,7 @@ After create/edit/delete:
 
 ---
 
-## 📈 Future Improvements
+## Future Improvements
 
 - Authentication (user accounts)
 - Persistent user-specific data
