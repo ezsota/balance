@@ -41,7 +41,7 @@ export default function ExcelUploader() {
             text-center"
         >
             {/* FILE INSTRUCTIONS */}
-            <p className="col-12 text-white bg-danger rounded-pill p-0 m-0">** TEMPORARILY DISABLED **</p>
+            <p className="col-12 text-white bg-danger rounded-pill p-0 m-0">** DISABLED **</p>
             <header className="row col-12 p-2 bg-light border rounded">
                 <h3>Upload File Requirements</h3>
                 <p className="mb-0">
