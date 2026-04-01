@@ -44,12 +44,9 @@ export default function AreaChart(props) {
         ]
     };
 
-
     const chartOptions = {
-        // Make chart responsive
         responsive: true,
         maintainAspectRatio: false,
-        // Use data titles and amount in chart
         plugins: {
             tooltip: {
                 callbacks: {
@@ -58,8 +55,15 @@ export default function AreaChart(props) {
                         return dateSorted[index].title;
                     },
                     label: function (tooltipItem) {
-                        const amount = tooltipItem.dataset.data[tooltipItem.dataIndex];
-                        return `Amount: ${formatCurrencyUSD(amount)}`;
+                        const index = tooltipItem.dataIndex;
+
+                        const amount = dateSorted[index].amount;
+                        const balance = tooltipItem.dataset.data[index];
+
+                        return [
+                            `Amount: ${formatCurrencyUSD(amount)}`,
+                            `Balance: ${formatCurrencyUSD(balance)}`
+                        ];
                     }
                 }
             }
